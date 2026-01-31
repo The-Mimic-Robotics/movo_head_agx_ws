@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CycloneDDS>
+  <Domain id="0">
+    <General>
+      <NetworkInterfaceAddress>eno1</NetworkInterfaceAddress>
+      <EnableMulticast>false</EnableMulticast>
+    </General>
+    <Discovery>
+      <Peers>
+        <Peer address="192.168.131.100" /> <!-- NUC IP -->
+        <Peer address="192.168.131.150" /> <!-- AGX IP -->
+      </Peers>
+    </Discovery>
+  </Domain>
+</CycloneDDS>
+

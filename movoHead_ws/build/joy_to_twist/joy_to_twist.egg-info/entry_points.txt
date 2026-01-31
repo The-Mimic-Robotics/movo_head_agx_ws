@@ -1,0 +1,3 @@
+[console_scripts]
+joy_to_twist_node = joy_to_twist.joy_to_twist_node:main
+

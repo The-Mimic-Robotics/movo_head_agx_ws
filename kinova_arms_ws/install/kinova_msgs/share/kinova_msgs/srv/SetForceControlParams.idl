@@ -1,0 +1,30 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from kinova_msgs/srv/SetForceControlParams.srv
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Vector3.idl"
+
+module kinova_msgs {
+  module srv {
+    struct SetForceControlParams_Request {
+      geometry_msgs::msg::Vector3 inertia_linear;
+
+      geometry_msgs::msg::Vector3 inertia_angular;
+
+      geometry_msgs::msg::Vector3 damping_linear;
+
+      geometry_msgs::msg::Vector3 damping_angular;
+
+      geometry_msgs::msg::Vector3 force_min_linear;
+
+      geometry_msgs::msg::Vector3 force_min_angular;
+
+      geometry_msgs::msg::Vector3 force_max_linear;
+
+      geometry_msgs::msg::Vector3 force_max_angular;
+    };
+    struct SetForceControlParams_Response {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

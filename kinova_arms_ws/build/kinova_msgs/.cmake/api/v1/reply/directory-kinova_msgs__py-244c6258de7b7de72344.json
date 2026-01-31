@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "kinova_msgs__py",
+		"source" : "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/kinova_msgs__py"
+	}
+}

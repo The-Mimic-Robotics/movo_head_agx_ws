@@ -1,0 +1,1 @@
+/home/agx/Desktop/movo_ws/movoHead_ws/build/movo_description/ament_cmake_environment_hooks/local_setup.zsh

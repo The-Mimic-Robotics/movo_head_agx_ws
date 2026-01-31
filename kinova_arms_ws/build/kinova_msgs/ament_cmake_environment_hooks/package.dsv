@@ -1,0 +1,4 @@
+source;share/kinova_msgs/local_setup.bash
+source;share/kinova_msgs/local_setup.dsv
+source;share/kinova_msgs/local_setup.sh
+source;share/kinova_msgs/local_setup.zsh

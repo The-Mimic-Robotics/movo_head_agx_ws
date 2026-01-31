@@ -1,0 +1,15 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from kinova_msgs/srv/Stop.srv
+// generated code does not contain a copyright notice
+
+
+module kinova_msgs {
+  module srv {
+    struct Stop_Request {
+      uint8 structure_needs_at_least_one_member;
+    };
+    struct Stop_Response {
+      string stop_result;
+    };
+  };
+};

@@ -1,0 +1,6 @@
+Invoking command in '/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2 -DCMAKE_INSTALL_PREFIX=/home/agx/Desktop/MOvO/kinova_arms_ws/install/kinova_msgs
+Invoked command in '/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2 -DCMAKE_INSTALL_PREFIX=/home/agx/Desktop/MOvO/kinova_arms_ws/install/kinova_msgs
+Invoking command in '/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs -- -j12 -l12
+Invoked command in '/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs -- -j12 -l12
+Invoking command in '/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs
+Invoked command in '/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs

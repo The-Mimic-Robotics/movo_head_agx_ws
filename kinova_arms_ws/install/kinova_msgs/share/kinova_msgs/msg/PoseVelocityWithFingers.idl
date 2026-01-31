@@ -1,0 +1,24 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from kinova_msgs/msg/PoseVelocityWithFingers.msg
+// generated code does not contain a copyright notice
+
+
+module kinova_msgs {
+  module msg {
+    struct PoseVelocityWithFingers {
+      float twist_linear_x;
+
+      float twist_linear_y;
+
+      float twist_linear_z;
+
+      float twist_angular_x;
+
+      float twist_angular_y;
+
+      float twist_angular_z;
+
+      float fingers_closure_percentage;
+    };
+  };
+};

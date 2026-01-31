@@ -1,0 +1,5 @@
+    ssh movo_base@192.168.131.100
+    
+    
+    
+    scp -r movo_base@192.168.131.100:~/ros-humble-ros1-bridge-builder ~/ros-humble-ros1-bridge-builder

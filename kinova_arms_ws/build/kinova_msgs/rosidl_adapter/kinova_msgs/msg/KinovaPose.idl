@@ -1,0 +1,22 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from kinova_msgs/msg/KinovaPose.msg
+// generated code does not contain a copyright notice
+
+
+module kinova_msgs {
+  module msg {
+    struct KinovaPose {
+      float x;
+
+      float y;
+
+      float z;
+
+      float theta_x;
+
+      float theta_y;
+
+      float theta_z;
+    };
+  };
+};

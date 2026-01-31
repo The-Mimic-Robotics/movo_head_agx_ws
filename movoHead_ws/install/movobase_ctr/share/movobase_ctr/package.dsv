@@ -1,0 +1,9 @@
+source;share/movobase_ctr/hook/pythonpath.ps1
+source;share/movobase_ctr/hook/pythonpath.dsv
+source;share/movobase_ctr/hook/pythonpath.sh
+source;share/movobase_ctr/hook/ament_prefix_path.ps1
+source;share/movobase_ctr/hook/ament_prefix_path.dsv
+source;share/movobase_ctr/hook/ament_prefix_path.sh
+source;../../build/movobase_ctr/share/movobase_ctr/hook/pythonpath_develop.ps1
+source;../../build/movobase_ctr/share/movobase_ctr/hook/pythonpath_develop.dsv
+source;../../build/movobase_ctr/share/movobase_ctr/hook/pythonpath_develop.sh

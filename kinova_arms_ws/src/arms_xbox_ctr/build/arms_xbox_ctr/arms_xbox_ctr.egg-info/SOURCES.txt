@@ -1,0 +1,17 @@
+package.xml
+setup.cfg
+setup.py
+arms_xbox_ctr/__init__.py
+arms_xbox_ctr/xbox_reader.py
+build/arms_xbox_ctr/arms_xbox_ctr.egg-info/PKG-INFO
+build/arms_xbox_ctr/arms_xbox_ctr.egg-info/SOURCES.txt
+build/arms_xbox_ctr/arms_xbox_ctr.egg-info/dependency_links.txt
+build/arms_xbox_ctr/arms_xbox_ctr.egg-info/entry_points.txt
+build/arms_xbox_ctr/arms_xbox_ctr.egg-info/requires.txt
+build/arms_xbox_ctr/arms_xbox_ctr.egg-info/top_level.txt
+build/arms_xbox_ctr/arms_xbox_ctr.egg-info/zip-safe
+launch/xbox_controller.launch.py
+resource/arms_xbox_ctr
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py

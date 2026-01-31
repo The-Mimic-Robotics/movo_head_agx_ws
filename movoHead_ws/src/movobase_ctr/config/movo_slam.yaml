@@ -1,0 +1,21 @@
+slam_toolbox:
+  ros__parameters:
+    use_sim_time: false
+    mode: 'mapping'          # Set to 'mapping' to build a new map
+    map_frame: 'map'
+    odom_frame: 'odom'
+    base_frame: 'base_link'
+    scan_topic: '/scan'
+    resolution: 0.04
+    minimum_travel_distance: 0.01
+    minimum_travel_heading: 0.002
+    transform_publish_period: 0.05
+    map_update_interval: 0.1
+    scan_queue_size: 100
+    throttle_scans: 1
+    provide_odom_frame: false
+    max_laser_range: 20.0       # Maximum usable laser range
+    min_laser_range: 0.1        # Minimum valid range for the sensor
+    odom_topic: '/odom'
+    #map_file_name: "/home/useradmin/movoHead_ws/src/movobase_ctr/my_maps/map4"
+    map_start_pose: [0.0, 0.0, 0.0]

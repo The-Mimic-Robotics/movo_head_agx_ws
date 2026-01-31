@@ -1,0 +1,18 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from kinova_msgs/srv/SetEndEffectorOffset.srv
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Vector3.idl"
+
+module kinova_msgs {
+  module srv {
+    struct SetEndEffectorOffset_Request {
+      uint16 status;
+
+      geometry_msgs::msg::Vector3 offset;
+    };
+    struct SetEndEffectorOffset_Response {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

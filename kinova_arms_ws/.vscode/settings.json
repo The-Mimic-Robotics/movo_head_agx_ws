@@ -1,0 +1,18 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/useradmin/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages",
+        "/home/useradmin/kinova_arms_ws/install/arms_xbox_ctr/lib/python3.10/site-packages",
+        "/home/useradmin/movoHead_ws/install/movobase_ctr/lib/python3.10/site-packages",
+        "/home/useradmin/movoHead_ws/install/joy_to_twist/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/useradmin/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages",
+        "/home/useradmin/kinova_arms_ws/install/arms_xbox_ctr/lib/python3.10/site-packages",
+        "/home/useradmin/movoHead_ws/install/movobase_ctr/lib/python3.10/site-packages",
+        "/home/useradmin/movoHead_ws/install/joy_to_twist/lib/python3.10/site-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages"
+    ]
+}

@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from kinova_msgs/action/ArmJointAngles.action
+// generated code does not contain a copyright notice
+
+#include "kinova_msgs/msg/JointAngles.idl"
+
+module kinova_msgs {
+  module action {
+    @verbatim (language="comment", text=
+      "Goal")
+    struct ArmJointAngles_Goal {
+      kinova_msgs::msg::JointAngles angles;
+    };
+    @verbatim (language="comment", text=
+      "Result")
+    struct ArmJointAngles_Result {
+      kinova_msgs::msg::JointAngles angles;
+    };
+    @verbatim (language="comment", text=
+      "Feedback")
+    struct ArmJointAngles_Feedback {
+      kinova_msgs::msg::JointAngles angles;
+    };
+  };
+};

@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: joy-to-twist
+Version: 0.0.1
+Summary: A package to convert joystick inputs to Twist messages for controlling a robot
+Home-page: UNKNOWN
+Maintainer: movo_base
+Maintainer-email: movo_base@todo.todo
+License: Apache License 2.0
+Platform: UNKNOWN
+
+UNKNOWN
+

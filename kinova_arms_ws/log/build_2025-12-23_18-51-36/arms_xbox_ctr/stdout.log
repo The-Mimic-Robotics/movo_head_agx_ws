@@ -1,0 +1,37 @@
+running egg_info
+creating ../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info
+writing ../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/PKG-INFO
+writing dependency_links to ../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/dependency_links.txt
+writing entry points to ../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/entry_points.txt
+writing requirements to ../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/requires.txt
+writing top-level names to ../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/top_level.txt
+writing manifest file '../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/SOURCES.txt'
+reading manifest file '../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/SOURCES.txt'
+writing manifest file '../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/agx/Desktop/MOvO/kinova_arms_ws/build/arms_xbox_ctr/build
+creating /home/agx/Desktop/MOvO/kinova_arms_ws/build/arms_xbox_ctr/build/lib
+creating /home/agx/Desktop/MOvO/kinova_arms_ws/build/arms_xbox_ctr/build/lib/arms_xbox_ctr
+copying arms_xbox_ctr/__init__.py -> /home/agx/Desktop/MOvO/kinova_arms_ws/build/arms_xbox_ctr/build/lib/arms_xbox_ctr
+copying arms_xbox_ctr/xbox_reader.py -> /home/agx/Desktop/MOvO/kinova_arms_ws/build/arms_xbox_ctr/build/lib/arms_xbox_ctr
+running install
+running install_lib
+creating /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/lib/python3.10/site-packages/arms_xbox_ctr
+copying /home/agx/Desktop/MOvO/kinova_arms_ws/build/arms_xbox_ctr/build/lib/arms_xbox_ctr/__init__.py -> /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/lib/python3.10/site-packages/arms_xbox_ctr
+copying /home/agx/Desktop/MOvO/kinova_arms_ws/build/arms_xbox_ctr/build/lib/arms_xbox_ctr/xbox_reader.py -> /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/lib/python3.10/site-packages/arms_xbox_ctr
+byte-compiling /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/lib/python3.10/site-packages/arms_xbox_ctr/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/lib/python3.10/site-packages/arms_xbox_ctr/xbox_reader.py to xbox_reader.cpython-310.pyc
+running install_data
+creating /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/share/ament_index
+creating /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/share/ament_index/resource_index
+creating /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/share/ament_index/resource_index/packages
+copying resource/arms_xbox_ctr -> /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/share/ament_index/resource_index/packages
+copying package.xml -> /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/share/arms_xbox_ctr
+creating /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/share/arms_xbox_ctr/launch
+copying launch/xbox_controller.launch.py -> /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/share/arms_xbox_ctr/launch
+running install_egg_info
+Copying ../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info to /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/lib/python3.10/site-packages/arms_xbox_ctr-0.0.0-py3.10.egg-info
+running install_scripts
+Installing xbox_reader script to /home/agx/Desktop/MOvO/kinova_arms_ws/install/arms_xbox_ctr/lib/arms_xbox_ctr
+writing list of installed files to '/home/agx/Desktop/MOvO/kinova_arms_ws/build/arms_xbox_ctr/install.log'

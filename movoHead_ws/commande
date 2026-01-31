@@ -1,0 +1,40 @@
+source /opt/ros/humble/setup.bash -- was added to the bash so not needed
+
+ros2 run joy joy_node
+
+ros2 run joy_to_twist joy_to_twist_node
+
+ros2 run movo_base_motor_control omni_wheel_node
+ros2 run movo_base_motor_control mecanum_controller
+
+ros2 topic pub /movo_base/wheel_cmds std_msgs/Float32MultiArray "data: [0.0, 0.0, 0.0, 0.0]"
+
+ros2 launch movo_base_motor_control movo_base.launch.py
+
+realsense-viewer
+
+colcon build --packages-select movo_nav --symlink-install
+ros2 launch movo_nav lidar_slam_launch.py
+
+source install/setup.bash
+
+
+clean build : 
+rm -rf build/ install/ log/
+colcon build --cmake-clean-cache --packages-select tm_imu
+
+running a python script : 
+ros2 run movo_base_motor_control forward_kinematic
+
+
+
+--
+
+ip adrress front lidar - 192.168.131.9
+ip adrress back lidar - 192.168.131.11
+
+to acess them :
+ros2 run sick_scan_xd sick_generic_caller --ros-args   -p scanner_type:=sick_tim_5xx   -p hostname:=192.168.131.9
+
+sav_map ->
+ros2 run nav2_map_server map_saver_cli -f /home/useradmin/movoHead_ws/src/movobase_ctr/my_maps/map_hall
