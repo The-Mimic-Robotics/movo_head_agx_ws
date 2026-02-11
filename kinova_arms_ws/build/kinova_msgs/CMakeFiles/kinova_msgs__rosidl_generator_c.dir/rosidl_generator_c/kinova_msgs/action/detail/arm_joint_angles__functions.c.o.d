@@ -1,7 +1,7 @@
 CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__functions.c.o: \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__functions.c \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__functions.c \
  /usr/include/stdc-predef.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__functions.h \
  /usr/lib/gcc/aarch64-linux-gnu/11/include/stdbool.h \
  /usr/include/stdlib.h \
  /usr/include/aarch64-linux-gnu/bits/libc-header-start.h \
@@ -44,12 +44,12 @@ CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/ac
  /usr/include/aarch64-linux-gnu/bits/struct_rwlock.h \
  /usr/include/alloca.h /usr/include/aarch64-linux-gnu/bits/stdlib-float.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/rosidl_generator_c__visibility_control.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/rosidl_generator_c__visibility_control.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__struct.h \
  /usr/lib/gcc/aarch64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/aarch64-linux-gnu/bits/wchar.h \
  /usr/include/aarch64-linux-gnu/bits/stdint-uintn.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__struct.h \
  /opt/ros/humble/include/unique_identifier_msgs/unique_identifier_msgs/msg/detail/uuid__struct.h \
  /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__struct.h \
  /usr/include/assert.h /usr/include/string.h \
@@ -70,7 +70,7 @@ CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/ac
  /opt/ros/humble/include/rcutils/rcutils/visibility_control.h \
  /opt/ros/humble/include/rcutils/rcutils/visibility_control_macros.h \
  /opt/ros/humble/include/rcutils/rcutils/types/rcutils_ret.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__functions.h \
  /opt/ros/humble/include/unique_identifier_msgs/unique_identifier_msgs/msg/detail/uuid__functions.h \
  /opt/ros/humble/include/unique_identifier_msgs/unique_identifier_msgs/msg/rosidl_generator_c__visibility_control.h \
  /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__functions.h \

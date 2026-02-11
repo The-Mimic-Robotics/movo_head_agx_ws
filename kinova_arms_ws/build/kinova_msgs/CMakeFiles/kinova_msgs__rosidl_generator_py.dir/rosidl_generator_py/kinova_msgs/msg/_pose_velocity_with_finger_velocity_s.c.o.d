@@ -1,5 +1,5 @@
 CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_pose_velocity_with_finger_velocity_s.c.o: \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/msg/_pose_velocity_with_finger_velocity_s.c \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/msg/_pose_velocity_with_finger_velocity_s.c \
  /usr/include/stdc-predef.h /usr/include/python3.10/Python.h \
  /usr/include/python3.10/patchlevel.h /usr/include/python3.10/pyconfig.h \
  /usr/include/aarch64-linux-gnu/python3.10/pyconfig.h \
@@ -207,6 +207,6 @@ CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/
  /usr/include/python3.10/numpy/_neighborhood_iterator_imp.h \
  /usr/include/python3.10/numpy/__multiarray_api.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/rosidl_generator_c__visibility_control.h
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/rosidl_generator_c__visibility_control.h

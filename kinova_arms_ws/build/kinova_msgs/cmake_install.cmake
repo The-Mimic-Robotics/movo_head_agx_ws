@@ -1,8 +1,8 @@
-# Install script for directory: /home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2
+# Install script for directory: /home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/agx/Desktop/MOvO/kinova_arms_ws/install/kinova_msgs")
+  set(CMAKE_INSTALL_PREFIX "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -43,19 +43,7 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/rosidl_interfaces" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_index/share/ament_index/resource_index/rosidl_interfaces/kinova_msgs")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/kinova_msgs/kinova_msgs" TYPE DIRECTORY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/" REGEX "/[^/]*\\.h$")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/environment" TYPE FILE FILES "/opt/ros/humble/lib/python3.10/site-packages/ament_package/template/environment_hook/library_path.sh")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/environment" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/library_path.dsv")
+  include("/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -65,7 +53,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_c.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_generator_c.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_generator_c.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_c.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_c.so")
     file(RPATH_CHANGE
@@ -82,22 +70,18 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/kinova_msgs/kinova_msgs" TYPE DIRECTORY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_typesupport_fastrtps_c/kinova_msgs/" REGEX "/[^/]*\\.cpp$" EXCLUDE)
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_c.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_c.so")
     file(RPATH_CHECK
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_c.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_fastrtps_c.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_fastrtps_c.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_c.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_c.so")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_c.so"
-         OLD_RPATH "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
+         OLD_RPATH "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_c.so")
@@ -109,22 +93,18 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/kinova_msgs/kinova_msgs" TYPE DIRECTORY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_typesupport_introspection_c/kinova_msgs/" REGEX "/[^/]*\\.h$")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_c.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_c.so")
     file(RPATH_CHECK
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_c.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_introspection_c.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_introspection_c.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_c.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_c.so")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_c.so"
-         OLD_RPATH "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
+         OLD_RPATH "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_c.so")
@@ -142,12 +122,12 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_c.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_c.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_c.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_c.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_c.so")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_c.so"
-         OLD_RPATH "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
+         OLD_RPATH "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_c.so")
@@ -159,21 +139,13 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/kinova_msgs/kinova_msgs" TYPE DIRECTORY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_cpp/kinova_msgs/" REGEX "/[^/]*\\.hpp$")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/kinova_msgs/kinova_msgs" TYPE DIRECTORY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_typesupport_fastrtps_cpp/kinova_msgs/" REGEX "/[^/]*\\.cpp$" EXCLUDE)
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so")
     file(RPATH_CHECK
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so")
     file(RPATH_CHANGE
@@ -190,17 +162,13 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/kinova_msgs/kinova_msgs" TYPE DIRECTORY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_typesupport_introspection_cpp/kinova_msgs/" REGEX "/[^/]*\\.hpp$")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_cpp.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_cpp.so")
     file(RPATH_CHECK
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_cpp.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_introspection_cpp.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_introspection_cpp.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_cpp.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_introspection_cpp.so")
     file(RPATH_CHANGE
@@ -223,7 +191,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_cpp.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_cpp.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/libkinova_msgs__rosidl_typesupport_cpp.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_cpp.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_typesupport_cpp.so")
     file(RPATH_CHANGE
@@ -240,111 +208,26 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/environment" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/pythonpath.sh")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/environment" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/pythonpath.dsv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs-0.0.0-py3.10.egg-info" TYPE DIRECTORY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_python/kinova_msgs/kinova_msgs.egg-info/")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs" TYPE DIRECTORY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/" REGEX "/[^/]*\\.pyc$" EXCLUDE REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE)
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   execute_process(
         COMMAND
         "/usr/bin/python3" "-m" "compileall"
-        "/home/agx/Desktop/MOvO/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs"
+        "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs"
       )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so")
-    file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so"
-         RPATH "")
-  endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so")
-    file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so"
-         OLD_RPATH "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs:/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
-         NEW_RPATH "")
-    if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so")
-    endif()
-  endif()
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so")
-    file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so"
-         RPATH "")
-  endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so")
-    file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so"
-         OLD_RPATH "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs:/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
-         NEW_RPATH "")
-    if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so")
-    endif()
-  endif()
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so")
-    file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so"
-         RPATH "")
-  endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so")
-    file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so"
-         OLD_RPATH "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs:/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
-         NEW_RPATH "")
-    if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so")
-    endif()
-  endif()
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_py.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_py.so")
     file(RPATH_CHECK
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_py.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/libkinova_msgs__rosidl_generator_py.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/libkinova_msgs__rosidl_generator_py.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_py.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_py.so")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_py.so"
-         OLD_RPATH "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
+         OLD_RPATH "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs:/opt/ros/humble/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libkinova_msgs__rosidl_generator_py.so")
@@ -356,354 +239,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/msg/CartesianForce.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/msg/FingerPosition.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/msg/JointAngles.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/msg/JointTorque.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/msg/JointVelocity.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/msg/KinovaPose.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/msg/PoseVelocity.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/msg/PoseVelocityWithFingers.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/msg/PoseVelocityWithFingerVelocity.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/AddPoseToCartesianTrajectory.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/ClearTrajectories.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/HomeArm.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/RunCOMParametersEstimation.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/SetEndEffectorOffset.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/SetForceControlParams.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/SetNullSpaceModeState.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/SetTorqueControlMode.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/SetTorqueControlParameters.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/Start.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/Stop.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/ZeroTorques.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/action" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/action/ArmJointAngles.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/action" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/action/ArmKinovaPose.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/action" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/action/ArmPose.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/action" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/action/SetFingersPosition.idl")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/msg/CartesianForce.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/msg/FingerPosition.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/msg/JointAngles.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/msg/JointTorque.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/msg/JointVelocity.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/msg/KinovaPose.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/msg/PoseVelocity.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/msg/PoseVelocityWithFingers.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/msg" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/msg/PoseVelocityWithFingerVelocity.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/AddPoseToCartesianTrajectory.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/AddPoseToCartesianTrajectory_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/AddPoseToCartesianTrajectory_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/ClearTrajectories.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/ClearTrajectories_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/ClearTrajectories_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/HomeArm.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/HomeArm_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/HomeArm_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/RunCOMParametersEstimation.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/RunCOMParametersEstimation_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/RunCOMParametersEstimation_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/SetEndEffectorOffset.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetEndEffectorOffset_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetEndEffectorOffset_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/SetForceControlParams.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetForceControlParams_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetForceControlParams_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/SetNullSpaceModeState.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetNullSpaceModeState_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetNullSpaceModeState_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/SetTorqueControlMode.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetTorqueControlMode_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetTorqueControlMode_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/SetTorqueControlParameters.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetTorqueControlParameters_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetTorqueControlParameters_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/Start.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/Start_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/Start_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/Stop.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/Stop_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/Stop_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/srv/ZeroTorques.srv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/ZeroTorques_Request.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/srv" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/ZeroTorques_Response.msg")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/action" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/action/ArmJointAngles.action")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/action" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/action/ArmKinovaPose.action")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/action" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/action/ArmPose.action")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/action" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/action/SetFingersPosition.action")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/kinova_msgs")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/kinova_msgs")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/environment" TYPE FILE FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/ament_prefix_path.sh")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/environment" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/ament_prefix_path.dsv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/environment" TYPE FILE FILES "/opt/ros/humble/share/ament_cmake_core/cmake/environment_hooks/environment/path.sh")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/environment" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/path.dsv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/local_setup.bash")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/local_setup.sh")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/local_setup.zsh")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/local_setup.dsv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/package.dsv")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_index/share/ament_index/resource_index/packages/kinova_msgs")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport.cmake"
-         "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport.cmake")
+         "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -712,9 +251,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport-noconfig.cmake")
   endif()
 endif()
 
@@ -722,7 +261,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport.cmake"
-         "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport.cmake")
+         "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -731,9 +270,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake")
   endif()
 endif()
 
@@ -741,7 +280,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport.cmake"
-         "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport.cmake")
+         "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -750,9 +289,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake")
   endif()
 endif()
 
@@ -760,7 +299,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport.cmake"
-         "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport.cmake")
+         "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -769,9 +308,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport-noconfig.cmake")
   endif()
 endif()
 
@@ -779,7 +318,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cppExport.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cppExport.cmake"
-         "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cppExport.cmake")
+         "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cppExport.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cppExport-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -788,14 +327,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cppExport.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cppExport.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport.cmake"
-         "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport.cmake")
+         "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -804,9 +343,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake")
   endif()
 endif()
 
@@ -814,7 +353,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport.cmake"
-         "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport.cmake")
+         "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -823,9 +362,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake")
   endif()
 endif()
 
@@ -833,7 +372,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport.cmake"
-         "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport.cmake")
+         "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -842,9 +381,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport-noconfig.cmake")
   endif()
 endif()
 
@@ -852,7 +391,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport.cmake"
-         "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport.cmake")
+         "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -861,54 +400,15 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/Export/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport-noconfig.cmake")
   endif()
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/rosidl_cmake-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_export_dependencies/ament_cmake_export_dependencies-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_export_include_directories/ament_cmake_export_include_directories-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_export_libraries/ament_cmake_export_libraries-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_export_targets/ament_cmake_export_targets-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/rosidl_cmake_export_typesupport_targets-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs/cmake" TYPE FILE FILES
-    "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_core/kinova_msgsConfig.cmake"
-    "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_core/kinova_msgsConfig-version.cmake"
-    )
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kinova_msgs" TYPE FILE FILES "/home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2/package.xml")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/kinova_msgs__py/cmake_install.cmake")
+  include("/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/kinova_msgs__py/cmake_install.cmake")
 
 endif()
 
@@ -920,5 +420,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

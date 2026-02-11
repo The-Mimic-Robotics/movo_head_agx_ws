@@ -1,6 +1,1 @@
-float32 twist_linear_x
-float32 twist_linear_y
-float32 twist_linear_z
-float32 twist_angular_x
-float32 twist_angular_y
-float32 twist_angular_z
+/home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2/msg/PoseVelocity.msg

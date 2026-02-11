@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2
+CMAKE_SOURCE_DIR = /home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs
+CMAKE_BINARY_DIR = /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -142,9 +142,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -315,17 +315,17 @@ kinova_msgs__rosidl_typesupport_cpp/fast:
 .PHONY : kinova_msgs__rosidl_typesupport_cpp/fast
 
 #=============================================================================
-# Target rules for targets named ament_cmake_python_copy_kinova_msgs
+# Target rules for targets named ament_cmake_python_symlink_kinova_msgs
 
 # Build rule for target.
-ament_cmake_python_copy_kinova_msgs: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_copy_kinova_msgs
-.PHONY : ament_cmake_python_copy_kinova_msgs
+ament_cmake_python_symlink_kinova_msgs: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 ament_cmake_python_symlink_kinova_msgs
+.PHONY : ament_cmake_python_symlink_kinova_msgs
 
 # fast build rule for target.
-ament_cmake_python_copy_kinova_msgs/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_copy_kinova_msgs.dir/build.make CMakeFiles/ament_cmake_python_copy_kinova_msgs.dir/build
-.PHONY : ament_cmake_python_copy_kinova_msgs/fast
+ament_cmake_python_symlink_kinova_msgs/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_symlink_kinova_msgs.dir/build.make CMakeFiles/ament_cmake_python_symlink_kinova_msgs.dir/build
+.PHONY : ament_cmake_python_symlink_kinova_msgs/fast
 
 #=============================================================================
 # Target rules for targets named ament_cmake_python_build_kinova_msgs_egg
@@ -5291,7 +5291,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... ament_cmake_python_build_kinova_msgs_egg"
-	@echo "... ament_cmake_python_copy_kinova_msgs"
+	@echo "... ament_cmake_python_symlink_kinova_msgs"
 	@echo "... kinova_msgs"
 	@echo "... kinova_msgs__cpp"
 	@echo "... kinova_msgs__py"

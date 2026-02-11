@@ -1,8 +1,1 @@
-geometry_msgs/Vector3 inertia_linear
-geometry_msgs/Vector3 inertia_angular
-geometry_msgs/Vector3 damping_linear
-geometry_msgs/Vector3 damping_angular
-geometry_msgs/Vector3 force_min_linear
-geometry_msgs/Vector3 force_min_angular
-geometry_msgs/Vector3 force_max_linear
-geometry_msgs/Vector3 force_max_angular
+/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/SetForceControlParams_Request.msg

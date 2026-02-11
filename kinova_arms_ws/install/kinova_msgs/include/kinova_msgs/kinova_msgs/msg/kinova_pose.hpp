@@ -1,12 +1,1 @@
-// generated from rosidl_generator_cpp/resource/idl.hpp.em
-// generated code does not contain a copyright notice
-
-#ifndef KINOVA_MSGS__MSG__KINOVA_POSE_HPP_
-#define KINOVA_MSGS__MSG__KINOVA_POSE_HPP_
-
-#include "kinova_msgs/msg/detail/kinova_pose__struct.hpp"
-#include "kinova_msgs/msg/detail/kinova_pose__builder.hpp"
-#include "kinova_msgs/msg/detail/kinova_pose__traits.hpp"
-#include "kinova_msgs/msg/detail/kinova_pose__type_support.hpp"
-
-#endif  // KINOVA_MSGS__MSG__KINOVA_POSE_HPP_
+/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_cpp/kinova_msgs/msg/kinova_pose.hpp

@@ -1,2 +1,1 @@
-
-string stop_result
+/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/Stop_Response.msg

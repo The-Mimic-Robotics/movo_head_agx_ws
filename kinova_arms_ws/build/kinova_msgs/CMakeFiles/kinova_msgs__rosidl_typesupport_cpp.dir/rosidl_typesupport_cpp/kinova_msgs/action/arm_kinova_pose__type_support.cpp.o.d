@@ -1,5 +1,5 @@
 CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/action/arm_kinova_pose__type_support.cpp.o: \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_typesupport_cpp/kinova_msgs/action/arm_kinova_pose__type_support.cpp \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_typesupport_cpp/kinova_msgs/action/arm_kinova_pose__type_support.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/11/cstddef \
  /usr/include/aarch64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/aarch64-linux-gnu/c++/11/bits/os_defines.h \
@@ -15,7 +15,7 @@ CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_type_support_struct.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/visibility_control.h \
  /opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_cpp/kinova_msgs/action/detail/arm_kinova_pose__struct.hpp \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_cpp/kinova_msgs/action/detail/arm_kinova_pose__struct.hpp \
  /usr/include/c++/11/algorithm /usr/include/c++/11/utility \
  /usr/include/c++/11/bits/stl_relops.h \
  /usr/include/c++/11/bits/stl_pair.h /usr/include/c++/11/bits/move.h \
@@ -161,7 +161,7 @@ CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova
  /usr/include/c++/11/stdexcept \
  /opt/ros/humble/include/rosidl_runtime_cpp/rosidl_runtime_cpp/message_initialization.hpp \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/message_initialization.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_cpp/kinova_msgs/msg/detail/kinova_pose__struct.hpp \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_cpp/kinova_msgs/msg/detail/kinova_pose__struct.hpp \
  /opt/ros/humble/include/unique_identifier_msgs/unique_identifier_msgs/msg/detail/uuid__struct.hpp \
  /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__struct.hpp \
  /opt/ros/humble/include/action_msgs/action_msgs/srv/cancel_goal.hpp \

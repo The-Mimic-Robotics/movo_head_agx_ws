@@ -1,14 +1,8 @@
 package.xml
 setup.cfg
 setup.py
-../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/PKG-INFO
-../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/SOURCES.txt
-../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/dependency_links.txt
-../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/entry_points.txt
-../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/requires.txt
-../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/top_level.txt
-../../build/arms_xbox_ctr/arms_xbox_ctr.egg-info/zip-safe
 arms_xbox_ctr/__init__.py
+arms_xbox_ctr/axe4.py
 arms_xbox_ctr/xbox_reader.py
 arms_xbox_ctr/xbox_reader_old.py
 arms_xbox_ctr.egg-info/PKG-INFO
@@ -18,5 +12,6 @@ arms_xbox_ctr.egg-info/entry_points.txt
 arms_xbox_ctr.egg-info/requires.txt
 arms_xbox_ctr.egg-info/top_level.txt
 arms_xbox_ctr.egg-info/zip-safe
+launch/axe4_controller.launch.py
 launch/xbox_controller.launch.py
 resource/arms_xbox_ctr

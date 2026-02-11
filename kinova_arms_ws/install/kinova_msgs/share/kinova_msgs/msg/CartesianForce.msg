@@ -1,6 +1,1 @@
-float32 force_x
-float32 force_y
-float32 force_z
-float32 torque_x
-float32 torque_y
-float32 torque_z
+/home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2/msg/CartesianForce.msg

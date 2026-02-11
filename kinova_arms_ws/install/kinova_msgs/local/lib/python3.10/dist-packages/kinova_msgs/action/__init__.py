@@ -1,4 +1,1 @@
-from kinova_msgs.action._arm_joint_angles import ArmJointAngles  # noqa: F401
-from kinova_msgs.action._arm_kinova_pose import ArmKinovaPose  # noqa: F401
-from kinova_msgs.action._arm_pose import ArmPose  # noqa: F401
-from kinova_msgs.action._set_fingers_position import SetFingersPosition  # noqa: F401
+/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/action/__init__.py

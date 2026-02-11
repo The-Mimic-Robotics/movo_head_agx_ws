@@ -1,5 +1,5 @@
 CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o: \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_fastrtps_c.c \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_fastrtps_c.c \
  /usr/include/stdc-predef.h /usr/include/python3.10/Python.h \
  /usr/include/python3.10/patchlevel.h /usr/include/python3.10/pyconfig.h \
  /usr/include/aarch64-linux-gnu/python3.10/pyconfig.h \
@@ -201,89 +201,89 @@ CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generato
  /opt/ros/humble/include/rosidl_typesupport_interface/rosidl_typesupport_interface/macros.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/service_type_support_struct.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/action_type_support_struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/cartesian_force__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/rosidl_generator_c__visibility_control.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/cartesian_force__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/cartesian_force__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/finger_position__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/finger_position__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/finger_position__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_torque__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_torque__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_torque__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_velocity__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_velocity__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_velocity__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/kinova_pose__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/kinova_pose__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/kinova_pose__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_fingers__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_fingers__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_fingers__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/clear_trajectories__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/clear_trajectories__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/cartesian_force__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/rosidl_generator_c__visibility_control.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/cartesian_force__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/cartesian_force__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/finger_position__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/finger_position__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/finger_position__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_torque__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_torque__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_torque__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_velocity__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_velocity__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_velocity__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/kinova_pose__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/kinova_pose__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/kinova_pose__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_fingers__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_fingers__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_fingers__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/clear_trajectories__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/clear_trajectories__struct.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/string.h \
  /opt/ros/humble/include/rosidl_runtime_c/rosidl_runtime_c/primitives_sequence.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/clear_trajectories__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/home_arm__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/home_arm__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/home_arm__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/run_com_parameters_estimation__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/run_com_parameters_estimation__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/run_com_parameters_estimation__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_end_effector_offset__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_end_effector_offset__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/clear_trajectories__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/home_arm__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/home_arm__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/home_arm__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/run_com_parameters_estimation__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/run_com_parameters_estimation__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/run_com_parameters_estimation__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_end_effector_offset__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_end_effector_offset__struct.h \
  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/vector3__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_end_effector_offset__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_force_control_params__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_force_control_params__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_force_control_params__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_null_space_mode_state__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_null_space_mode_state__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_null_space_mode_state__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_mode__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_mode__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_mode__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_parameters__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_parameters__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_parameters__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/start__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/start__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/start__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/stop__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/stop__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/stop__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/zero_torques__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/zero_torques__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/zero_torques__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_end_effector_offset__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_force_control_params__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_force_control_params__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_force_control_params__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_null_space_mode_state__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_null_space_mode_state__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_null_space_mode_state__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_mode__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_mode__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_mode__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_parameters__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_parameters__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_parameters__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/start__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/start__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/start__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/stop__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/stop__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/stop__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/zero_torques__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/zero_torques__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/srv/detail/zero_torques__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__struct.h \
  /opt/ros/humble/include/unique_identifier_msgs/unique_identifier_msgs/msg/detail/uuid__struct.h \
  /opt/ros/humble/include/builtin_interfaces/builtin_interfaces/msg/detail/time__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_kinova_pose__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_kinova_pose__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_kinova_pose__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_pose__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_pose__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_kinova_pose__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_kinova_pose__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_kinova_pose__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_pose__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_pose__struct.h \
  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose_stamped__struct.h \
  /opt/ros/humble/include/std_msgs/std_msgs/msg/detail/header__struct.h \
  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/pose__struct.h \
  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/point__struct.h \
  /opt/ros/humble/include/geometry_msgs/geometry_msgs/msg/detail/quaternion__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_pose__functions.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/set_fingers_position__type_support.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/set_fingers_position__struct.h \
- /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/set_fingers_position__functions.h
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/arm_pose__functions.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/set_fingers_position__type_support.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/set_fingers_position__struct.h \
+ /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/action/detail/set_fingers_position__functions.h

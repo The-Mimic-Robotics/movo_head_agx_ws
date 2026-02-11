@@ -1,0 +1,10 @@
+build/
+install/
+log/
+../kinova_arms_ws/log/
+../kinova_arms_ws/build/
+../kinova_arms_ws/install/
+
+../movoHead_ws/build/
+../movoHead_ws/install/
+../movoHead_ws/log/

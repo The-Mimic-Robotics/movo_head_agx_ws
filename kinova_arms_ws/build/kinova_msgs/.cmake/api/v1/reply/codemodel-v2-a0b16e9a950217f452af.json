@@ -1,0 +1,233 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-cdefb0a85f7bef8a382f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17
+					]
+				},
+				{
+					"build" : "kinova_msgs__py",
+					"jsonFile" : "directory-kinova_msgs__py-98be0564d129ecab8980.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/kinova_msgs__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "kinova_msgs",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_kinova_msgs_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_kinova_msgs_egg-1ed2bff1a224c4eacf49.json",
+					"name" : "ament_cmake_python_build_kinova_msgs_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_symlink_kinova_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_symlink_kinova_msgs-9f9e04db190734e96284.json",
+					"name" : "ament_cmake_python_symlink_kinova_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs-e3058bfba3f33ef48d0c.json",
+					"name" : "kinova_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__cpp-48344416052abf733ced.json",
+					"name" : "kinova_msgs__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "kinova_msgs__py::@b5e383906e28202893e8",
+					"jsonFile" : "target-kinova_msgs__py-f17ae010ae17254240eb.json",
+					"name" : "kinova_msgs__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_generator_c-95e57fd8e49ff42feba9.json",
+					"name" : "kinova_msgs__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_generator_py-e81103f29005a816246d.json",
+					"name" : "kinova_msgs__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_typesupport_c-ca771fc361ebe9b2e62f.json",
+					"name" : "kinova_msgs__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_typesupport_c__pyext-ee6725d6397f21e15e41.json",
+					"name" : "kinova_msgs__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_typesupport_cpp-468efed0dbe7bb0764dd.json",
+					"name" : "kinova_msgs__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_typesupport_fastrtps_c-f4bcd0a1e43e742ea62a.json",
+					"name" : "kinova_msgs__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_typesupport_fastrtps_c__pyext-e716e45cf2e4dc00e027.json",
+					"name" : "kinova_msgs__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_typesupport_fastrtps_cpp-ebc9dc79679770f8fc66.json",
+					"name" : "kinova_msgs__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_typesupport_introspection_c-af02bec23584f3cb1973.json",
+					"name" : "kinova_msgs__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_typesupport_introspection_c__pyext-7f84a72c4ad613400687.json",
+					"name" : "kinova_msgs__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs__rosidl_typesupport_introspection_cpp-f968fab78647945fa300.json",
+					"name" : "kinova_msgs__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "kinova_msgs_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-kinova_msgs_uninstall-0e9fa393c64cdf00acc4.json",
+					"name" : "kinova_msgs_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-f6a8caeb72da09413b3f.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs",
+		"source" : "/home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

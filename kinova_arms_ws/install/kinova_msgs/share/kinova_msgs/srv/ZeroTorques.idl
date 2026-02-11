@@ -1,15 +1,1 @@
-// generated from rosidl_adapter/resource/srv.idl.em
-// with input from kinova_msgs/srv/ZeroTorques.srv
-// generated code does not contain a copyright notice
-
-
-module kinova_msgs {
-  module srv {
-    struct ZeroTorques_Request {
-      uint8 structure_needs_at_least_one_member;
-    };
-    struct ZeroTorques_Response {
-      string result;
-    };
-  };
-};
+/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_adapter/kinova_msgs/srv/ZeroTorques.idl

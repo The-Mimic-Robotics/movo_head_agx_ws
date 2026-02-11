@@ -1,6 +1,1 @@
-float32 x
-float32 y
-float32 z
-float32 theta_x
-float32 theta_y
-float32 theta_z
+/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/AddPoseToCartesianTrajectory_Request.msg

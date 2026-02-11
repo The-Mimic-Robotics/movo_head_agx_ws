@@ -1,9 +1,1 @@
-float32 twist_linear_x
-float32 twist_linear_y
-float32 twist_linear_z
-float32 twist_angular_x
-float32 twist_angular_y
-float32 twist_angular_z
-float32 finger1
-float32 finger2
-float32 finger3
+/home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2/msg/PoseVelocityWithFingerVelocity.msg

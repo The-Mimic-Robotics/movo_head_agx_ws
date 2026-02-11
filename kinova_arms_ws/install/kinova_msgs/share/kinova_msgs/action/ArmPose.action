@@ -1,8 +1,1 @@
-# Goal
-geometry_msgs/PoseStamped pose
----
-# Result
-geometry_msgs/PoseStamped pose
----
-# Feedback message
-geometry_msgs/PoseStamped pose
+/home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2/action/ArmPose.action

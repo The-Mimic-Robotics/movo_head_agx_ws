@@ -1,4 +1,1 @@
-source;share/kinova_msgs/environment/ament_prefix_path.sh
-source;share/kinova_msgs/environment/library_path.sh
-source;share/kinova_msgs/environment/path.sh
-source;share/kinova_msgs/environment/pythonpath.sh
+/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/ament_cmake_environment_hooks/local_setup.dsv

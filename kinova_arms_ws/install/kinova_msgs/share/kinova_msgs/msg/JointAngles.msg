@@ -1,7 +1,1 @@
-float32 joint1
-float32 joint2
-float32 joint3
-float32 joint4
-float32 joint5
-float32 joint6
-float32 joint7
+/home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2/msg/JointAngles.msg

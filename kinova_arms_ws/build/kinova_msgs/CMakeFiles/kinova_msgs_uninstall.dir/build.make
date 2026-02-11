@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2
+CMAKE_SOURCE_DIR = /home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs
+CMAKE_BINARY_DIR = /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs
 
 # Utility rule file for kinova_msgs_uninstall.
 
@@ -67,7 +67,7 @@ include CMakeFiles/kinova_msgs_uninstall.dir/compiler_depend.make
 include CMakeFiles/kinova_msgs_uninstall.dir/progress.make
 
 CMakeFiles/kinova_msgs_uninstall:
-	/usr/bin/cmake -P /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 kinova_msgs_uninstall: CMakeFiles/kinova_msgs_uninstall
 kinova_msgs_uninstall: CMakeFiles/kinova_msgs_uninstall.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/kinova_msgs_uninstall.dir/clean:
 .PHONY : CMakeFiles/kinova_msgs_uninstall.dir/clean
 
 CMakeFiles/kinova_msgs_uninstall.dir/depend:
-	cd /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2 /home/agx/Desktop/MOvO/kinova_arms_ws/src/kinova_msgs_ros2 /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs /home/agx/Desktop/MOvO/kinova_arms_ws/build/kinova_msgs/CMakeFiles/kinova_msgs_uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2 /home/agx/Desktop/movo_ws/kinova_arms_ws/src/kinova_msgs_ros2 /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/CMakeFiles/kinova_msgs_uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/kinova_msgs_uninstall.dir/depend
 

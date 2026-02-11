@@ -1,0 +1,850 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+-- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+-- Using PYTHON_EXECUTABLE: /usr/bin/python3
+-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+-- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+-- Found PythonExtra: .so  
+-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs
+[  1%] [34m[1mGenerating C code for ROS interfaces[0m
+[  1%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[  1%] Built target ament_cmake_python_symlink_kinova_msgs
+running egg_info
+creating kinova_msgs.egg-info
+writing kinova_msgs.egg-info/PKG-INFO
+writing dependency_links to kinova_msgs.egg-info/dependency_links.txt
+writing top-level names to kinova_msgs.egg-info/top_level.txt
+writing manifest file 'kinova_msgs.egg-info/SOURCES.txt'
+reading manifest file 'kinova_msgs.egg-info/SOURCES.txt'
+writing manifest file 'kinova_msgs.egg-info/SOURCES.txt'
+[  1%] Built target ament_cmake_python_build_kinova_msgs_egg
+[  2%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/msg/detail/joint_velocity__functions.c.o[0m
+[  2%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/msg/detail/cartesian_force__functions.c.o[0m
+[  2%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__functions.c.o[0m
+[  4%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/msg/detail/finger_position__functions.c.o[0m
+[  4%] Built target kinova_msgs__cpp
+[  4%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/msg/detail/kinova_pose__functions.c.o[0m
+[  4%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/msg/detail/joint_torque__functions.c.o[0m
+[  6%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/clear_trajectories__functions.c.o[0m
+[  6%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__functions.c.o[0m
+[  6%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity_with_fingers__functions.c.o[0m
+[  6%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/msg/detail/pose_velocity__functions.c.o[0m
+[  6%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__functions.c.o[0m
+[  7%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[  8%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/run_com_parameters_estimation__functions.c.o[0m
+[  8%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/home_arm__functions.c.o[0m
+[  8%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/set_end_effector_offset__functions.c.o[0m
+[  8%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/set_null_space_mode_state__functions.c.o[0m
+[  9%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/set_force_control_params__functions.c.o[0m
+[ 10%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_mode__functions.c.o[0m
+[ 10%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[ 11%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/set_torque_control_parameters__functions.c.o[0m
+[ 11%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/start__functions.c.o[0m
+[ 12%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[ 13%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/stop__functions.c.o[0m
+[ 13%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/srv/detail/zero_torques__functions.c.o[0m
+[ 15%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/action/detail/arm_kinova_pose__functions.c.o[0m
+[ 15%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/action/detail/arm_pose__functions.c.o[0m
+[ 15%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/action/detail/arm_joint_angles__functions.c.o[0m
+[ 15%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_c.dir/rosidl_generator_c/kinova_msgs/action/detail/set_fingers_position__functions.c.o[0m
+[ 16%] [32m[1mLinking C shared library libkinova_msgs__rosidl_generator_c.so[0m
+[ 16%] Built target kinova_msgs__rosidl_generator_c
+[ 18%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[ 19%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[ 19%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[ 21%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/msg/joint_angles__type_support.cpp.o[0m
+[ 21%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/msg/joint_torque__type_support.cpp.o[0m
+[ 21%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/msg/pose_velocity__type_support.cpp.o[0m
+[ 21%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/msg/joint_velocity__type_support.cpp.o[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/msg/finger_position__type_support.cpp.o[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/msg/kinova_pose__type_support.cpp.o[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/msg/cartesian_force__type_support.cpp.o[0m
+[ 22%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/msg/pose_velocity_with_fingers__type_support.cpp.o[0m
+[ 23%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/msg/pose_velocity_with_finger_velocity__type_support.cpp.o[0m
+[ 23%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/add_pose_to_cartesian_trajectory__type_support.cpp.o[0m
+[ 24%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/clear_trajectories__type_support.cpp.o[0m
+[ 24%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/home_arm__type_support.cpp.o[0m
+[ 24%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/run_com_parameters_estimation__type_support.cpp.o[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/set_end_effector_offset__type_support.cpp.o[0m
+[ 25%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/msg/cartesian_force__type_support.cpp.o[0m
+[ 26%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/msg/finger_position__type_support.cpp.o[0m
+[ 26%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/msg/joint_angles__type_support.cpp.o[0m
+[ 26%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/msg/joint_torque__type_support.cpp.o[0m
+[ 26%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/set_force_control_params__type_support.cpp.o[0m
+[ 27%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/msg/joint_velocity__type_support.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/set_null_space_mode_state__type_support.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/set_torque_control_mode__type_support.cpp.o[0m
+[ 28%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/msg/kinova_pose__type_support.cpp.o[0m
+[ 29%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/set_torque_control_parameters__type_support.cpp.o[0m
+[ 30%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/msg/pose_velocity__type_support.cpp.o[0m
+[ 30%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/start__type_support.cpp.o[0m
+[ 31%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/stop__type_support.cpp.o[0m
+[ 31%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/msg/pose_velocity_with_fingers__type_support.cpp.o[0m
+[ 31%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/srv/zero_torques__type_support.cpp.o[0m
+[ 32%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/msg/pose_velocity_with_finger_velocity__type_support.cpp.o[0m
+[ 32%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/add_pose_to_cartesian_trajectory__type_support.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/clear_trajectories__type_support.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/home_arm__type_support.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/msg/detail/cartesian_force__type_support.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/run_com_parameters_estimation__type_support.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/action/arm_joint_angles__type_support.cpp.o[0m
+[ 34%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/set_end_effector_offset__type_support.cpp.o[0m
+[ 35%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/action/arm_kinova_pose__type_support.cpp.o[0m
+[ 36%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/msg/detail/finger_position__type_support.cpp.o[0m
+[ 36%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/set_force_control_params__type_support.cpp.o[0m
+[ 36%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/action/arm_pose__type_support.cpp.o[0m
+[ 37%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/kinova_msgs/action/set_fingers_position__type_support.cpp.o[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/set_null_space_mode_state__type_support.cpp.o[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/set_torque_control_mode__type_support.cpp.o[0m
+[ 39%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/set_torque_control_parameters__type_support.cpp.o[0m
+[ 39%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/start__type_support.cpp.o[0m
+[ 40%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/stop__type_support.cpp.o[0m
+[ 40%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/msg/detail/joint_angles__type_support.cpp.o[0m
+[ 41%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/srv/zero_torques__type_support.cpp.o[0m
+[ 41%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/msg/detail/joint_torque__type_support.cpp.o[0m
+[ 41%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/action/arm_joint_angles__type_support.cpp.o[0m
+[ 42%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/action/arm_kinova_pose__type_support.cpp.o[0m
+[ 42%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/action/arm_pose__type_support.cpp.o[0m
+[ 43%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/kinova_msgs/action/set_fingers_position__type_support.cpp.o[0m
+[ 43%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/msg/detail/dds_fastrtps/cartesian_force__type_support.cpp.o[0m
+[ 43%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/msg/detail/joint_velocity__type_support.cpp.o[0m
+[ 43%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/msg/detail/cartesian_force__type_support.c.o[0m
+[ 43%] [32m[1mLinking CXX shared library libkinova_msgs__rosidl_typesupport_c.so[0m
+[ 44%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/msg/detail/finger_position__type_support.c.o[0m
+[ 44%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/msg/detail/joint_angles__type_support.c.o[0m
+[ 45%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/msg/detail/kinova_pose__type_support.cpp.o[0m
+[ 45%] Built target kinova_msgs__rosidl_typesupport_c
+[ 45%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/msg/detail/pose_velocity__type_support.cpp.o[0m
+[ 46%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/msg/detail/joint_torque__type_support.c.o[0m
+[ 46%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/msg/detail/joint_velocity__type_support.c.o[0m
+[ 46%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/msg/detail/pose_velocity_with_fingers__type_support.cpp.o[0m
+[ 47%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/msg/detail/pose_velocity__type_support.c.o[0m
+[ 47%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/msg/detail/kinova_pose__type_support.c.o[0m
+[ 48%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/msg/detail/dds_fastrtps/finger_position__type_support.cpp.o[0m
+[ 49%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__type_support.cpp.o[0m
+[ 49%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/msg/detail/dds_fastrtps/joint_angles__type_support.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/msg/detail/dds_fastrtps/joint_torque__type_support.cpp.o[0m
+[ 50%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/msg/detail/pose_velocity_with_fingers__type_support.c.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/msg/detail/cartesian_force__type_support_c.cpp.o[0m
+[ 50%] [32m[1mLinking CXX shared library libkinova_msgs__rosidl_typesupport_cpp.so[0m
+[ 51%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__type_support.c.o[0m
+[ 51%] Built target kinova_msgs__rosidl_typesupport_cpp
+[ 51%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__type_support.c.o[0m
+[ 51%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/msg/detail/dds_fastrtps/joint_velocity__type_support.cpp.o[0m
+[ 52%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/clear_trajectories__type_support.c.o[0m
+[ 52%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/home_arm__type_support.c.o[0m
+[ 52%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__type_support.cpp.o[0m
+[ 53%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/run_com_parameters_estimation__type_support.c.o[0m
+[ 53%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/msg/detail/dds_fastrtps/kinova_pose__type_support.cpp.o[0m
+[ 53%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/set_end_effector_offset__type_support.c.o[0m
+[ 54%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/set_force_control_params__type_support.c.o[0m
+[ 55%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/clear_trajectories__type_support.cpp.o[0m
+[ 55%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/home_arm__type_support.cpp.o[0m
+[ 55%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/set_null_space_mode_state__type_support.c.o[0m
+[ 56%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/run_com_parameters_estimation__type_support.cpp.o[0m
+[ 56%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/set_torque_control_mode__type_support.c.o[0m
+[ 57%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/msg/detail/finger_position__type_support_c.cpp.o[0m
+[ 57%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/set_end_effector_offset__type_support.cpp.o[0m
+[ 58%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/msg/detail/dds_fastrtps/pose_velocity__type_support.cpp.o[0m
+[ 59%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/set_torque_control_parameters__type_support.c.o[0m
+[ 59%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/msg/detail/dds_fastrtps/pose_velocity_with_fingers__type_support.cpp.o[0m
+[ 60%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/msg/detail/dds_fastrtps/pose_velocity_with_finger_velocity__type_support.cpp.o[0m
+[ 60%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/start__type_support.c.o[0m
+[ 61%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/stop__type_support.c.o[0m
+[ 61%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/add_pose_to_cartesian_trajectory__type_support.cpp.o[0m
+[ 61%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/zero_torques__type_support.c.o[0m
+[ 62%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/action/detail/arm_joint_angles__type_support.c.o[0m
+[ 63%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/set_force_control_params__type_support.cpp.o[0m
+[ 63%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/action/detail/arm_kinova_pose__type_support.c.o[0m
+[ 64%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/clear_trajectories__type_support.cpp.o[0m
+[ 65%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/action/detail/arm_pose__type_support.c.o[0m
+[ 65%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/set_null_space_mode_state__type_support.cpp.o[0m
+[ 65%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/set_torque_control_mode__type_support.cpp.o[0m
+[ 65%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/msg/detail/joint_angles__type_support_c.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/set_torque_control_parameters__type_support.cpp.o[0m
+[ 66%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/kinova_msgs/action/detail/set_fingers_position__type_support.c.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/start__type_support.cpp.o[0m
+[ 66%] [32m[1mLinking C shared library libkinova_msgs__rosidl_typesupport_introspection_c.so[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/home_arm__type_support.cpp.o[0m
+[ 68%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/msg/detail/joint_torque__type_support_c.cpp.o[0m
+[ 68%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/run_com_parameters_estimation__type_support.cpp.o[0m
+[ 68%] Built target kinova_msgs__rosidl_typesupport_introspection_c
+[ 68%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/msg/detail/joint_velocity__type_support_c.cpp.o[0m
+[ 68%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/set_end_effector_offset__type_support.cpp.o[0m
+[ 69%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/stop__type_support.cpp.o[0m
+[ 69%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/msg/detail/kinova_pose__type_support_c.cpp.o[0m
+[ 69%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/set_force_control_params__type_support.cpp.o[0m
+[ 69%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/srv/detail/zero_torques__type_support.cpp.o[0m
+[ 70%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/action/detail/arm_joint_angles__type_support.cpp.o[0m
+[ 70%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/action/detail/arm_kinova_pose__type_support.cpp.o[0m
+[ 71%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/msg/detail/pose_velocity__type_support_c.cpp.o[0m
+[ 72%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/action/detail/arm_pose__type_support.cpp.o[0m
+[ 72%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/msg/detail/pose_velocity_with_fingers__type_support_c.cpp.o[0m
+[ 73%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/set_null_space_mode_state__type_support.cpp.o[0m
+[ 73%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/set_torque_control_mode__type_support.cpp.o[0m
+[ 74%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/set_torque_control_parameters__type_support.cpp.o[0m
+[ 74%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/start__type_support.cpp.o[0m
+[ 74%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/kinova_msgs/action/detail/set_fingers_position__type_support.cpp.o[0m
+[ 75%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/stop__type_support.cpp.o[0m
+[ 76%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__type_support_c.cpp.o[0m
+[ 76%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/dds_fastrtps/zero_torques__type_support.cpp.o[0m
+[ 77%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/action/detail/dds_fastrtps/arm_joint_angles__type_support.cpp.o[0m
+[ 77%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/action/detail/dds_fastrtps/arm_kinova_pose__type_support.cpp.o[0m
+[ 77%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/action/detail/dds_fastrtps/arm_pose__type_support.cpp.o[0m
+[ 78%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/kinova_msgs/action/detail/dds_fastrtps/set_fingers_position__type_support.cpp.o[0m
+[ 78%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__type_support_c.cpp.o[0m
+[ 79%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/clear_trajectories__type_support_c.cpp.o[0m
+[ 79%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/home_arm__type_support_c.cpp.o[0m
+[ 80%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/run_com_parameters_estimation__type_support_c.cpp.o[0m
+[ 80%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/set_end_effector_offset__type_support_c.cpp.o[0m
+[ 80%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/set_force_control_params__type_support_c.cpp.o[0m
+[ 81%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/set_null_space_mode_state__type_support_c.cpp.o[0m
+[ 81%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/set_torque_control_mode__type_support_c.cpp.o[0m
+[ 82%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/set_torque_control_parameters__type_support_c.cpp.o[0m
+[ 82%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/start__type_support_c.cpp.o[0m
+[ 83%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/stop__type_support_c.cpp.o[0m
+[ 84%] [32m[1mLinking CXX shared library libkinova_msgs__rosidl_typesupport_introspection_cpp.so[0m
+[ 84%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/zero_torques__type_support_c.cpp.o[0m
+[ 84%] [32m[1mLinking CXX shared library libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so[0m
+[ 85%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/action/detail/arm_joint_angles__type_support_c.cpp.o[0m
+[ 85%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/action/detail/arm_kinova_pose__type_support_c.cpp.o[0m
+[ 85%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/action/detail/arm_pose__type_support_c.cpp.o[0m
+[ 86%] [32mBuilding CXX object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/kinova_msgs/action/detail/set_fingers_position__type_support_c.cpp.o[0m
+[ 86%] Built target kinova_msgs__rosidl_typesupport_fastrtps_cpp
+[ 86%] Built target kinova_msgs__rosidl_typesupport_introspection_cpp
+[ 86%] [32m[1mLinking CXX shared library libkinova_msgs__rosidl_typesupport_fastrtps_c.so[0m
+[ 86%] Built target kinova_msgs__rosidl_typesupport_fastrtps_c
+[ 86%] Built target kinova_msgs
+[ 86%] [34m[1mGenerating Python code for ROS interfaces[0m
+[ 86%] Built target kinova_msgs__py
+[ 88%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_kinova_pose_s.c.o[0m
+[ 88%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_joint_torque_s.c.o[0m
+[ 88%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_finger_position_s.c.o[0m
+[ 88%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_joint_angles_s.c.o[0m
+[ 88%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_joint_velocity_s.c.o[0m
+[ 88%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_cartesian_force_s.c.o[0m
+[ 88%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_pose_velocity_with_fingers_s.c.o[0m
+[ 90%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_pose_velocity_s.c.o[0m
+[ 91%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_home_arm_s.c.o[0m
+[ 89%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_clear_trajectories_s.c.o[0m
+[ 91%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_add_pose_to_cartesian_trajectory_s.c.o[0m
+[ 91%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/msg/_pose_velocity_with_finger_velocity_s.c.o[0m
+[ 91%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_run_com_parameters_estimation_s.c.o[0m
+[ 92%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_set_end_effector_offset_s.c.o[0m
+[ 92%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_set_force_control_params_s.c.o[0m
+[ 92%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_set_torque_control_mode_s.c.o[0m
+[ 93%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_set_null_space_mode_state_s.c.o[0m
+[ 94%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_set_torque_control_parameters_s.c.o[0m
+[ 94%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_stop_s.c.o[0m
+[ 94%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_start_s.c.o[0m
+[ 95%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/action/_arm_joint_angles_s.c.o[0m
+[ 95%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/srv/_zero_torques_s.c.o[0m
+[ 95%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/action/_arm_pose_s.c.o[0m
+[ 96%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/action/_arm_kinova_pose_s.c.o[0m
+[ 97%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_generator_py.dir/rosidl_generator_py/kinova_msgs/action/_set_fingers_position_s.c.o[0m
+[ 97%] [32m[1mLinking C shared library rosidl_generator_py/kinova_msgs/libkinova_msgs__rosidl_generator_py.so[0m
+[ 97%] Built target kinova_msgs__rosidl_generator_py
+[ 99%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[ 99%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[100%] [32mBuilding C object CMakeFiles/kinova_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_c.c.o[0m
+[100%] [32m[1mLinking C shared library rosidl_generator_py/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[100%] [32m[1mLinking C shared library rosidl_generator_py/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[100%] [32m[1mLinking C shared library rosidl_generator_py/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[100%] Built target kinova_msgs__rosidl_typesupport_introspection_c__pyext
+[100%] Built target kinova_msgs__rosidl_typesupport_fastrtps_c__pyext
+[100%] Built target kinova_msgs__rosidl_typesupport_c__pyext
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/ament_index/resource_index/rosidl_interfaces/kinova_msgs
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/arm_joint_angles.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/arm_kinova_pose.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/arm_pose.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/set_fingers_position.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/cartesian_force.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/finger_position.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/joint_angles.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/joint_torque.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/joint_velocity.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/kinova_pose.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/pose_velocity.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/pose_velocity_with_finger_velocity.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/pose_velocity_with_fingers.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/rosidl_generator_c__visibility_control.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/add_pose_to_cartesian_trajectory.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/clear_trajectories.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__functions.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__struct.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__type_support.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/home_arm.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/run_com_parameters_estimation.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_end_effector_offset.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_force_control_params.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_null_space_mode_state.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_torque_control_mode.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_torque_control_parameters.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/start.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/stop.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/zero_torques.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/environment/library_path.sh
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/environment/library_path.dsv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__rosidl_typesupport_fastrtps_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__rosidl_typesupport_introspection_c.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/arm_joint_angles.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/arm_kinova_pose.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/arm_pose.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/set_fingers_position.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/cartesian_force.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/finger_position.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/joint_angles.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/joint_torque.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/joint_velocity.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/kinova_pose.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/pose_velocity.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/pose_velocity_with_finger_velocity.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/pose_velocity_with_fingers.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/add_pose_to_cartesian_trajectory.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/clear_trajectories.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__builder.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__struct.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__traits.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__type_support.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/home_arm.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/run_com_parameters_estimation.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_end_effector_offset.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_force_control_params.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_null_space_mode_state.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_torque_control_mode.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/set_torque_control_parameters.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/start.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/stop.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/zero_torques.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__rosidl_typesupport_fastrtps_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_joint_angles__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_kinova_pose__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/arm_pose__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/action/detail/set_fingers_position__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/cartesian_force__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/finger_position__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_angles__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_torque__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/joint_velocity__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/kinova_pose__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_finger_velocity__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/msg/detail/pose_velocity_with_fingers__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/clear_trajectories__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/home_arm__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/run_com_parameters_estimation__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_end_effector_offset__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_force_control_params__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_null_space_mode_state__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_mode__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/set_torque_control_parameters__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/start__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/stop__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/include/kinova_msgs/kinova_msgs/srv/detail/zero_torques__rosidl_typesupport_introspection_cpp.hpp
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/environment/pythonpath.sh
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/environment/pythonpath.dsv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs-0.0.0-py3.10.egg-info/PKG-INFO
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs-0.0.0-py3.10.egg-info/SOURCES.txt
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs-0.0.0-py3.10.egg-info/dependency_links.txt
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs-0.0.0-py3.10.egg-info/top_level.txt
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/__init__.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_c.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_introspection_c.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/__init__.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_arm_joint_angles.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_arm_joint_angles_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_arm_kinova_pose.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_arm_kinova_pose_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_arm_pose.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_arm_pose_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_set_fingers_position.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_set_fingers_position_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/libkinova_msgs__rosidl_generator_py.so
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/__init__.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_cartesian_force.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_cartesian_force_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_finger_position.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_finger_position_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_joint_angles.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_joint_angles_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_joint_torque.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_joint_torque_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_joint_velocity.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_joint_velocity_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_kinova_pose.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_kinova_pose_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_pose_velocity.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_pose_velocity_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_pose_velocity_with_finger_velocity.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_pose_velocity_with_finger_velocity_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_pose_velocity_with_fingers.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_pose_velocity_with_fingers_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/__init__.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_add_pose_to_cartesian_trajectory.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_add_pose_to_cartesian_trajectory_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_clear_trajectories.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_clear_trajectories_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_home_arm.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_home_arm_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_run_com_parameters_estimation.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_run_com_parameters_estimation_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_end_effector_offset.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_end_effector_offset_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_force_control_params.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_force_control_params_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_null_space_mode_state.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_null_space_mode_state_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_torque_control_mode.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_torque_control_mode_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_torque_control_parameters.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_torque_control_parameters_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_start.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_start_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_stop.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_stop_s.c
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_zero_torques.py
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_zero_torques_s.c
+-- Up-to-date symlink: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+-- Up-to-date symlink: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+-- Up-to-date symlink: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/kinova_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/CartesianForce.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/FingerPosition.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/JointAngles.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/JointTorque.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/JointVelocity.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/KinovaPose.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/PoseVelocity.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/PoseVelocityWithFingers.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/PoseVelocityWithFingerVelocity.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/AddPoseToCartesianTrajectory.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/ClearTrajectories.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/HomeArm.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/RunCOMParametersEstimation.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetEndEffectorOffset.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetForceControlParams.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetNullSpaceModeState.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetTorqueControlMode.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetTorqueControlParameters.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/Start.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/Stop.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/ZeroTorques.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/action/ArmJointAngles.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/action/ArmKinovaPose.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/action/ArmPose.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/action/SetFingersPosition.idl
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/CartesianForce.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/FingerPosition.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/JointAngles.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/JointTorque.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/JointVelocity.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/KinovaPose.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/PoseVelocity.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/PoseVelocityWithFingers.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/msg/PoseVelocityWithFingerVelocity.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/AddPoseToCartesianTrajectory.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/AddPoseToCartesianTrajectory_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/AddPoseToCartesianTrajectory_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/ClearTrajectories.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/ClearTrajectories_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/ClearTrajectories_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/HomeArm.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/HomeArm_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/HomeArm_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/RunCOMParametersEstimation.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/RunCOMParametersEstimation_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/RunCOMParametersEstimation_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetEndEffectorOffset.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetEndEffectorOffset_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetEndEffectorOffset_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetForceControlParams.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetForceControlParams_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetForceControlParams_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetNullSpaceModeState.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetNullSpaceModeState_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetNullSpaceModeState_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetTorqueControlMode.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetTorqueControlMode_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetTorqueControlMode_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetTorqueControlParameters.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetTorqueControlParameters_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/SetTorqueControlParameters_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/Start.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/Start_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/Start_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/Stop.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/Stop_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/Stop_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/ZeroTorques.srv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/ZeroTorques_Request.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/srv/ZeroTorques_Response.msg
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/action/ArmJointAngles.action
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/action/ArmKinovaPose.action
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/action/ArmPose.action
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/action/SetFingersPosition.action
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/ament_index/resource_index/package_run_dependencies/kinova_msgs
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/ament_index/resource_index/parent_prefix_path/kinova_msgs
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/environment/ament_prefix_path.sh
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/environment/ament_prefix_path.dsv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/environment/path.sh
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/environment/path.dsv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/local_setup.bash
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/local_setup.sh
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/local_setup.zsh
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/local_setup.dsv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/package.dsv
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/ament_index/resource_index/packages/kinova_msgs
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/rosidl_cmake-extras.cmake
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/ament_cmake_export_targets-extras.cmake
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgsConfig.cmake
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgsConfig-version.cmake
+-- Symlinking: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/package.xml
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_generator_c.so
+-- Set runtime path of "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_generator_c.so" to ""
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_fastrtps_c.so
+-- Set runtime path of "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_fastrtps_c.so" to ""
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_introspection_c.so
+-- Set runtime path of "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_introspection_c.so" to ""
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_c.so
+-- Set runtime path of "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_c.so" to ""
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so
+-- Set runtime path of "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_introspection_cpp.so
+-- Set runtime path of "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_introspection_cpp.so" to ""
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_cpp.so
+-- Set runtime path of "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_typesupport_cpp.so" to ""
+Listing '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/__init__.py'...
+Listing '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/__init__.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_arm_joint_angles.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_arm_kinova_pose.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_arm_pose.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/action/_set_fingers_position.py'...
+Listing '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/__init__.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_cartesian_force.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_finger_position.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_joint_angles.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_joint_torque.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_joint_velocity.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_kinova_pose.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_pose_velocity.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_pose_velocity_with_finger_velocity.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/msg/_pose_velocity_with_fingers.py'...
+Listing '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/__init__.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_add_pose_to_cartesian_trajectory.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_clear_trajectories.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_home_arm.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_run_com_parameters_estimation.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_end_effector_offset.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_force_control_params.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_null_space_mode_state.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_torque_control_mode.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_set_torque_control_parameters.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_start.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_stop.py'...
+Compiling '/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/local/lib/python3.10/dist-packages/kinova_msgs/srv/_zero_torques.py'...
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_generator_py.so
+-- Set runtime path of "/home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/lib/libkinova_msgs__rosidl_generator_py.so" to ""
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cExport-noconfig.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cExport-noconfig.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_cppExport.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/kinova_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport.cmake
+-- Installing: /home/agx/Desktop/movo_ws/kinova_arms_ws/install/kinova_msgs/share/kinova_msgs/cmake/export_kinova_msgs__rosidl_generator_pyExport-noconfig.cmake

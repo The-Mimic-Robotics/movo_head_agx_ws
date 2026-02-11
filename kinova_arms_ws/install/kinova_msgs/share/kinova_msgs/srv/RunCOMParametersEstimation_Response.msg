@@ -1,2 +1,1 @@
-
-string result
+/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_cmake/srv/RunCOMParametersEstimation_Response.msg
