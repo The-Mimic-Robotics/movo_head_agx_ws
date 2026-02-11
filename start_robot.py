@@ -18,7 +18,7 @@ BASE_HOST = "192.168.131.100"
 BASE_USER = "movo_base"
 BASE_PASS = "movo420"
 
-DELAY = 2
+DELAY = 3
 
 
 def write_script(content):
@@ -71,12 +71,12 @@ def main():
     )
 
     # Terminal 3: Base NUC - base bringup (placeholder)
-    # TODO: replace echo with: ros2 launch <package> base_bringup.launch.py
+    
     bringup = write_script(
         f"sshpass -p '{BASE_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
         f" {BASE_USER}@{BASE_HOST}"
-        f""" 'echo "[BRINGUP] placeholder - edit start_robot.py when ready"'"""
+        f""" 'bash -ic "sleep 5 && ros2 launch movobase_activation movobase_activation.launch.py "'"""
         f"\necho '[BRINGUP] Process stopped. Reconnecting to SSH...'"
         f"\nexec sshpass -p '{BASE_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
