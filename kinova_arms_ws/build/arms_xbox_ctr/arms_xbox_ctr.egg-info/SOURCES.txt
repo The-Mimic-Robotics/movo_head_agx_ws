@@ -3,6 +3,7 @@ setup.cfg
 setup.py
 arms_xbox_ctr/__init__.py
 arms_xbox_ctr/axe4.py
+arms_xbox_ctr/axe4_bridge.py
 arms_xbox_ctr/xbox_reader.py
 arms_xbox_ctr/xbox_reader_old.py
 arms_xbox_ctr.egg-info/PKG-INFO

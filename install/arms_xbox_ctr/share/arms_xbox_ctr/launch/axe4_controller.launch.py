@@ -44,7 +44,7 @@ def generate_launch_description():
     )
 
     # Xbox reader node
-    xbox_reader_node = Node(
+    axe4_reader_node = Node(
         package='arms_xbox_ctr',  # Your new package name
         executable='axe4',  # Will be defined in setup.py
         name='axe4',
@@ -55,5 +55,5 @@ def generate_launch_description():
         device_arg,
         deadzone_arg,
         joy_node,
-        xbox_reader_node
+        axe4_reader_node
     ])

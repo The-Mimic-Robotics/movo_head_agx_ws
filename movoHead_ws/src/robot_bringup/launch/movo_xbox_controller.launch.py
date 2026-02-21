@@ -27,7 +27,11 @@ def generate_launch_description():
         parameters=[{
             'device_name': LaunchConfiguration('device'),
             'deadzone': LaunchConfiguration('deadzone'),
+            'autorepeat_rate': 0.0,  # Don't spam when no device
         }],
+        # Respawn if joy_linux_node crashes (e.g., device unplugged)
+        respawn=True,
+        respawn_delay=2.0,
     )
 
     controller_node = Node(
