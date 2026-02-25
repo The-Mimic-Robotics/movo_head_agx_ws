@@ -14,5 +14,6 @@ arms_xbox_ctr.egg-info/requires.txt
 arms_xbox_ctr.egg-info/top_level.txt
 arms_xbox_ctr.egg-info/zip-safe
 launch/axe4_controller.launch.py
+launch/axe4_position_controller.launch.py
 launch/xbox_controller.launch.py
 resource/arms_xbox_ctr

@@ -45,6 +45,16 @@ class Axe4BridgeController(Node):
         self.declare_parameter("auto_arm_udp", True)
         self.declare_parameter("auto_start_arm", True)
         self.declare_parameter("require_command_path_ready", True)
+        self.declare_parameter("pose_safety_enable", True)
+        self.declare_parameter("pose_x_min", 0.20)
+        self.declare_parameter("pose_x_max", 0.40)
+        self.declare_parameter("pose_y_min", -0.15)
+        self.declare_parameter("pose_y_max", 0.15)
+        self.declare_parameter("pose_z_min", 0.20)
+        self.declare_parameter("pose_z_max", 0.50)
+        self.declare_parameter("pose_require_udp_fresh", True)
+        self.declare_parameter("pose_udp_timeout_sec", 0.5)
+        self.declare_parameter("pose_hold_current_orientation", True)
 
         self.arm_namespace = self.get_parameter("arm_namespace").value
         self.input_mode = self.get_parameter("input_mode").value
@@ -70,6 +80,18 @@ class Axe4BridgeController(Node):
         self.auto_arm_udp = bool(self.get_parameter("auto_arm_udp").value)
         self.auto_start_arm = bool(self.get_parameter("auto_start_arm").value)
         self.require_command_path_ready = bool(self.get_parameter("require_command_path_ready").value)
+        self.pose_safety_enable = bool(self.get_parameter("pose_safety_enable").value)
+        self.pose_x_min = float(self.get_parameter("pose_x_min").value)
+        self.pose_x_max = float(self.get_parameter("pose_x_max").value)
+        self.pose_y_min = float(self.get_parameter("pose_y_min").value)
+        self.pose_y_max = float(self.get_parameter("pose_y_max").value)
+        self.pose_z_min = float(self.get_parameter("pose_z_min").value)
+        self.pose_z_max = float(self.get_parameter("pose_z_max").value)
+        self.pose_require_udp_fresh = bool(self.get_parameter("pose_require_udp_fresh").value)
+        self.pose_udp_timeout_sec = float(self.get_parameter("pose_udp_timeout_sec").value)
+        self.pose_hold_current_orientation = bool(
+            self.get_parameter("pose_hold_current_orientation").value
+        )
 
         qos_profile = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
@@ -93,6 +115,12 @@ class Axe4BridgeController(Node):
         )
 
         self.create_subscription(Joy, "/joy", self.joy_callback, qos_profile)
+        self.create_subscription(
+            PoseStamped,
+            f"/{arm}/{arm}_driver/out/tool_pose",
+            self.tool_pose_callback,
+            qos_profile,
+        )
         self.create_timer(0.01, self.publish_control)
 
         self.prev_buttons = [0] * 15
@@ -109,12 +137,15 @@ class Axe4BridgeController(Node):
         self._last_debug_log_t = 0.0
         self._last_gate_log_t = 0.0
         self._last_gate_state = None
+        self._last_udp_pose_time = 0.0
         self._stop_event = threading.Event()
         self._udp_sock = None
 
         self.vel_cmd = [0.0] * 6  # x, y, z, ax, ay, az
         self.udp_offset = [0.0, 0.0, 0.0]
         self.latest_udp_pose = [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]
+        self.latest_tool_quat = [1.0, 0.0, 0.0, 0.0]
+        self.have_tool_pose = False
         self.state_lock = threading.Lock()
 
         self.udp_thread = threading.Thread(target=self.udp_loop, daemon=True)
@@ -276,6 +307,7 @@ class Axe4BridgeController(Node):
 
                 with self.state_lock:
                     self.latest_udp_pose = pose
+                    self._last_udp_pose_time = time.time()
 
                 self.publish_udp_pose(pose)
 
@@ -331,6 +363,16 @@ class Axe4BridgeController(Node):
         msg.pose.orientation.y = pose[5]
         msg.pose.orientation.z = pose[6]
         self.udp_pose_pub.publish(msg)
+
+    def tool_pose_callback(self, msg: PoseStamped):
+        with self.state_lock:
+            self.latest_tool_quat = [
+                msg.pose.orientation.w,
+                msg.pose.orientation.x,
+                msg.pose.orientation.y,
+                msg.pose.orientation.z,
+            ]
+            self.have_tool_pose = True
 
     def publish_control(self):
         if self.require_joy_keepalive and (time.time() - self.last_joy_msg_time) > self.joy_timeout_sec:
@@ -389,9 +431,18 @@ class Axe4BridgeController(Node):
 
         if not self.pose_action_client.server_is_ready():
             return
+        if self.pose_require_udp_fresh and self.input_mode in ("udp", "hybrid"):
+            if (time.time() - self._last_udp_pose_time) > self.pose_udp_timeout_sec:
+                return
+        command_path_ready, _ = self._command_path_ready()
+        if self.require_command_path_ready and not command_path_ready:
+            return
 
         with self.state_lock:
             pose = self.latest_udp_pose[:]
+            tool_quat = self.latest_tool_quat[:]
+            have_tool_pose = self.have_tool_pose
+        pose = self._apply_pose_safety(pose)
 
         goal = ArmPose.Goal()
         goal.pose.header.stamp = self.get_clock().now().to_msg()
@@ -399,11 +450,28 @@ class Axe4BridgeController(Node):
         goal.pose.pose.position.x = pose[0]
         goal.pose.pose.position.y = pose[1]
         goal.pose.pose.position.z = pose[2]
-        goal.pose.pose.orientation.w = pose[3]
-        goal.pose.pose.orientation.x = pose[4]
-        goal.pose.pose.orientation.y = pose[5]
-        goal.pose.pose.orientation.z = pose[6]
+        if self.pose_hold_current_orientation and have_tool_pose:
+            goal.pose.pose.orientation.w = tool_quat[0]
+            goal.pose.pose.orientation.x = tool_quat[1]
+            goal.pose.pose.orientation.y = tool_quat[2]
+            goal.pose.pose.orientation.z = tool_quat[3]
+        else:
+            goal.pose.pose.orientation.w = pose[3]
+            goal.pose.pose.orientation.x = pose[4]
+            goal.pose.pose.orientation.y = pose[5]
+            goal.pose.pose.orientation.z = pose[6]
+
         self.pose_action_client.send_goal_async(goal)
+
+    def _apply_pose_safety(self, pose):
+        p = pose[:]
+        x, y, z = p[0], p[1], p[2]
+
+        if self.pose_safety_enable:
+            p[0] = max(self.pose_x_min, min(x, self.pose_x_max))
+            p[1] = max(self.pose_y_min, min(y, self.pose_y_max))
+            p[2] = max(self.pose_z_min, min(z, self.pose_z_max))
+        return p
 
     def send_gripper(self, target):
         if not self.finger_client.server_is_ready():
@@ -428,6 +496,10 @@ class Axe4BridgeController(Node):
             return False, "kinova services not ready (start/stop/home)"
         if self.input_mode in ("udp", "hybrid") and not self._udp_bound:
             return False, "udp listener not bound"
+        if self.control_mode == "pose_action":
+            if not self.pose_action_client.server_is_ready():
+                return False, "pose action server not ready"
+            return True, "ok"
         sub_count = self.velocity_pub.get_subscription_count()
         if sub_count < 1:
             return False, "no subscriber on cartesian_velocity (bridge/driver path missing)"
