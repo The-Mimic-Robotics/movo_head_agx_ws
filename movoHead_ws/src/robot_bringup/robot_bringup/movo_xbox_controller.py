@@ -36,6 +36,8 @@ class MovoXboxController(Node):
         self.prev_buttons = [0] * 15
         self.last_gripper_cmd = None
         self.last_joy_msg_time = self.get_clock().now()
+        self._btn4_last_press = 0.0
+        self._btn4_double_tap_window = 0.5
 
         self.linear_x = 0.0
         self.linear_y = 0.0
@@ -62,9 +64,10 @@ class MovoXboxController(Node):
         self.base_vel_pub = self.create_publisher(Twist, "/cmd_vel", 100)
 
         self.home_clients = {
-            "left_arm": self.create_client(HomeArm, "/left_arm/left_arm_driver/in/home_arm"),
-            "right_arm": self.create_client(HomeArm, "/right_arm/right_arm_driver/in/home_arm"),
+            "left_arm": self.create_client(HomeArm, "/movo/home_left_arm"),
+            "right_arm": self.create_client(HomeArm, "/movo/home_right_arm"),
         }
+        self.home_both_client = self.create_client(HomeArm, "/movo/home_both_arms")
         self.stop_clients = {
             "left_arm": self.create_client(Stop, "/left_arm/left_arm_driver/in/stop"),
             "right_arm": self.create_client(Stop, "/right_arm/right_arm_driver/in/stop"),
@@ -146,6 +149,15 @@ class MovoXboxController(Node):
             if is_pressed(5):
                 self.call_service(self.home_clients, "Home")
 
+            if is_pressed(4):
+                now = time.monotonic()
+                if now - self._btn4_last_press < self._btn4_double_tap_window:
+                    self.get_logger().info("*** DOUBLE-TAP LB: Homing BOTH arms ***")
+                    self._call_home_both()
+                    self._btn4_last_press = 0.0
+                else:
+                    self._btn4_last_press = now
+
             current_gripper_cmd = None
             if len(msg.axes) > 7 and msg.axes[7] > 0.5:
                 current_gripper_cmd = "OPEN"
@@ -165,7 +177,7 @@ class MovoXboxController(Node):
 
     def call_service(self, client_dict, service_name):
         client = client_dict[self.mode]
-        if not client.service_is_ready():
+        if not client.wait_for_service(timeout_sec=0.8):
             self.get_logger().error(f"[FAIL] {service_name} service not ready!")
             return
         if service_name == "Home":
@@ -177,6 +189,13 @@ class MovoXboxController(Node):
 
         future = client.call_async(request)
         future.add_done_callback(lambda f: self.service_response_callback(f, service_name))
+
+    def _call_home_both(self):
+        if not self.home_both_client.wait_for_service(timeout_sec=0.8):
+            self.get_logger().error("[FAIL] home_both_arms service not ready!")
+            return
+        future = self.home_both_client.call_async(HomeArm.Request())
+        future.add_done_callback(lambda f: self.service_response_callback(f, "HomeBoth"))
 
     def service_response_callback(self, future, service_name):
         try:
