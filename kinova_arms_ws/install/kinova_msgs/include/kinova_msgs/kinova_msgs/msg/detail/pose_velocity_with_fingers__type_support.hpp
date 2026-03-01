@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_cpp/kinova_msgs/msg/detail/pose_velocity_with_fingers__type_support.hpp

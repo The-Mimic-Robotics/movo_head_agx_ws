@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_typesupport_fastrtps_cpp/kinova_msgs/srv/detail/set_torque_control_parameters__rosidl_typesupport_fastrtps_cpp.hpp

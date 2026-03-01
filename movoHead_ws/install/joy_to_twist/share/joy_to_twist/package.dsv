@@ -1,9 +1,0 @@
-source;share/joy_to_twist/hook/pythonpath.ps1
-source;share/joy_to_twist/hook/pythonpath.dsv
-source;share/joy_to_twist/hook/pythonpath.sh
-source;share/joy_to_twist/hook/ament_prefix_path.ps1
-source;share/joy_to_twist/hook/ament_prefix_path.dsv
-source;share/joy_to_twist/hook/ament_prefix_path.sh
-source;../../build/joy_to_twist/share/joy_to_twist/hook/pythonpath_develop.ps1
-source;../../build/joy_to_twist/share/joy_to_twist/hook/pythonpath_develop.dsv
-source;../../build/joy_to_twist/share/joy_to_twist/hook/pythonpath_develop.sh

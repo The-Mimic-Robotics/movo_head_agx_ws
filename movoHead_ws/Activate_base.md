@@ -8,6 +8,14 @@ ros2 launch movobase_activation movobase_activation.launch.py
 
 # on agx orin
 
+
+ros2 launch robot_bringup movo_xbox_controller.launch.py 
+
+
+
+or 
+
+
  ros2 launch movobase_ctr slam_frommovobase.launch.py 
  
  or  

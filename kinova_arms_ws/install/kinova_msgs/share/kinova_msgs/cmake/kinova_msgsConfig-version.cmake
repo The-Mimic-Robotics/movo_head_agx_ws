@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/ament_cmake_core/kinova_msgsConfig-version.cmake

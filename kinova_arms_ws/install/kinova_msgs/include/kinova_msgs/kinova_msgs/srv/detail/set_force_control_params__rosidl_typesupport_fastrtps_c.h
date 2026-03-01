@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_typesupport_fastrtps_c/kinova_msgs/srv/detail/set_force_control_params__rosidl_typesupport_fastrtps_c.h

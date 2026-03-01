@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/srv/_set_force_control_params.py

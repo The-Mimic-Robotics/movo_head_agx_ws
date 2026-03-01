@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_typesupport_introspection_c/kinova_msgs/srv/detail/run_com_parameters_estimation__rosidl_typesupport_introspection_c.h

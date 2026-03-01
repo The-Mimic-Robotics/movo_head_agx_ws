@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/movoHead_ws/build/movobase_ctr/launch/nav2_tryl.launch.py

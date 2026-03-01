@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_c/kinova_msgs/msg/detail/joint_angles__type_support.h

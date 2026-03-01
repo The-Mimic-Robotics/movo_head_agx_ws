@@ -1,6 +1,0 @@
-source;share/arms_xbox_ctr/hook/pythonpath.ps1
-source;share/arms_xbox_ctr/hook/pythonpath.dsv
-source;share/arms_xbox_ctr/hook/pythonpath.sh
-source;share/arms_xbox_ctr/hook/ament_prefix_path.ps1
-source;share/arms_xbox_ctr/hook/ament_prefix_path.dsv
-source;share/arms_xbox_ctr/hook/ament_prefix_path.sh

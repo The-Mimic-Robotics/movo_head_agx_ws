@@ -1,1 +1,0 @@
-ament_cmake_symlink_install_targets("TARGET_FILES" "/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/kinova_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" "TARGETS" "kinova_msgs__rosidl_typesupport_introspection_c__pyext" "DESTINATION" "local/lib/python3.10/dist-packages/kinova_msgs")

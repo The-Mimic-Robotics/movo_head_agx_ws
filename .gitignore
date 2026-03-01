@@ -1,10 +1,15 @@
+# Build artifacts (colcon / ament)
 build/
 install/
 log/
-../kinova_arms_ws/log/
-../kinova_arms_ws/build/
-../kinova_arms_ws/install/
+**/build/
+**/install/
+**/log/
 
-../movoHead_ws/build/
-../movoHead_ws/install/
-../movoHead_ws/log/
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Egg info
+*.egg-info/

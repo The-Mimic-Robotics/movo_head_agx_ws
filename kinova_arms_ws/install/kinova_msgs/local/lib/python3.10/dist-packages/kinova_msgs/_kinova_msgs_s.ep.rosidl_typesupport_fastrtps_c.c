@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_py/kinova_msgs/_kinova_msgs_s.ep.rosidl_typesupport_fastrtps_c.c

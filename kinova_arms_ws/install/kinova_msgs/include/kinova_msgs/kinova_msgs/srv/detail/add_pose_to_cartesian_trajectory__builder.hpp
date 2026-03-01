@@ -1,1 +1,0 @@
-/home/agx/Desktop/movo_ws/kinova_arms_ws/build/kinova_msgs/rosidl_generator_cpp/kinova_msgs/srv/detail/add_pose_to_cartesian_trajectory__builder.hpp
