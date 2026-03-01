@@ -1,0 +1,26 @@
+# Custom home joint angles (degrees) for MOVO arms.
+# After Kinova native home completes, the ArmJointAngles action moves the arm
+# to these angles. The driver's sendAdvanceTrajectory() with speed-limited
+# angular control handles smooth trajectory planning on the robot DSP.
+# Runtime code remaps each target to the nearest equivalent revolution
+# relative to current joint state (same pose, safer branch selection).
+
+right_arm:
+  joint1: 261.68
+  joint2: 75.19
+  joint3: 214.16
+  joint4: 310.91
+  joint5: 136.22
+  joint6: 205.17
+  joint7: 239.77
+
+# Assumed mirror of right arm (360 - right_angle).
+# VERIFY these values on the actual robot before first use.
+left_arm:
+  joint1: 98.32
+  joint2: 284.81
+  joint3: 145.84
+  joint4: 49.09
+  joint5: 223.78
+  joint6: 154.83
+  joint7: 120.23

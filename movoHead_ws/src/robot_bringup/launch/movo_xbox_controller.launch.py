@@ -41,9 +41,17 @@ def generate_launch_description():
         output='screen',
     )
 
+    home_service_node = Node(
+        package='robot_bringup',
+        executable='movo_custom_home_service',
+        name='movo_custom_home_service',
+        output='screen',
+    )
+
     return LaunchDescription([
         device_arg,
         deadzone_arg,
         joy_node,
         controller_node,
+        home_service_node,
     ])
