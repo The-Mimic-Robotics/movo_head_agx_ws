@@ -38,6 +38,7 @@ class MovoXboxController(Node):
         self.last_joy_msg_time = self.get_clock().now()
         self._btn4_last_press = 0.0
         self._btn4_double_tap_window = 0.5
+        self._homing = False
 
         self.linear_x = 0.0
         self.linear_y = 0.0
@@ -147,12 +148,14 @@ class MovoXboxController(Node):
             if is_pressed(1):
                 self.call_service(self.stop_clients, "Stop")
             if is_pressed(5):
+                self._start_homing()
                 self.call_service(self.home_clients, "Home")
 
             if is_pressed(4):
                 now = time.monotonic()
                 if now - self._btn4_last_press < self._btn4_double_tap_window:
                     self.get_logger().info("*** DOUBLE-TAP LB: Homing BOTH arms ***")
+                    self._start_homing()
                     self._call_home_both()
                     self._btn4_last_press = 0.0
                 else:
@@ -179,6 +182,7 @@ class MovoXboxController(Node):
         client = client_dict[self.mode]
         if not client.wait_for_service(timeout_sec=0.8):
             self.get_logger().error(f"[FAIL] {service_name} service not ready!")
+            self._homing = False
             return
         if service_name == "Home":
             request = HomeArm.Request()
@@ -190,14 +194,25 @@ class MovoXboxController(Node):
         future = client.call_async(request)
         future.add_done_callback(lambda f: self.service_response_callback(f, service_name))
 
+    def _start_homing(self):
+        self._homing = True
+        self.linear_x = 0.0
+        self.linear_y = 0.0
+        self.linear_z = 0.0
+        self.angular_x = 0.0
+        self.angular_y = 0.0
+        self.angular_z = 0.0
+
     def _call_home_both(self):
         if not self.home_both_client.wait_for_service(timeout_sec=0.8):
             self.get_logger().error("[FAIL] home_both_arms service not ready!")
+            self._homing = False
             return
         future = self.home_both_client.call_async(HomeArm.Request())
         future.add_done_callback(lambda f: self.service_response_callback(f, "HomeBoth"))
 
     def service_response_callback(self, future, service_name):
+        self._homing = False
         try:
             response = future.result()
             self.get_logger().info(f"[SUCCESS] {service_name} responded: {response}")
@@ -228,7 +243,7 @@ class MovoXboxController(Node):
             msg.linear.y = self.linear_y
             msg.angular.z = self.angular_z
             self.base_vel_pub.publish(msg)
-        else:
+        elif not self._homing:
             velocity_msg = PoseVelocity()
             velocity_msg.twist_linear_x = self.linear_x
             velocity_msg.twist_linear_y = self.linear_y

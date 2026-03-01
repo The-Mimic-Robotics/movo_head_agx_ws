@@ -6,21 +6,20 @@
 # relative to current joint state (same pose, safer branch selection).
 
 right_arm:
-  joint1: 261.68
-  joint2: 75.19
-  joint3: 214.16
-  joint4: 310.91
-  joint5: 136.22
-  joint6: 205.17
-  joint7: 239.77
+  joint1: 266.39
+  joint2: 82.92
+  joint3: 190.84
+  joint4: 310.59
+  joint5: 190.75
+  joint6: 180.69
+  joint7: 180.00
 
-# Assumed mirror of right arm (360 - right_angle).
-# VERIFY these values on the actual robot before first use.
+# MIRRORED 360 - right_arm
 left_arm:
-  joint1: 98.32
-  joint2: 284.81
-  joint3: 145.84
-  joint4: 49.09
-  joint5: 223.78
-  joint6: 154.83
-  joint7: 120.23
+  joint1: 94.61
+  joint2: 277.08
+  joint3: 169.16
+  joint4: 49.41
+  joint5: 169.25
+  joint6: 179.31
+  joint7: 180.00
