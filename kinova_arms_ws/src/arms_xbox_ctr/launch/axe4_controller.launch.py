@@ -86,6 +86,18 @@ def generate_launch_description():
         description='Block non-zero motion unless services, bridge path, and UDP are ready'
     )
 
+    lock_joint1_arg = DeclareLaunchArgument(
+        'lock_joint1',
+        default_value='true',
+        description='Use Jacobian-based joint velocity control with joint 1 locked at zero'
+    )
+
+    max_joint_vel_deg_arg = DeclareLaunchArgument(
+        'max_joint_vel_deg',
+        default_value='45.0',
+        description='Per-joint velocity safety clamp (deg/s). Kinova spec: ~40 big, ~53 wrist'
+    )
+
     # Joy node
     # joy_node = Node(
     #     package='joy',
@@ -128,7 +140,16 @@ def generate_launch_description():
             'auto_arm_udp': LaunchConfiguration('auto_arm_udp'),
             'auto_start_arm': LaunchConfiguration('auto_start_arm'),
             'require_command_path_ready': LaunchConfiguration('require_command_path_ready'),
+            'lock_joint1': LaunchConfiguration('lock_joint1'),
+            'max_joint_vel_deg': LaunchConfiguration('max_joint_vel_deg'),
         }]
+    )
+
+    home_service_node = Node(
+        package='robot_bringup',
+        executable='movo_custom_home_service',
+        name='movo_custom_home_service',
+        output='screen',
     )
 
     return LaunchDescription([
@@ -145,6 +166,9 @@ def generate_launch_description():
         auto_arm_udp_arg,
         auto_start_arm_arg,
         require_command_path_ready_arg,
+        lock_joint1_arg,
+        max_joint_vel_deg_arg,
         joy_node,
-        axe4_reader_node
+        axe4_reader_node,
+        home_service_node,
     ])

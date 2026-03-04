@@ -33,6 +33,7 @@ class XboxAndUDPController(Node):
         
         # --- 2. STATE FLAGS ---
         self.teleop_active = False  # SAFETY: Starts OFF
+        self.homing = False         # True while arm is running a home trajectory
         self.udp_offset = None      # Calibration point
         self.prev_buttons = [0] * 15
         self.last_gripper_cmd = None
@@ -59,7 +60,7 @@ class XboxAndUDPController(Node):
         )
 
         # Services
-        self.home_client = self.create_client(HomeArm, f"/{self.arm_namespace}/{self.arm_namespace}_driver/in/home_arm")
+        self.home_client = self.create_client(HomeArm, f"/movo/home_{self.arm_namespace}")
         self.stop_client = self.create_client(Stop, f"/{self.arm_namespace}/{self.arm_namespace}_driver/in/stop")
         self.start_client = self.create_client(Start, f"/{self.arm_namespace}/{self.arm_namespace}_driver/in/start")
         
@@ -183,8 +184,9 @@ class XboxAndUDPController(Node):
         # RB Button (5) -> HOME (Disable Teleop)
         if is_pressed(5):
             self.teleop_active = False
+            self.homing = True
             self.vel_cmd = [0.0] * 6
-            self.call_service(self.home_client, "Home")
+            self.call_home_service()
             self.get_logger().info("Homing... Teleop Disabled.")
 
         # A Button (0) -> START (Does not enable teleop, just starts robot)
@@ -270,21 +272,43 @@ class XboxAndUDPController(Node):
             elif name == "Start": req = Start.Request()
             client.call_async(req)
 
+    def call_home_service(self):
+        if not self.home_client.service_is_ready():
+            self.get_logger().error("Home service not ready!")
+            self.homing = False
+            return
+        future = self.home_client.call_async(HomeArm.Request())
+        future.add_done_callback(self.on_home_done)
+
+    def on_home_done(self, future):
+        self.homing = False
+        try:
+            result = future.result()
+            self.get_logger().info(f"Home result: {result.homearm_result}")
+        except Exception as e:
+            self.get_logger().error(f"Home call failed: {e}")
+        # Re-start the arm so it accepts velocity commands again
+        self.call_service(self.start_client, "Start")
+        self.get_logger().info("Arm re-started after homing.")
+
     def publish_velocity(self):
-        # 1. Watchdog check
+        # Don't send ANY velocity commands while the arm is running a home trajectory.
+        # Velocity commands conflict with the joint-angles action and cause it to abort.
+        if self.homing:
+            return
+
+        # Watchdog check
         if (time.time() - self.last_joy_msg_time) > 1.0:
-            self.teleop_active = False # Auto disarm on signal loss
-        
+            self.teleop_active = False
+
         msg = PoseVelocity()
-        
-        # Only publish non-zero velocity if Teleop is ACTIVE
+
         if self.teleop_active:
             msg.twist_linear_x = float(self.vel_cmd[0])
             msg.twist_linear_y = float(self.vel_cmd[1])
             msg.twist_linear_z = float(self.vel_cmd[2])
             msg.twist_angular_z = float(self.vel_cmd[5])
         else:
-            # Publish Zeros to keep robot holding position
             msg.twist_linear_x = 0.0
             msg.twist_linear_y = 0.0
             msg.twist_linear_z = 0.0

@@ -1,7 +1,27 @@
 #!/usr/bin/env python3
 """
-Unified Xbox controller for MOVO robot.
-X button cycles control between: left_arm -> right_arm -> base -> left_arm ...
+Xbox controller for MOVO robot (two Jaco arms + mobile base).
+
+X cycles control target: left_arm → right_arm → base → ...
+
+ARM MODE — full 6DOF Cartesian velocity:
+  Left stick vertical    X  (forward / back)
+  Left stick horizontal  Y  (left / right)
+  Right stick vertical   Z  (up / down)
+  Right stick horizontal Yaw
+  D-pad up / down        Pitch
+  D-pad left / right     Roll
+  RT (right trigger)     Close gripper
+  LT (left trigger)      Open gripper
+  A                      Start arm
+  B                      Emergency stop
+  RB                     Home current arm
+  LB double-tap          Home both arms
+
+BASE MODE — hold RB as deadman:
+  Left stick vertical    Drive forward / back
+  Left stick horizontal  Strafe left / right
+  Right stick horizontal Rotate
 """
 
 import time
@@ -17,7 +37,6 @@ from kinova_msgs.msg import PoseVelocity
 from kinova_msgs.srv import HomeArm, Start, Stop
 from sensor_msgs.msg import Joy
 
-
 MODES = ["left_arm", "right_arm", "base"]
 
 
@@ -32,38 +51,35 @@ class MovoXboxController(Node):
         self.MAX_ANG_VEL = 0.20
         self.BASE_MAX_LIN = 1.0
         self.BASE_MAX_ANG = 1.0
+        self.FINGERS_CLOSED = 5000.0
 
         self.prev_buttons = [0] * 15
-        self.last_gripper_cmd = None
-        self.last_joy_msg_time = self.get_clock().now()
+        self.gripper_open = True
+        self.last_joy_time = self.get_clock().now()
         self._btn4_last_press = 0.0
-        self._btn4_double_tap_window = 0.5
         self._homing = False
 
-        self.linear_x = 0.0
-        self.linear_y = 0.0
-        self.linear_z = 0.0
-        self.angular_x = 0.0
-        self.angular_y = 0.0
-        self.angular_z = 0.0
+        # 6DOF velocity: [x, y, z, roll, pitch, yaw]
+        self.vel = [0.0] * 6
 
-        qos_profile = QoSProfile(
+        qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
             durability=DurabilityPolicy.VOLATILE,
             depth=1,
         )
 
-        self.velocity_pubs = {
+        # Arm velocity publishers
+        self.vel_pubs = {
             "left_arm": self.create_publisher(
-                PoseVelocity, "/left_arm/left_arm_driver/in/cartesian_velocity", qos_profile
+                PoseVelocity, "/left_arm/left_arm_driver/in/cartesian_velocity", qos
             ),
             "right_arm": self.create_publisher(
-                PoseVelocity, "/right_arm/right_arm_driver/in/cartesian_velocity", qos_profile
+                PoseVelocity, "/right_arm/right_arm_driver/in/cartesian_velocity", qos
             ),
         }
+        self.base_pub = self.create_publisher(Twist, "/cmd_vel", 100)
 
-        self.base_vel_pub = self.create_publisher(Twist, "/cmd_vel", 100)
-
+        # Arm services
         self.home_clients = {
             "left_arm": self.create_client(HomeArm, "/movo/home_left_arm"),
             "right_arm": self.create_client(HomeArm, "/movo/home_right_arm"),
@@ -78,6 +94,7 @@ class MovoXboxController(Node):
             "right_arm": self.create_client(Start, "/right_arm/right_arm_driver/in/start"),
         }
 
+        # Gripper action clients
         self.finger_clients = {
             "left_arm": ActionClient(
                 self, SetFingersPosition, "/left_arm/left_arm_driver/fingers_action/finger_positions"
@@ -86,179 +103,176 @@ class MovoXboxController(Node):
                 self, SetFingersPosition, "/right_arm/right_arm_driver/fingers_action/finger_positions"
             ),
         }
-        self.fingers_closed_pos = 5000
 
-        self.create_subscription(Joy, "/joy", self.joy_callback, qos_profile)
-        self.create_timer(1.0 / 100.0, self.publish_velocity)
+        self.create_subscription(Joy, "/joy", self.joy_callback, qos)
+        self.create_timer(0.01, self.publish_velocity)
 
         self._log_counter = 0
         self.get_logger().info("=== MoVo Xbox Controller STARTED ===")
 
+    # ── Joy input ──
+
     def joy_callback(self, msg: Joy):
-        self.last_joy_msg_time = self.get_clock().now()
+        self.last_joy_time = self.get_clock().now()
 
         if len(msg.buttons) > len(self.prev_buttons):
             self.prev_buttons.extend([0] * (len(msg.buttons) - len(self.prev_buttons)))
 
-        def get_axis(index, max_val):
-            val = msg.axes[index]
-            if abs(val) < 0.1:
-                return 0.0
-            return val * max_val
+        def axis(i, scale):
+            val = msg.axes[i] if i < len(msg.axes) else 0.0
+            return 0.0 if abs(val) < 0.1 else val * scale
 
-        def is_pressed(index):
-            if index >= len(msg.buttons):
-                return False
-            return msg.buttons[index] == 1 and self.prev_buttons[index] == 0
+        def dpad(i):
+            """D-pad axes are digital: -1, 0, or 1."""
+            return msg.axes[i] if i < len(msg.axes) else 0.0
 
-        if is_pressed(2):
+        def trigger_pressed(i):
+            """Trigger axes: 1.0 = released, -1.0 = fully pressed."""
+            return i < len(msg.axes) and msg.axes[i] < 0.0
+
+        def pressed(i):
+            return i < len(msg.buttons) and msg.buttons[i] == 1 and self.prev_buttons[i] == 0
+
+        # X (2) → cycle mode
+        if pressed(2):
             self.mode_index = (self.mode_index + 1) % len(MODES)
             self.mode = MODES[self.mode_index]
-            self.linear_x = 0.0
-            self.linear_y = 0.0
-            self.linear_z = 0.0
-            self.angular_x = 0.0
-            self.angular_y = 0.0
-            self.angular_z = 0.0
-            self.get_logger().info(f"*** SWITCHED MODE to: {self.mode} ***")
+            self.vel = [0.0] * 6
+            self.get_logger().info(f"*** MODE: {self.mode} ***")
 
         if self.mode == "base":
+            # RB held as deadman switch for base movement
             rb_held = len(msg.buttons) > 5 and msg.buttons[5] == 1
             if rb_held:
-                self.linear_x = get_axis(1, self.BASE_MAX_LIN)
-                self.linear_y = get_axis(0, self.BASE_MAX_LIN)
-                self.angular_z = get_axis(3, self.BASE_MAX_ANG)
+                self.vel[0] = axis(1, self.BASE_MAX_LIN)   # Left stick vert → drive
+                self.vel[1] = axis(0, self.BASE_MAX_LIN)   # Left stick horiz → strafe
+                self.vel[5] = axis(3, self.BASE_MAX_ANG)   # Right stick horiz → rotate
             else:
-                self.linear_x = 0.0
-                self.linear_y = 0.0
-                self.angular_z = 0.0
-            self.linear_z = 0.0
-            self.angular_x = 0.0
-            self.angular_y = 0.0
+                self.vel = [0.0] * 6
         else:
-            self.linear_x = get_axis(1, self.MAX_LIN_VEL)
-            self.linear_y = get_axis(0, self.MAX_LIN_VEL)
-            self.linear_z = get_axis(4, self.MAX_LIN_VEL)
-            self.angular_z = -get_axis(3, self.MAX_ANG_VEL)
-            self.angular_x = 0.0
-            self.angular_y = 0.0
-
-            if is_pressed(0):
-                self.call_service(self.start_clients, "Start")
-            if is_pressed(1):
-                self.call_service(self.stop_clients, "Stop")
-            if is_pressed(5):
-                self._start_homing()
-                self.call_service(self.home_clients, "Home")
-
-            if is_pressed(4):
+            # ── Arm buttons ──
+            if pressed(0):                                  # A → Start
+                self.call_arm_service(self.start_clients, Start.Request(), "Start")
+            if pressed(1):                                  # B → Emergency stop
+                self.call_arm_service(self.stop_clients, Stop.Request(), "Stop")
+            if pressed(5):                                  # RB → Home current arm
+                self.start_homing()
+                self.call_home()
+            if pressed(4):                                  # LB double-tap → Home both
                 now = time.monotonic()
-                if now - self._btn4_last_press < self._btn4_double_tap_window:
+                if now - self._btn4_last_press < 0.5:
                     self.get_logger().info("*** DOUBLE-TAP LB: Homing BOTH arms ***")
-                    self._start_homing()
-                    self._call_home_both()
+                    self.start_homing()
+                    self.call_home_both()
                     self._btn4_last_press = 0.0
                 else:
                     self._btn4_last_press = now
 
-            current_gripper_cmd = None
-            if len(msg.axes) > 7 and msg.axes[7] > 0.5:
-                current_gripper_cmd = "OPEN"
-            elif len(msg.axes) > 7 and msg.axes[7] < -0.5:
-                current_gripper_cmd = "CLOSE"
+            # ── Sticks → Translation + Yaw ──
+            self.vel[0] = axis(1, self.MAX_LIN_VEL)        # Left stick vert → X
+            self.vel[1] = axis(0, self.MAX_LIN_VEL)        # Left stick horiz → Y
+            self.vel[2] = axis(4, self.MAX_LIN_VEL)        # Right stick vert → Z
+            self.vel[5] = -axis(3, self.MAX_ANG_VEL)       # Right stick horiz → Yaw
 
-            if current_gripper_cmd and current_gripper_cmd != self.last_gripper_cmd:
-                if current_gripper_cmd == "OPEN":
-                    self.gripper_client([0, 0, 0])
-                else:
-                    self.gripper_client([self.fingers_closed_pos] * 3)
-                self.last_gripper_cmd = current_gripper_cmd
-            elif current_gripper_cmd is None:
-                self.last_gripper_cmd = None
+            # ── D-pad → Roll / Pitch ──
+            self.vel[3] = dpad(6) * self.MAX_ANG_VEL       # D-pad left/right → Roll
+            self.vel[4] = dpad(7) * self.MAX_ANG_VEL       # D-pad up/down → Pitch
+
+            # ── Triggers → Gripper (boolean: open / close) ──
+            if trigger_pressed(5) and self.gripper_open:    # RT → Close
+                self.send_gripper([self.FINGERS_CLOSED] * 3)
+                self.gripper_open = False
+                self.get_logger().info("Gripper CLOSED")
+            elif trigger_pressed(2) and not self.gripper_open:  # LT → Open
+                self.send_gripper([0.0, 0.0, 0.0])
+                self.gripper_open = True
+                self.get_logger().info("Gripper OPEN")
 
         self.prev_buttons = list(msg.buttons)
 
-    def call_service(self, client_dict, service_name):
-        client = client_dict[self.mode]
+    # ── Homing ──
+
+    def start_homing(self):
+        self._homing = True
+        self.vel = [0.0] * 6
+
+    def call_home(self):
+        client = self.home_clients[self.mode]
         if not client.wait_for_service(timeout_sec=0.8):
-            self.get_logger().error(f"[FAIL] {service_name} service not ready!")
+            self.get_logger().error("Home service not ready!")
             self._homing = False
             return
-        if service_name == "Home":
-            request = HomeArm.Request()
-        elif service_name == "Stop":
-            request = Stop.Request()
-        else:
-            request = Start.Request()
+        future = client.call_async(HomeArm.Request())
+        future.add_done_callback(self.on_service_done)
 
-        future = client.call_async(request)
-        future.add_done_callback(lambda f: self.service_response_callback(f, service_name))
-
-    def _start_homing(self):
-        self._homing = True
-        self.linear_x = 0.0
-        self.linear_y = 0.0
-        self.linear_z = 0.0
-        self.angular_x = 0.0
-        self.angular_y = 0.0
-        self.angular_z = 0.0
-
-    def _call_home_both(self):
+    def call_home_both(self):
         if not self.home_both_client.wait_for_service(timeout_sec=0.8):
-            self.get_logger().error("[FAIL] home_both_arms service not ready!")
+            self.get_logger().error("home_both_arms service not ready!")
             self._homing = False
             return
         future = self.home_both_client.call_async(HomeArm.Request())
-        future.add_done_callback(lambda f: self.service_response_callback(f, "HomeBoth"))
+        future.add_done_callback(self.on_service_done)
 
-    def service_response_callback(self, future, service_name):
+    def on_service_done(self, future):
         self._homing = False
         try:
-            response = future.result()
-            self.get_logger().info(f"[SUCCESS] {service_name} responded: {response}")
-        except Exception as exc:
-            self.get_logger().error(f"[CRITICAL] {service_name} call failed: {exc}")
+            resp = future.result()
+            self.get_logger().info(f"Home response: {resp}")
+        except Exception as e:
+            self.get_logger().error(f"Home call failed: {e}")
 
-    def gripper_client(self, target):
+    # ── Services ──
+
+    def call_arm_service(self, client_dict, request, name):
+        client = client_dict[self.mode]
+        if client.service_is_ready():
+            client.call_async(request)
+            self.get_logger().info(f"[{self.mode}] {name} called")
+        else:
+            self.get_logger().error(f"[{self.mode}] {name} service not ready!")
+
+    def send_gripper(self, target):
+        if self.mode not in self.finger_clients:
+            return
         client = self.finger_clients[self.mode]
         if not client.server_is_ready():
             return
-        goal_msg = SetFingersPosition.Goal()
-        goal_msg.fingers.finger1, goal_msg.fingers.finger2, goal_msg.fingers.finger3 = map(float, target)
-        client.send_goal_async(goal_msg)
+        goal = SetFingersPosition.Goal()
+        goal.fingers.finger1, goal.fingers.finger2, goal.fingers.finger3 = map(float, target)
+        client.send_goal_async(goal)
+
+    # ── Velocity publishing ──
 
     def publish_velocity(self):
-        time_diff = (self.get_clock().now() - self.last_joy_msg_time).nanoseconds / 1e9
-        if time_diff > 0.5:
-            self.linear_x = 0.0
-            self.linear_y = 0.0
-            self.linear_z = 0.0
-            self.angular_x = 0.0
-            self.angular_y = 0.0
-            self.angular_z = 0.0
+        # Watchdog: zero if joy drops out
+        dt = (self.get_clock().now() - self.last_joy_time).nanoseconds / 1e9
+        if dt > 0.5:
+            self.vel = [0.0] * 6
 
         if self.mode == "base":
             msg = Twist()
-            msg.linear.x = self.linear_x
-            msg.linear.y = self.linear_y
-            msg.angular.z = self.angular_z
-            self.base_vel_pub.publish(msg)
+            msg.linear.x = self.vel[0]
+            msg.linear.y = self.vel[1]
+            msg.angular.z = self.vel[5]
+            self.base_pub.publish(msg)
         elif not self._homing:
-            velocity_msg = PoseVelocity()
-            velocity_msg.twist_linear_x = self.linear_x
-            velocity_msg.twist_linear_y = self.linear_y
-            velocity_msg.twist_linear_z = self.linear_z
-            velocity_msg.twist_angular_x = self.angular_x
-            velocity_msg.twist_angular_y = self.angular_y
-            velocity_msg.twist_angular_z = self.angular_z
-            self.velocity_pubs[self.mode].publish(velocity_msg)
+            msg = PoseVelocity()
+            msg.twist_linear_x = self.vel[0]
+            msg.twist_linear_y = self.vel[1]
+            msg.twist_linear_z = self.vel[2]
+            msg.twist_angular_x = self.vel[3]   # Roll
+            msg.twist_angular_y = self.vel[4]   # Pitch
+            msg.twist_angular_z = self.vel[5]   # Yaw
+            self.vel_pubs[self.mode].publish(msg)
 
+        # Status log every 5 seconds
         self._log_counter += 1
         if self._log_counter >= 500:
             self._log_counter = 0
             self.get_logger().info(
-                f"[{self.mode}] vel: x={self.linear_x:.3f} y={self.linear_y:.3f} "
-                f"z={self.linear_z:.3f} az={self.angular_z:.3f}"
+                f"[{self.mode}] "
+                f"lin=({self.vel[0]:.3f},{self.vel[1]:.3f},{self.vel[2]:.3f}) "
+                f"ang=({self.vel[3]:.3f},{self.vel[4]:.3f},{self.vel[5]:.3f})"
             )
 
 

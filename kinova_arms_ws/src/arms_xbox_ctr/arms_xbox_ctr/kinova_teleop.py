@@ -1,4 +1,29 @@
 #!/usr/bin/env python3
+"""
+Kinova arm teleop controller.
+
+Accepts commands from UDP and/or Xbox, outputs Cartesian velocity or
+pose-action goals to one Kinova Jaco arm.
+
+Input modes (set via 'input_mode' param):
+  udp     - Position data from a UDP socket → velocity or pose commands
+  xbox    - Joystick via sensor_msgs/Joy → velocity commands
+  hybrid  - UDP position + Xbox wrist/gripper
+
+Control modes (set via 'control_mode' param):
+  velocity     - Publishes PoseVelocity at 100Hz (or JointVelocity when lock_joint1=True)
+  pose_action  - Sends ArmPose action goals
+
+Safety features:
+  - Auto-start arm driver when teleop is active
+  - Command path gating (won't move unless services + UDP + subscribers ready)
+  - Custom home via /movo/home_{arm} (pauses velocity during trajectory)
+  - Status log every 2s
+
+Xbox buttons (when connected):
+  A  (0) Start arm      B  (1) Emergency stop
+  X  (2) Toggle teleop  RB (5) Home arm
+"""
 
 import socket
 import struct
@@ -6,28 +31,31 @@ import threading
 import time
 
 import rclpy
+import numpy as np
 from geometry_msgs.msg import PoseStamped
 from kinova_msgs.action import ArmPose, SetFingersPosition
-from kinova_msgs.msg import PoseVelocity
+from kinova_msgs.msg import JointAngles, JointVelocity, PoseVelocity
 from kinova_msgs.srv import HomeArm, Start, Stop
+
+from arms_xbox_ctr.jaco_jacobian import cart_to_joint_vel
 from rclpy.action import ActionClient
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 from sensor_msgs.msg import Joy
 
 
-class Axe4BridgeController(Node):
+class KinovaTeleop(Node):
     def __init__(self):
-        super().__init__("axe4_bridge_controller")
+        super().__init__("kinova_teleop")
 
+        # ── Parameters ──
         self.declare_parameter("arm_namespace", "left_arm")
-        self.declare_parameter("input_mode", "udp")          # udp|xbox|hybrid
-        self.declare_parameter("control_mode", "velocity")   # velocity|pose_action
+        self.declare_parameter("input_mode", "udp")
+        self.declare_parameter("control_mode", "velocity")
         self.declare_parameter("udp_ip", "127.0.0.1")
         self.declare_parameter("udp_port", 5005)
         self.declare_parameter("udp_gain", 2.0)
         self.declare_parameter("deadzone", 0.005)
-        # Match movo_xbox_controller defaults for comparable arm response.
         self.declare_parameter("max_lin_vel", 0.08)
         self.declare_parameter("max_ang_vel", 0.20)
         self.declare_parameter("pose_goal_rate_hz", 10.0)
@@ -55,45 +83,49 @@ class Axe4BridgeController(Node):
         self.declare_parameter("pose_require_udp_fresh", True)
         self.declare_parameter("pose_udp_timeout_sec", 0.5)
         self.declare_parameter("pose_hold_current_orientation", True)
+        self.declare_parameter("lock_joint1", True)
+        self.declare_parameter("max_joint_vel_deg", 45.0)
 
-        self.arm_namespace = self.get_parameter("arm_namespace").value
-        self.input_mode = self.get_parameter("input_mode").value
-        self.control_mode = self.get_parameter("control_mode").value
-        self.udp_ip = self.get_parameter("udp_ip").value
-        self.udp_port = int(self.get_parameter("udp_port").value)
-        self.udp_gain = float(self.get_parameter("udp_gain").value)
-        self.deadzone = float(self.get_parameter("deadzone").value)
-        self.max_lin_vel = float(self.get_parameter("max_lin_vel").value)
-        self.max_ang_vel = float(self.get_parameter("max_ang_vel").value)
-        self.pose_goal_period = 1.0 / max(1.0, float(self.get_parameter("pose_goal_rate_hz").value))
-        self.pose_frame_id = self.get_parameter("pose_frame_id").value
-        self.x_sign = float(self.get_parameter("x_sign").value)
-        self.y_sign = float(self.get_parameter("y_sign").value)
-        self.z_sign = float(self.get_parameter("z_sign").value)
-        self.x_offset = float(self.get_parameter("x_offset").value)
-        self.y_offset = float(self.get_parameter("y_offset").value)
-        self.z_offset = float(self.get_parameter("z_offset").value)
-        self.button_debounce_sec = float(self.get_parameter("button_debounce_sec").value)
-        self.udp_bind_retry_sec = float(self.get_parameter("udp_bind_retry_sec").value)
-        self.require_joy_keepalive = bool(self.get_parameter("require_joy_keepalive").value)
-        self.joy_timeout_sec = float(self.get_parameter("joy_timeout_sec").value)
-        self.auto_arm_udp = bool(self.get_parameter("auto_arm_udp").value)
-        self.auto_start_arm = bool(self.get_parameter("auto_start_arm").value)
-        self.require_command_path_ready = bool(self.get_parameter("require_command_path_ready").value)
-        self.pose_safety_enable = bool(self.get_parameter("pose_safety_enable").value)
-        self.pose_x_min = float(self.get_parameter("pose_x_min").value)
-        self.pose_x_max = float(self.get_parameter("pose_x_max").value)
-        self.pose_y_min = float(self.get_parameter("pose_y_min").value)
-        self.pose_y_max = float(self.get_parameter("pose_y_max").value)
-        self.pose_z_min = float(self.get_parameter("pose_z_min").value)
-        self.pose_z_max = float(self.get_parameter("pose_z_max").value)
-        self.pose_require_udp_fresh = bool(self.get_parameter("pose_require_udp_fresh").value)
-        self.pose_udp_timeout_sec = float(self.get_parameter("pose_udp_timeout_sec").value)
-        self.pose_hold_current_orientation = bool(
-            self.get_parameter("pose_hold_current_orientation").value
-        )
+        p = self.get_parameter
+        self.arm_namespace = p("arm_namespace").value
+        self.input_mode = p("input_mode").value
+        self.control_mode = p("control_mode").value
+        self.udp_ip = p("udp_ip").value
+        self.udp_port = int(p("udp_port").value)
+        self.udp_gain = float(p("udp_gain").value)
+        self.deadzone = float(p("deadzone").value)
+        self.max_lin_vel = float(p("max_lin_vel").value)
+        self.max_ang_vel = float(p("max_ang_vel").value)
+        self.pose_goal_period = 1.0 / max(1.0, float(p("pose_goal_rate_hz").value))
+        self.pose_frame_id = p("pose_frame_id").value
+        self.x_sign = float(p("x_sign").value)
+        self.y_sign = float(p("y_sign").value)
+        self.z_sign = float(p("z_sign").value)
+        self.x_offset = float(p("x_offset").value)
+        self.y_offset = float(p("y_offset").value)
+        self.z_offset = float(p("z_offset").value)
+        self.button_debounce_sec = float(p("button_debounce_sec").value)
+        self.udp_bind_retry_sec = float(p("udp_bind_retry_sec").value)
+        self.require_joy_keepalive = bool(p("require_joy_keepalive").value)
+        self.joy_timeout_sec = float(p("joy_timeout_sec").value)
+        self.auto_arm_udp = bool(p("auto_arm_udp").value)
+        self.auto_start_arm = bool(p("auto_start_arm").value)
+        self.require_command_path_ready = bool(p("require_command_path_ready").value)
+        self.pose_safety_enable = bool(p("pose_safety_enable").value)
+        self.pose_x_min = float(p("pose_x_min").value)
+        self.pose_x_max = float(p("pose_x_max").value)
+        self.pose_y_min = float(p("pose_y_min").value)
+        self.pose_y_max = float(p("pose_y_max").value)
+        self.pose_z_min = float(p("pose_z_min").value)
+        self.pose_z_max = float(p("pose_z_max").value)
+        self.pose_require_udp_fresh = bool(p("pose_require_udp_fresh").value)
+        self.pose_udp_timeout_sec = float(p("pose_udp_timeout_sec").value)
+        self.pose_hold_current_orientation = bool(p("pose_hold_current_orientation").value)
+        self.lock_joint1 = bool(p("lock_joint1").value)
+        self.max_joint_vel_deg = float(p("max_joint_vel_deg").value)
 
-        qos_profile = QoSProfile(
+        # ── ROS interfaces ──
+        qos = QoSProfile(
             reliability=ReliabilityPolicy.RELIABLE,
             durability=DurabilityPolicy.VOLATILE,
             depth=1,
@@ -101,28 +133,34 @@ class Axe4BridgeController(Node):
 
         arm = self.arm_namespace
         self.velocity_pub = self.create_publisher(
-            PoseVelocity, f"/{arm}/{arm}_driver/in/cartesian_velocity", qos_profile
+            PoseVelocity, f"/{arm}/{arm}_driver/in/cartesian_velocity", qos
         )
-        self.udp_pose_pub = self.create_publisher(PoseStamped, f"/{arm}/udp_position", qos_profile)
+        self.joint_velocity_pub = self.create_publisher(
+            JointVelocity, f"/{arm}/{arm}_driver/in/joint_velocity", qos
+        )
+        self.udp_pose_pub = self.create_publisher(PoseStamped, f"/{arm}/udp_position", qos)
 
-        self.home_client = self.create_client(HomeArm, f"/{arm}/{arm}_driver/in/home_arm")
+        self.home_client = self.create_client(HomeArm, f"/movo/home_{arm}")
         self.stop_client = self.create_client(Stop, f"/{arm}/{arm}_driver/in/stop")
         self.start_client = self.create_client(Start, f"/{arm}/{arm}_driver/in/start")
 
-        self.pose_action_client = ActionClient(self, ArmPose, f"/{arm}/{arm}_driver/pose_action/tool_pose")
+        self.pose_action_client = ActionClient(
+            self, ArmPose, f"/{arm}/{arm}_driver/pose_action/tool_pose"
+        )
         self.finger_client = ActionClient(
             self, SetFingersPosition, f"/{arm}/{arm}_driver/fingers_action/finger_positions"
         )
 
-        self.create_subscription(Joy, "/joy", self.joy_callback, qos_profile)
+        self.create_subscription(Joy, "/joy", self.joy_callback, qos)
         self.create_subscription(
-            PoseStamped,
-            f"/{arm}/{arm}_driver/out/tool_pose",
-            self.tool_pose_callback,
-            qos_profile,
+            PoseStamped, f"/{arm}/{arm}_driver/out/tool_pose", self.tool_pose_callback, qos
+        )
+        self.create_subscription(
+            JointAngles, f"/{arm}/{arm}_driver/out/joint_angles", self.joint_angles_callback, qos
         )
         self.create_timer(0.01, self.publish_control)
 
+        # ── State ──
         self.prev_buttons = [0] * 15
         self.last_joy_msg_time = time.time()
         self.last_pose_goal_time = 0.0
@@ -134,9 +172,9 @@ class Axe4BridgeController(Node):
         self._udp_bound = False
         self._udp_last_error = None
         self._arm_started = False
+        self._homing = False
         self._last_debug_log_t = 0.0
         self._last_gate_log_t = 0.0
-        self._last_gate_state = None
         self._last_udp_pose_time = 0.0
         self._stop_event = threading.Event()
         self._udp_sock = None
@@ -146,26 +184,33 @@ class Axe4BridgeController(Node):
         self.latest_udp_pose = [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0]
         self.latest_tool_quat = [1.0, 0.0, 0.0, 0.0]
         self.have_tool_pose = False
+        self.current_joint_deg = None  # set by joint_angles_callback
+        self._jvel_stop_count = 0  # zero-burst counter for joint velocity stop
         self.state_lock = threading.Lock()
 
+        # Start UDP listener thread
         self.udp_thread = threading.Thread(target=self.udp_loop, daemon=True)
         self.udp_thread.start()
 
         self.get_logger().info(
-            f"AXE4 bridge started arm={arm} input_mode={self.input_mode} control_mode={self.control_mode}"
+            f"KinovaTeleop started arm={arm} input={self.input_mode} control={self.control_mode}"
         )
         self.get_logger().info(
             f"teleop_active={self.teleop_active} require_joy_keepalive={self.require_joy_keepalive}"
         )
 
+    # ── Helpers ──
+
     @staticmethod
-    def _clamp(value, max_abs):
+    def clamp(value, max_abs):
         return max(min(value, max_abs), -max_abs)
 
-    def _axis_with_deadzone(self, val, scale):
+    def axis_with_deadzone(self, val, scale):
         if abs(val) < 0.1:
             return 0.0
-        return self._clamp(val * scale, scale)
+        return self.clamp(val * scale, scale)
+
+    # ── Joy callback ──
 
     def joy_callback(self, msg: Joy):
         self.last_joy_msg_time = time.time()
@@ -186,8 +231,8 @@ class Axe4BridgeController(Node):
             self._last_button_event_time[key] = now
             return True
 
-        # Match movo_xbox_controller safety mapping: A start, B stop, X toggle, RB home.
-        if pressed_debounced(1, "stop"):  # B -> stop
+        # B (1) → Emergency stop
+        if pressed_debounced(1, "stop"):
             self.teleop_active = False
             self.calibrated = False
             self.vel_cmd = [0.0] * 6
@@ -195,33 +240,38 @@ class Axe4BridgeController(Node):
             self._arm_started = False
             self.get_logger().warn("EMERGENCY STOP + teleop disarmed")
 
-        if pressed_debounced(5, "home"):  # RB -> home
+        # RB (5) → Home arm
+        if pressed_debounced(5, "home"):
             self.teleop_active = False
+            self._homing = True
             self.calibrated = False
             self.vel_cmd = [0.0] * 6
-            self.call_service(self.home_client, HomeArm.Request())
             self._arm_started = False
+            self.call_home()
             self.get_logger().info("Home requested + teleop disarmed")
 
-        if pressed_debounced(0, "start"):  # A -> start
+        # A (0) → Start arm
+        if pressed_debounced(0, "start"):
             self.call_service(self.start_client, Start.Request())
             self._arm_started = True
 
-        if pressed_debounced(2, "toggle"):  # X toggle teleop
+        # X (2) → Toggle teleop
+        if pressed_debounced(2, "toggle"):
             self.teleop_active = not self.teleop_active
             self.calibrated = False
             if not self.teleop_active:
                 self.vel_cmd = [0.0] * 6
             self.get_logger().info(f"teleop_active={self.teleop_active}")
 
-        # Wrist rotation from right stick horizontal for xbox/hybrid velocity mode
+        # Wrist rotation from right stick horizontal (xbox/hybrid velocity mode)
         if self.control_mode == "velocity" and self.input_mode in ("xbox", "hybrid"):
-            self.vel_cmd[5] = -self._axis_with_deadzone(msg.axes[3], self.max_ang_vel)
+            self.vel_cmd[5] = -self.axis_with_deadzone(msg.axes[3], self.max_ang_vel)
 
+        # Full Xbox velocity control
         if self.input_mode == "xbox" and self.control_mode == "velocity":
-            self.vel_cmd[0] = self._axis_with_deadzone(msg.axes[1], self.max_lin_vel)
-            self.vel_cmd[1] = self._axis_with_deadzone(msg.axes[0], self.max_lin_vel)
-            self.vel_cmd[2] = self._axis_with_deadzone(msg.axes[4], self.max_lin_vel)
+            self.vel_cmd[0] = self.axis_with_deadzone(msg.axes[1], self.max_lin_vel)
+            self.vel_cmd[1] = self.axis_with_deadzone(msg.axes[0], self.max_lin_vel)
+            self.vel_cmd[2] = self.axis_with_deadzone(msg.axes[4], self.max_lin_vel)
 
         # Gripper on D-pad vertical
         current_gripper_cmd = None
@@ -241,12 +291,15 @@ class Axe4BridgeController(Node):
 
         self.prev_buttons = list(msg.buttons)
 
+    # ── UDP ──
+
     def udp_loop(self):
         fmt = "<fffffff"
         pkt_size = struct.calcsize(fmt)
         sock = None
 
         while rclpy.ok() and not self._stop_event.is_set():
+            # Bind socket (with retry on failure)
             if sock is None:
                 try:
                     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -262,9 +315,8 @@ class Axe4BridgeController(Node):
                     if err != self._udp_last_error:
                         self._udp_last_error = err
                         self.get_logger().error(
-                            f"UDP bind failed on {self.udp_ip}:{self.udp_port}: {exc}. "
-                            f"Retrying every {self.udp_bind_retry_sec:.1f}s. "
-                            "Close other process using this port."
+                            f"UDP bind failed {self.udp_ip}:{self.udp_port}: {exc}. "
+                            f"Retrying every {self.udp_bind_retry_sec:.1f}s."
                         )
                     if sock is not None:
                         try:
@@ -276,6 +328,7 @@ class Axe4BridgeController(Node):
                     time.sleep(self.udp_bind_retry_sec)
                     continue
 
+            # Drain buffer, keep latest packet
             latest = None
             while True:
                 try:
@@ -285,7 +338,6 @@ class Axe4BridgeController(Node):
                 except BlockingIOError:
                     break
                 except OSError:
-                    # Socket became invalid, rebinding loop will recover.
                     try:
                         sock.close()
                     except Exception:
@@ -339,7 +391,7 @@ class Axe4BridgeController(Node):
             def v(delta):
                 if abs(delta) < self.deadzone:
                     return 0.0
-                return self._clamp(delta * self.udp_gain, self.max_lin_vel)
+                return self.clamp(delta * self.udp_gain, self.max_lin_vel)
 
             self.vel_cmd[0] = v(dx)
             self.vel_cmd[1] = v(dy)
@@ -374,7 +426,19 @@ class Axe4BridgeController(Node):
             ]
             self.have_tool_pose = True
 
+    def joint_angles_callback(self, msg: JointAngles):
+        self.current_joint_deg = [
+            msg.joint1, msg.joint2, msg.joint3, msg.joint4,
+            msg.joint5, msg.joint6, msg.joint7,
+        ]
+
+    # ── Control output ──
+
     def publish_control(self):
+        # Pause velocity during homing — even zeros conflict with the joint action
+        if self._homing:
+            return
+
         if self.require_joy_keepalive and (time.time() - self.last_joy_msg_time) > self.joy_timeout_sec:
             self.teleop_active = False
             self.calibrated = False
@@ -384,41 +448,81 @@ class Axe4BridgeController(Node):
             self.publish_pose_goal()
             return
 
-        command_path_ready, gate_reason = self._command_path_ready()
+        command_path_ready, gate_reason = self.command_path_ready()
         wants_motion = any(abs(v) > 1e-6 for v in self.vel_cmd[:3] + [self.vel_cmd[5]])
 
-        msg = PoseVelocity()
-        if self.teleop_active and (not self.require_command_path_ready or command_path_ready):
+        active = self.teleop_active and (not self.require_command_path_ready or command_path_ready)
+
+        if active:
             if self.auto_start_arm and not self._arm_started and self.start_client.service_is_ready():
                 self.call_service(self.start_client, Start.Request())
                 self._arm_started = True
-                self.get_logger().info("Auto-started arm driver for UDP teleop.")
-            msg.twist_linear_x = float(self.vel_cmd[0])
-            msg.twist_linear_y = float(self.vel_cmd[1])
-            msg.twist_linear_z = float(self.vel_cmd[2])
-            msg.twist_angular_x = 0.0
-            msg.twist_angular_y = 0.0
-            msg.twist_angular_z = float(self._clamp(self.vel_cmd[5], self.max_ang_vel))
-        elif self.teleop_active and wants_motion and self.require_command_path_ready:
+                self.get_logger().info("Auto-started arm driver.")
+
+        if self.lock_joint1:
+            self._publish_joint_velocity(active)
+        else:
+            self._publish_cartesian_velocity(active)
+
+        if self.teleop_active and wants_motion and not active:
             now = time.time()
             if now - self._last_gate_log_t > 1.0:
                 self._last_gate_log_t = now
                 self.get_logger().error(f"Motion gated: {gate_reason}")
 
+        self._periodic_status_log()
+
+    def _publish_cartesian_velocity(self, active: bool):
+        msg = PoseVelocity()
+        if active:
+            msg.twist_linear_x = float(self.vel_cmd[0])
+            msg.twist_linear_y = float(self.vel_cmd[1])
+            msg.twist_linear_z = float(self.vel_cmd[2])
+            msg.twist_angular_z = float(self.clamp(self.vel_cmd[5], self.max_ang_vel))
         self.velocity_pub.publish(msg)
 
+    def _publish_joint_velocity(self, active: bool):
+        has_motion = False
+        if active and self.current_joint_deg is not None:
+            v_cart = np.array([
+                self.vel_cmd[0], self.vel_cmd[1], self.vel_cmd[2],
+                0.0, 0.0, self.clamp(self.vel_cmd[5], self.max_ang_vel),
+            ])
+            if np.any(np.abs(v_cart) > 1e-6):
+                has_motion = True
+                dq = cart_to_joint_vel(
+                    self.current_joint_deg, v_cart,
+                    locked_joints=[0], max_joint_vel_deg=self.max_joint_vel_deg,
+                )
+                msg = JointVelocity()
+                msg.joint1 = 0.0
+                msg.joint2 = float(dq[1])
+                msg.joint3 = float(dq[2])
+                msg.joint4 = float(dq[3])
+                msg.joint5 = float(dq[4])
+                msg.joint6 = float(dq[5])
+                msg.joint7 = float(dq[6])
+                self.joint_velocity_pub.publish(msg)
+                self._jvel_stop_count = 10  # queue 10 zero-frames on next idle
+
+        if not has_motion and self._jvel_stop_count > 0:
+            self.joint_velocity_pub.publish(JointVelocity())
+            self._jvel_stop_count -= 1
+
+    def _periodic_status_log(self):
         now = time.time()
         if now - self._last_debug_log_t > 2.0:
             self._last_debug_log_t = now
-            start_ready = self.start_client.service_is_ready()
-            stop_ready = self.stop_client.service_is_ready()
-            home_ready = self.home_client.service_is_ready()
-            sub_count = self.velocity_pub.get_subscription_count()
+            mode = "joint_vel(J1 locked)" if self.lock_joint1 else "cartesian_vel"
+            pub = self.joint_velocity_pub if self.lock_joint1 else self.velocity_pub
+            sub_count = pub.get_subscription_count()
+            j1_str = f" j1={self.current_joint_deg[0]:.1f}" if self.current_joint_deg else ""
             self.get_logger().info(
-                f"state teleop={self.teleop_active} arm_started={self._arm_started} "
-                f"svc(start={start_ready},stop={stop_ready},home={home_ready}) "
-                f"path(subscribers={sub_count},udp_bound={self._udp_bound}) "
-                f"cmd=({msg.twist_linear_x:.3f},{msg.twist_linear_y:.3f},{msg.twist_linear_z:.3f},{msg.twist_angular_z:.3f})"
+                f"mode={mode} teleop={self.teleop_active} arm={self._arm_started} "
+                f"svc(start={self.start_client.service_is_ready()},"
+                f"stop={self.stop_client.service_is_ready()},"
+                f"home={self.home_client.service_is_ready()}) "
+                f"path(subs={sub_count},udp={self._udp_bound}){j1_str}"
             )
 
     def publish_pose_goal(self):
@@ -434,7 +538,7 @@ class Axe4BridgeController(Node):
         if self.pose_require_udp_fresh and self.input_mode in ("udp", "hybrid"):
             if (time.time() - self._last_udp_pose_time) > self.pose_udp_timeout_sec:
                 return
-        command_path_ready, _ = self._command_path_ready()
+        command_path_ready, _ = self.command_path_ready()
         if self.require_command_path_ready and not command_path_ready:
             return
 
@@ -442,7 +546,7 @@ class Axe4BridgeController(Node):
             pose = self.latest_udp_pose[:]
             tool_quat = self.latest_tool_quat[:]
             have_tool_pose = self.have_tool_pose
-        pose = self._apply_pose_safety(pose)
+        pose = self.apply_pose_safety(pose)
 
         goal = ArmPose.Goal()
         goal.pose.header.stamp = self.get_clock().now().to_msg()
@@ -463,36 +567,55 @@ class Axe4BridgeController(Node):
 
         self.pose_action_client.send_goal_async(goal)
 
-    def _apply_pose_safety(self, pose):
+    def apply_pose_safety(self, pose):
         p = pose[:]
-        x, y, z = p[0], p[1], p[2]
-
         if self.pose_safety_enable:
-            p[0] = max(self.pose_x_min, min(x, self.pose_x_max))
-            p[1] = max(self.pose_y_min, min(y, self.pose_y_max))
-            p[2] = max(self.pose_z_min, min(z, self.pose_z_max))
+            p[0] = max(self.pose_x_min, min(p[0], self.pose_x_max))
+            p[1] = max(self.pose_y_min, min(p[1], self.pose_y_max))
+            p[2] = max(self.pose_z_min, min(p[2], self.pose_z_max))
         return p
+
+    # ── Services ──
 
     def send_gripper(self, target):
         if not self.finger_client.server_is_ready():
             return
-        goal_msg = SetFingersPosition.Goal()
-        goal_msg.fingers.finger1, goal_msg.fingers.finger2, goal_msg.fingers.finger3 = target
-        self.finger_client.send_goal_async(goal_msg)
+        goal = SetFingersPosition.Goal()
+        goal.fingers.finger1, goal.fingers.finger2, goal.fingers.finger3 = target
+        self.finger_client.send_goal_async(goal)
 
     def call_service(self, client, request):
         if client.service_is_ready():
             client.call_async(request)
 
-    def _services_ready(self):
+    def call_home(self):
+        if not self.home_client.service_is_ready():
+            self.get_logger().error("Home service not ready!")
+            self._homing = False
+            return
+        future = self.home_client.call_async(HomeArm.Request())
+        future.add_done_callback(self.on_home_done)
+
+    def on_home_done(self, future):
+        self._homing = False
+        try:
+            result = future.result()
+            self.get_logger().info(f"Home result: {result.homearm_result}")
+        except Exception as e:
+            self.get_logger().error(f"Home call failed: {e}")
+        self.call_service(self.start_client, Start.Request())
+        self._arm_started = True
+        self.get_logger().info("Arm re-started after homing.")
+
+    def services_ready(self):
         return (
             self.start_client.service_is_ready()
             and self.stop_client.service_is_ready()
             and self.home_client.service_is_ready()
         )
 
-    def _command_path_ready(self):
-        if not self._services_ready():
+    def command_path_ready(self):
+        if not self.services_ready():
             return False, "kinova services not ready (start/stop/home)"
         if self.input_mode in ("udp", "hybrid") and not self._udp_bound:
             return False, "udp listener not bound"
@@ -500,10 +623,17 @@ class Axe4BridgeController(Node):
             if not self.pose_action_client.server_is_ready():
                 return False, "pose action server not ready"
             return True, "ok"
-        sub_count = self.velocity_pub.get_subscription_count()
-        if sub_count < 1:
-            return False, "no subscriber on cartesian_velocity (bridge/driver path missing)"
+        if self.lock_joint1:
+            if self.current_joint_deg is None:
+                return False, "waiting for joint_angles feedback"
+            if self.joint_velocity_pub.get_subscription_count() < 1:
+                return False, "no subscriber on joint_velocity"
+        else:
+            if self.velocity_pub.get_subscription_count() < 1:
+                return False, "no subscriber on cartesian_velocity"
         return True, "ok"
+
+    # ── Shutdown ──
 
     def shutdown_safely(self):
         self._stop_event.set()
@@ -515,8 +645,8 @@ class Axe4BridgeController(Node):
             self._udp_sock = None
         self._udp_bound = False
         try:
-            zero = PoseVelocity()
-            self.velocity_pub.publish(zero)
+            self.velocity_pub.publish(PoseVelocity())
+            self.joint_velocity_pub.publish(JointVelocity())
         except Exception:
             pass
         try:
@@ -527,7 +657,7 @@ class Axe4BridgeController(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = Axe4BridgeController()
+    node = KinovaTeleop()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
