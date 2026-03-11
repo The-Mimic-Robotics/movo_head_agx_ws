@@ -127,34 +127,34 @@ class MovoCustomHomeService(Node):
         self.get_logger().info(f"[left_arm] {response.homearm_result}")
         return response
 
-    def handle_home_both(self, request, response):
+    def _attempt_home_both(self, stagger_sec: float = 0.1):
+        """
+        Send both arms home simultaneously (with a small stagger so they complete
+        at offset times, avoiding concurrent Kinova API calls in the driver).
+
+        Returns (right_ok, left_ok, error_list).
+        """
         log = self.get_logger()
-        log.info("[both_arms] Home START")
 
-        if not self.right_arm_client.wait_for_server(timeout_sec=15.0):
-            response.homearm_result = "FAIL: right arm action server unavailable"
-            log.error(response.homearm_result)
-            return response
-        if not self.left_arm_client.wait_for_server(timeout_sec=15.0):
-            response.homearm_result = "FAIL: left arm action server unavailable"
-            log.error(response.homearm_result)
-            return response
+        if not self.right_arm_client.wait_for_server(timeout_sec=30.0):
+            return False, False, ["right arm action server unavailable"]
+        if not self.left_arm_client.wait_for_server(timeout_sec=30.0):
+            return False, False, ["left arm action server unavailable"]
 
-        # Fire both goals so both arms start moving at the same time
+        # Fire right arm first, then stagger before left so their Kinova API
+        # completion callbacks don't race inside the arm driver.
         right_goal_fut = self.right_arm_client.send_goal_async(self.make_goal(self.right_arm_target))
+        time.sleep(stagger_sec)
         left_goal_fut = self.left_arm_client.send_goal_async(self.make_goal(self.left_arm_target))
 
-        # Wait for BOTH goal acceptances together (not one-then-the-other)
         if not self.poll_all_futures([right_goal_fut, left_goal_fut], 30.0):
-            response.homearm_result = "FAIL: send_goal timeout"
-            log.error(response.homearm_result)
-            return response
+            return False, False, ["send_goal timeout"]
 
         right_handle = right_goal_fut.result()
         left_handle = left_goal_fut.result()
 
-        right_accepted = right_handle and right_handle.accepted
-        left_accepted = left_handle and left_handle.accepted
+        right_accepted = bool(right_handle and right_handle.accepted)
+        left_accepted = bool(left_handle and left_handle.accepted)
 
         if right_accepted:
             log.info("[right_arm] Goal accepted, arm is moving...")
@@ -167,48 +167,79 @@ class MovoCustomHomeService(Node):
             log.error("[left_arm] Goal rejected")
 
         if not right_accepted and not left_accepted:
-            response.homearm_result = "FAIL: both goals rejected"
-            return response
+            return False, False, ["both goals rejected"]
 
-        # Wait for BOTH motion results together
         right_res_fut = right_handle.get_result_async() if right_accepted else None
         left_res_fut = left_handle.get_result_async() if left_accepted else None
 
         waiting = [f for f in (right_res_fut, left_res_fut) if f is not None]
-        if not self.poll_all_futures(waiting, 180.0):
-            response.homearm_result = "FAIL: motion timeout"
-            log.error(response.homearm_result)
-            return response
+        if not self.poll_all_futures(waiting, 60.0):
+            return False, False, ["motion timeout"]
 
-        # Collect results
         errors = []
 
         if not right_accepted:
             errors.append("right_arm: goal rejected")
+            right_ok = False
         else:
             wrapped = right_res_fut.result()
-            if wrapped and wrapped.status == 4:
+            right_ok = bool(wrapped and wrapped.status == 4)
+            if right_ok:
                 log.info("[right_arm] Home DONE")
             else:
-                errors.append(f"right_arm: status={getattr(wrapped, 'status', None)}")
-                log.error(f"[right_arm] FAIL: status={getattr(wrapped, 'status', None)}")
+                status = getattr(wrapped, "status", None)
+                log.warn(f"[right_arm] FAIL: action status={status}")
+                errors.append(f"right_arm: status={status}")
 
         if not left_accepted:
             errors.append("left_arm: goal rejected")
+            left_ok = False
         else:
             wrapped = left_res_fut.result()
-            if wrapped and wrapped.status == 4:
+            left_ok = bool(wrapped and wrapped.status == 4)
+            if left_ok:
                 log.info("[left_arm] Home DONE")
             else:
-                errors.append(f"left_arm: status={getattr(wrapped, 'status', None)}")
-                log.error(f"[left_arm] FAIL: status={getattr(wrapped, 'status', None)}")
+                status = getattr(wrapped, "status", None)
+                log.warn(f"[left_arm] FAIL: action status={status}")
+                errors.append(f"left_arm: status={status}")
 
-        if errors:
-            response.homearm_result = "FAIL: " + "; ".join(errors)
-        else:
-            response.homearm_result = "SUCCESS"
-            log.info("[both_arms] Home DONE")
+        return right_ok, left_ok, errors
 
+    def handle_home_both(self, request, response):
+        log = self.get_logger()
+        log.info("[both_arms] Home START")
+
+        # The Kinova arm driver can crash with KinovaCommException when both arms
+        # complete their homing trajectories at the exact same time (concurrent API
+        # calls in the driver's setSucceeded callback). A 0.5 s stagger between
+        # goal submissions offsets their completion times so the API calls are
+        # serialised. If a driver/bridge crash still occurs, we wait for recovery
+        # and retry once.
+        max_attempts = 3
+        recovery_wait_sec = 8.0
+
+        for attempt in range(1, max_attempts + 1):
+            if attempt > 1:
+                log.warn(
+                    f"[both_arms] Attempt {attempt - 1} failed — "
+                    f"waiting {recovery_wait_sec:.0f} s for driver/bridge recovery ..."
+                )
+                time.sleep(recovery_wait_sec)
+                log.info(f"[both_arms] Retry attempt {attempt}")
+
+            right_ok, left_ok, errors = self._attempt_home_both(stagger_sec=0.1)
+
+            if right_ok and left_ok:
+                response.homearm_result = "SUCCESS"
+                log.info("[both_arms] Home DONE")
+                return response
+
+            if attempt == max_attempts:
+                break
+
+        response.homearm_result = "FAIL: " + "; ".join(errors)
+        log.error(f"[both_arms] {response.homearm_result}")
         return response
 
 

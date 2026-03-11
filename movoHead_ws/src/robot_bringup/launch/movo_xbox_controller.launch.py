@@ -6,6 +6,7 @@ Starts joy_linux_node + movo_xbox_controller node.
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 
@@ -18,6 +19,15 @@ def generate_launch_description():
     deadzone_arg = DeclareLaunchArgument(
         'deadzone', default_value='0.05',
         description='Joystick deadzone')
+
+    locked_joints_arg = DeclareLaunchArgument(
+        'locked_joints', default_value='',
+        description='Comma-separated 1-indexed joint numbers to lock (e.g. "1,5"). '
+                    'Empty string = Cartesian velocity mode (no locking).')
+
+    max_joint_vel_deg_arg = DeclareLaunchArgument(
+        'max_joint_vel_deg', default_value='45.0',
+        description='Per-joint velocity safety clamp (deg/s)')
 
     joy_node = Node(
         package='joy_linux',
@@ -39,6 +49,10 @@ def generate_launch_description():
         executable='movo_xbox_controller',
         name='movo_xbox_controller',
         output='screen',
+        parameters=[{
+            'locked_joints': ParameterValue(LaunchConfiguration('locked_joints'), value_type=str),
+            'max_joint_vel_deg': LaunchConfiguration('max_joint_vel_deg'),
+        }],
     )
 
     home_service_node = Node(
@@ -51,6 +65,8 @@ def generate_launch_description():
     return LaunchDescription([
         device_arg,
         deadzone_arg,
+        locked_joints_arg,
+        max_joint_vel_deg_arg,
         joy_node,
         controller_node,
         home_service_node,

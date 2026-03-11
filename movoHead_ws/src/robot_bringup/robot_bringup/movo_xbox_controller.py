@@ -5,9 +5,9 @@ Xbox controller for MOVO robot (two Jaco arms + mobile base).
 X cycles control target: left_arm → right_arm → base → ...
 
 ARM MODE — full 6DOF Cartesian velocity:
-  Left stick vertical    X  (forward / back)
-  Left stick horizontal  Y  (left / right)
-  Right stick vertical   Z  (up / down)
+  Left stick vertical    forward / back  (Kinova +Z)
+  Left stick horizontal  left / right    (Kinova +X)
+  Right stick vertical   up / down       (Kinova +Y)
   Right stick horizontal Yaw
   D-pad up / down        Pitch
   D-pad left / right     Roll
@@ -26,6 +26,7 @@ BASE MODE — hold RB as deadman:
 
 import time
 
+import numpy as np
 import rclpy
 from rclpy.action import ActionClient
 from rclpy.node import Node
@@ -33,9 +34,11 @@ from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 
 from geometry_msgs.msg import Twist
 from kinova_msgs.action import SetFingersPosition
-from kinova_msgs.msg import PoseVelocity
+from kinova_msgs.msg import JointAngles, JointVelocity, PoseVelocity
 from kinova_msgs.srv import HomeArm, Start, Stop
 from sensor_msgs.msg import Joy
+
+from arms_xbox_ctr.jaco_jacobian import cart_to_joint_vel
 
 MODES = ["left_arm", "right_arm", "base"]
 
@@ -44,10 +47,20 @@ class MovoXboxController(Node):
     def __init__(self):
         super().__init__("movo_xbox_controller")
 
+        self.declare_parameter("locked_joints", "")
+        self.declare_parameter("max_joint_vel_deg", 45.0)
+        self.max_joint_vel_deg = float(self.get_parameter("max_joint_vel_deg").value)
+        # Parse "1,3,5" → [0, 2, 4]  (1-indexed input → 0-indexed for Jacobian)
+        raw = self.get_parameter("locked_joints").value.strip()
+        self._locked_joints: list[int] = (
+            [int(s) - 1 for s in raw.split(",") if s.strip()]
+            if raw else []
+        )
+
         self.mode_index = 0
         self.mode = MODES[0]
 
-        self.MAX_LIN_VEL = 0.08
+        self.MAX_LIN_VEL = 0.20
         self.MAX_ANG_VEL = 0.20
         self.BASE_MAX_LIN = 1.0
         self.BASE_MAX_ANG = 1.0
@@ -58,6 +71,10 @@ class MovoXboxController(Node):
         self.last_joy_time = self.get_clock().now()
         self._btn4_last_press = 0.0
         self._homing = False
+        self._jvel_stop_count = 0
+        self.current_joint_deg: dict[str, list[float] | None] = {
+            "left_arm": None, "right_arm": None,
+        }
 
         # 6DOF velocity: [x, y, z, roll, pitch, yaw]
         self.vel = [0.0] * 6
@@ -68,13 +85,22 @@ class MovoXboxController(Node):
             depth=1,
         )
 
-        # Arm velocity publishers
+        # Arm velocity publishers (Cartesian)
         self.vel_pubs = {
             "left_arm": self.create_publisher(
                 PoseVelocity, "/left_arm/left_arm_driver/in/cartesian_velocity", qos
             ),
             "right_arm": self.create_publisher(
                 PoseVelocity, "/right_arm/right_arm_driver/in/cartesian_velocity", qos
+            ),
+        }
+        # Arm velocity publishers (joint-space, used when lock_joint1=True)
+        self.jvel_pubs = {
+            "left_arm": self.create_publisher(
+                JointVelocity, "/left_arm/left_arm_driver/in/joint_velocity", qos
+            ),
+            "right_arm": self.create_publisher(
+                JointVelocity, "/right_arm/right_arm_driver/in/joint_velocity", qos
             ),
         }
         self.base_pub = self.create_publisher(Twist, "/cmd_vel", 100)
@@ -105,6 +131,13 @@ class MovoXboxController(Node):
         }
 
         self.create_subscription(Joy, "/joy", self.joy_callback, qos)
+        for arm in ("left_arm", "right_arm"):
+            self.create_subscription(
+                JointAngles,
+                f"/{arm}/{arm}_driver/out/joint_angles",
+                lambda msg, a=arm: self._on_joint_angles(a, msg),
+                qos,
+            )
         self.create_timer(0.01, self.publish_velocity)
 
         self._log_counter = 0
@@ -169,9 +202,9 @@ class MovoXboxController(Node):
                     self._btn4_last_press = now
 
             # ── Sticks → Translation + Yaw ──
-            self.vel[0] = axis(1, self.MAX_LIN_VEL)        # Left stick vert → X
-            self.vel[1] = axis(0, self.MAX_LIN_VEL)        # Left stick horiz → Y
-            self.vel[2] = axis(4, self.MAX_LIN_VEL)        # Right stick vert → Z
+            self.vel[2] = axis(1, self.MAX_LIN_VEL)        # Left stick vert  → forward/back (Kinova Z)
+            self.vel[0] = axis(0, self.MAX_LIN_VEL)        # Left stick horiz → left/right   (Kinova X)
+            self.vel[1] = axis(4, self.MAX_LIN_VEL)        # Right stick vert → up/down       (Kinova Y)
             self.vel[5] = -axis(3, self.MAX_ANG_VEL)       # Right stick horiz → Yaw
 
             # ── D-pad → Roll / Pitch ──
@@ -241,6 +274,14 @@ class MovoXboxController(Node):
         goal.fingers.finger1, goal.fingers.finger2, goal.fingers.finger3 = map(float, target)
         client.send_goal_async(goal)
 
+    # ── Joint-angle feedback ──
+
+    def _on_joint_angles(self, arm: str, msg: JointAngles):
+        self.current_joint_deg[arm] = [
+            msg.joint1, msg.joint2, msg.joint3, msg.joint4,
+            msg.joint5, msg.joint6, msg.joint7,
+        ]
+
     # ── Velocity publishing ──
 
     def publish_velocity(self):
@@ -256,14 +297,10 @@ class MovoXboxController(Node):
             msg.angular.z = self.vel[5]
             self.base_pub.publish(msg)
         elif not self._homing:
-            msg = PoseVelocity()
-            msg.twist_linear_x = self.vel[0]
-            msg.twist_linear_y = self.vel[1]
-            msg.twist_linear_z = self.vel[2]
-            msg.twist_angular_x = self.vel[3]   # Roll
-            msg.twist_angular_y = self.vel[4]   # Pitch
-            msg.twist_angular_z = self.vel[5]   # Yaw
-            self.vel_pubs[self.mode].publish(msg)
+            if self._locked_joints:
+                self._publish_joint_velocity()
+            else:
+                self._publish_cartesian_velocity()
 
         # Status log every 5 seconds
         self._log_counter += 1
@@ -274,6 +311,46 @@ class MovoXboxController(Node):
                 f"lin=({self.vel[0]:.3f},{self.vel[1]:.3f},{self.vel[2]:.3f}) "
                 f"ang=({self.vel[3]:.3f},{self.vel[4]:.3f},{self.vel[5]:.3f})"
             )
+
+    def _publish_cartesian_velocity(self):
+        msg = PoseVelocity()
+        msg.twist_linear_x = self.vel[0]
+        msg.twist_linear_y = self.vel[1]
+        msg.twist_linear_z = self.vel[2]
+        msg.twist_angular_x = self.vel[3]   # Roll
+        msg.twist_angular_y = self.vel[4]   # Pitch
+        msg.twist_angular_z = self.vel[5]   # Yaw
+        self.vel_pubs[self.mode].publish(msg)
+
+    def _publish_joint_velocity(self):
+        q = self.current_joint_deg.get(self.mode)
+        has_motion = False
+        if q is not None:
+            v_cart = np.array([
+                self.vel[0], self.vel[1], self.vel[2],
+                self.vel[3], self.vel[4], self.vel[5],
+            ])
+            if np.any(np.abs(v_cart) > 1e-6):
+                has_motion = True
+                dq = cart_to_joint_vel(
+                    q, v_cart,
+                    locked_joints=self._locked_joints,
+                    max_joint_vel_deg=self.max_joint_vel_deg,
+                )
+                jmsg = JointVelocity()
+                jmsg.joint1 = float(dq[0])
+                jmsg.joint2 = float(dq[1])
+                jmsg.joint3 = float(dq[2])
+                jmsg.joint4 = float(dq[3])
+                jmsg.joint5 = float(dq[4])
+                jmsg.joint6 = float(dq[5])
+                jmsg.joint7 = float(dq[6])
+                self.jvel_pubs[self.mode].publish(jmsg)
+                self._jvel_stop_count = 10
+
+        if not has_motion and self._jvel_stop_count > 0:
+            self.jvel_pubs[self.mode].publish(JointVelocity())
+            self._jvel_stop_count -= 1
 
 
 def main(args=None):
