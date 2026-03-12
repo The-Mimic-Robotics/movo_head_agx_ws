@@ -6,20 +6,42 @@
 # relative to current joint state (same pose, safer branch selection).
 
 right_arm:
-  joint1: 266.39
+  joint1: 268.94
   joint2: 82.92
   joint3: 190.84
-  joint4: 310.59
+  joint4: 322.63
   joint5: 190.75
-  joint6: 180.69
+  joint6: 142.04
   joint7: 180.00
 
 # MIRRORED 360 - right_arm
 left_arm:
-  joint1: 94.61
+  joint1: 91.06
   joint2: 277.08
   joint3: 169.16
-  joint4: 49.41
+  joint4: 37.37
   joint5: 169.25
-  joint6: 179.31
+  joint6: 217.96
   joint7: 180.00
+
+
+# GOOD HOME JOINT ANGLES
+
+# right_arm:
+#   joint1: 266.39
+#   joint2: 82.92
+#   joint3: 190.84
+#   joint4: 310.59
+#   joint5: 190.75
+#   joint6: 180.69
+#   joint7: 180.00
+
+# # MIRRORED 360 - right_arm
+# left_arm:
+#   joint1: 94.61
+#   joint2: 277.08
+#   joint3: 169.16
+#   joint4: 49.41
+#   joint5: 169.25
+#   joint6: 179.31
+#   joint7: 180.00

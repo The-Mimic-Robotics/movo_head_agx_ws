@@ -208,8 +208,8 @@ class MovoXboxController(Node):
             self.vel[5] = -axis(3, self.MAX_ANG_VEL)       # Right stick horiz → Yaw
 
             # ── D-pad → Roll / Pitch ──
-            self.vel[3] = dpad(6) * self.MAX_ANG_VEL       # D-pad left/right → Roll
-            self.vel[4] = dpad(7) * self.MAX_ANG_VEL       # D-pad up/down → Pitch
+            self.vel[3] = dpad(7) * self.MAX_ANG_VEL       # D-pad up/down → Roll
+            self.vel[4] = dpad(6) * self.MAX_ANG_VEL       # D-pad left/right → Pitch
 
             # ── Triggers → Gripper (boolean: open / close) ──
             if trigger_pressed(5) and self.gripper_open:    # RT → Close
