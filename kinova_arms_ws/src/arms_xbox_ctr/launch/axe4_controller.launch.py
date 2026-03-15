@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Minimal launch for AXE4 leader → one Kinova arm. Realtime velocity on topics (no action server)."""
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
@@ -6,169 +7,85 @@ from launch.actions import DeclareLaunchArgument
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
 
-def generate_launch_description():
-    # Declare launch arguments
-    device_arg = DeclareLaunchArgument(
-        'device',
-        default_value='/dev/input/js0',
-        description='Joystick device path'
-    )
-    
-    deadzone_arg = DeclareLaunchArgument(
-        'deadzone',
-        default_value='0.05',
-        description='Joystick deadzone value'
-    )
 
-    enable_joy_node_arg = DeclareLaunchArgument(
-        'enable_joy_node',
-        default_value='true',
-        description='Launch local joy_linux_node for safety buttons'
+def generate_launch_description():
+    device_arg = DeclareLaunchArgument(
+        "device", default_value="/dev/input/js0", description="Joystick device"
+    )
+    deadzone_arg = DeclareLaunchArgument(
+        "deadzone", default_value="0.05", description="Joystick deadzone"
+    )
+    enable_joy_arg = DeclareLaunchArgument(
+        "enable_joy_node", default_value="true", description="Run joy_linux_node for safety buttons"
     )
 
     arm_namespace_arg = DeclareLaunchArgument(
-        'arm_namespace',
-        default_value='left_arm',
-        description='Target Kinova arm namespace'
+        "arm_namespace", default_value="left_arm", description="Arm: left_arm or right_arm"
     )
-
     input_mode_arg = DeclareLaunchArgument(
-        'input_mode',
-        default_value='udp',
-        description='Input source: udp | xbox | hybrid'
+        "input_mode", default_value="ros2", description="udp | xbox | hybrid | ros2"
     )
-
-    control_mode_arg = DeclareLaunchArgument(
-        'control_mode',
-        default_value='velocity',
-        description='Control output: velocity | pose_action'
+    axe4_input_topic_arg = DeclareLaunchArgument(
+        "axe4_input_topic", default_value="/axe4/eef_twist",
+        description="Topic: /axe4/eef_position, /axe4/eef_pose (position), or /axe4/eef_twist (velocity)"
     )
-
-    udp_gain_arg = DeclareLaunchArgument(
-        'udp_gain',
-        default_value='2.0',
-        description='Scale factor for UDP XYZ deltas into Cartesian velocity'
+    speed_arg = DeclareLaunchArgument(
+        "speed", default_value="1.0",
+        description="Workspace + speed: 1=normal, 2–4 = use more of robot workspace (small teleop → big arm). Reduce to slow."
     )
-
-    deadzone_vel_arg = DeclareLaunchArgument(
-        'deadzone_vel',
-        default_value='0.005',
-        description='Deadzone for UDP XYZ delta before velocity output'
+    axis_map_arg = DeclareLaunchArgument(
+        "axis_map", default_value="y,z,x",
+        description="Leader→Follower axes: x,y,z (identity) or y,z,x (MOVO: fwd/left/up match)"
     )
-
-    max_lin_vel_arg = DeclareLaunchArgument(
-        'max_lin_vel',
-        default_value='0.16',
-        description='Maximum absolute Cartesian linear velocity (m/s)'
-    )
-
-    require_joy_keepalive_arg = DeclareLaunchArgument(
-        'require_joy_keepalive',
-        default_value='false',
-        description='If true, disarm teleop when joy messages time out'
-    )
-
-    auto_arm_udp_arg = DeclareLaunchArgument(
-        'auto_arm_udp',
-        default_value='true',
-        description='Auto-arm teleop in udp/hybrid mode on startup'
-    )
-
-    auto_start_arm_arg = DeclareLaunchArgument(
-        'auto_start_arm',
-        default_value='true',
-        description='Auto-call Kinova start service when teleop is active'
-    )
-
-    require_command_path_ready_arg = DeclareLaunchArgument(
-        'require_command_path_ready',
-        default_value='true',
-        description='Block non-zero motion unless services, bridge path, and UDP are ready'
-    )
-
     lock_joint1_arg = DeclareLaunchArgument(
-        'lock_joint1',
-        default_value='true',
-        description='Use Jacobian-based joint velocity control with joint 1 locked at zero'
+        "lock_joint1", default_value="true", description="Lock joint 1 (Jacobian-based joint velocity)"
     )
 
-    max_joint_vel_deg_arg = DeclareLaunchArgument(
-        'max_joint_vel_deg',
-        default_value='45.0',
-        description='Per-joint velocity safety clamp (deg/s). Kinova spec: ~40 big, ~53 wrist'
-    )
-
-    # Joy node
-    # joy_node = Node(
-    #     package='joy',
-   #      executable='joy_node',
-   #      name='joy_node',
-   #      output='screen',
-   #      parameters=[{
-   #          'device_name': LaunchConfiguration('device'),
-   #          'deadzone': LaunchConfiguration('deadzone'),
-   #      }]
-    # )
-    
-    # Joy node (Updated for Jetson compatibility)
     joy_node = Node(
-        package='joy_linux',          # <--- CHANGED
-        executable='joy_linux_node',  # <--- CHANGED
-        name='joy_node',
-        output='screen',
-        condition=IfCondition(LaunchConfiguration('enable_joy_node')),
+        package="joy_linux",
+        executable="joy_linux_node",
+        name="joy_node",
+        output="screen",
+        condition=IfCondition(LaunchConfiguration("enable_joy_node")),
         parameters=[{
-            'device_name': LaunchConfiguration('device'),
-            'deadzone': LaunchConfiguration('deadzone'),
-        }]
+            "device_name": LaunchConfiguration("device"),
+            "deadzone": LaunchConfiguration("deadzone"),
+        }],
     )
 
-    # Xbox reader node
-    axe4_reader_node = Node(
-        package='arms_xbox_ctr',  # Your new package name
-        executable='axe4',  # Will be defined in setup.py
-        name='axe4',
-        output='screen',
+    axe4_node = Node(
+        package="arms_xbox_ctr",
+        executable="axe4",
+        name="axe4",
+        output="screen",
         parameters=[{
-            'arm_namespace': LaunchConfiguration('arm_namespace'),
-            'input_mode': LaunchConfiguration('input_mode'),
-            'control_mode': LaunchConfiguration('control_mode'),
-            'udp_gain': LaunchConfiguration('udp_gain'),
-            'deadzone': LaunchConfiguration('deadzone_vel'),
-            'max_lin_vel': LaunchConfiguration('max_lin_vel'),
-            'require_joy_keepalive': LaunchConfiguration('require_joy_keepalive'),
-            'auto_arm_udp': LaunchConfiguration('auto_arm_udp'),
-            'auto_start_arm': LaunchConfiguration('auto_start_arm'),
-            'require_command_path_ready': LaunchConfiguration('require_command_path_ready'),
-            'lock_joint1': LaunchConfiguration('lock_joint1'),
-            'max_joint_vel_deg': LaunchConfiguration('max_joint_vel_deg'),
-        }]
+            "arm_namespace": LaunchConfiguration("arm_namespace"),
+            "input_mode": LaunchConfiguration("input_mode"),
+            "axe4_input_topic": LaunchConfiguration("axe4_input_topic"),
+            "speed": LaunchConfiguration("speed"),
+            "axis_map": LaunchConfiguration("axis_map"),
+            "lock_joint1": LaunchConfiguration("lock_joint1"),
+        }],
     )
 
     home_service_node = Node(
-        package='robot_bringup',
-        executable='movo_custom_home_service',
-        name='movo_custom_home_service',
-        output='screen',
+        package="robot_bringup",
+        executable="movo_custom_home_service",
+        name="movo_custom_home_service",
+        output="screen",
     )
 
     return LaunchDescription([
         device_arg,
         deadzone_arg,
-        enable_joy_node_arg,
+        enable_joy_arg,
         arm_namespace_arg,
         input_mode_arg,
-        control_mode_arg,
-        udp_gain_arg,
-        deadzone_vel_arg,
-        max_lin_vel_arg,
-        require_joy_keepalive_arg,
-        auto_arm_udp_arg,
-        auto_start_arm_arg,
-        require_command_path_ready_arg,
+        axe4_input_topic_arg,
+        speed_arg,
+        axis_map_arg,
         lock_joint1_arg,
-        max_joint_vel_deg_arg,
         joy_node,
-        axe4_reader_node,
+        axe4_node,
         home_service_node,
     ])

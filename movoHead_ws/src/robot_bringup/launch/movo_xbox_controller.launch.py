@@ -21,9 +21,9 @@ def generate_launch_description():
         description='Joystick deadzone')
 
     locked_joints_arg = DeclareLaunchArgument(
-        'locked_joints', default_value='',
-        description='Comma-separated 1-indexed joint numbers to lock (e.g. "1,5"). '
-                    'Empty string = Cartesian velocity mode (no locking).')
+        'locked_joints', default_value='1',
+        description='Comma-separated 1-indexed joint numbers to lock (e.g. 1 or 1,5). '
+                    'Default 1 = lock joint 1. Empty string = Cartesian velocity mode (no locking).')
 
     max_joint_vel_deg_arg = DeclareLaunchArgument(
         'max_joint_vel_deg', default_value='45.0',
