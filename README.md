@@ -22,3 +22,16 @@ sudo apt install -y sshpass
 
 - Check network: `ping 192.168.131.10` / `ping 192.168.131.100`
 - Test manual SSH: `ssh movo@192.168.131.10` (password: movo420)
+
+
+## AXE4 Velocity Ctrl
+```bash
+ros2 launch arms_xbox_ctr axe4_controller.launch.py input_mode:=ros2 control_mode:=velocity arm_namespace:=left_arm speed:=4.0
+```
+```bash
+ros2 launch arms_xbox_ctr axe4_controller.launch.py input_mode:=ros2 control_mode:=velocity arm_namespace:=left_arm speed:=4.0 axis_map:=fwd_away_from_base
+```
+## AXE4 Pose Ctrl
+```bash
+ros2 launch arms_xbox_ctr axe4_controller.launch.py input_mode:=ros2 control_mode:=velocity arm_namespace:=left_arm speed:=4.0
+```

@@ -38,7 +38,7 @@ class KinovaTeleop(Node):
         self.declare_parameter("arm_namespace", "left_arm")
         self.declare_parameter("input_mode", "udp")
         self.declare_parameter("speed", 1.0)  # Workspace + speed: same leader motion → speed²× response (1=normal, 2–4 = use more robot workspace)
-        self.declare_parameter("axis_map", "y,z,x")  # Leader(fwd,left,up)→Follower: "y,z,x"=MOVO Kinova(X=left,Y=up,Z=fwd); use "x,y,z" if no remap
+        self.declare_parameter("axis_map", "fwd_towards_base")  # Modes: fwd_towards_base | fwd_away_from_base
         self.declare_parameter("udp_ip", "127.0.0.1")
         self.declare_parameter("udp_port", 5005)
         self.declare_parameter("udp_gain", 2.0)
@@ -72,7 +72,7 @@ class KinovaTeleop(Node):
         speed_cap = min(speed, 5.0)
         self.rate = self._rate_base * speed_cap
         self.max_lin_vel = self._max_lin_vel_base * speed_cap
-        axis_map_str = (p("axis_map").value or "y,z,x").strip()
+        axis_map_str = (p("axis_map").value or "fwd_towards_base").strip()
         self._axis_map = self._parse_axis_map(axis_map_str.lower())
         self._axis_map_str = axis_map_str
         self.udp_ip = p("udp_ip").value
@@ -198,21 +198,32 @@ class KinovaTeleop(Node):
         return max(min(value, max_abs), -max_abs)
 
     def _parse_axis_map(self, s: str) -> list:
-        """Parse axis_map string into [(leader_axis_0_1_2, sign), ...] for follower x,y,z.
-        Example: 'y,z,x' -> follower x=leader y, follower y=leader z, follower z=leader x.
-        With minus: '-x,y,z' flips leader x when mapping to follower x.
+        """Parse direction mode into [(leader_axis_0_1_2, sign), ...] for follower x,y,z.
+        Modes:
+          - fwd_towards_base : follower(x,y,z) = ( +leader_y, +leader_z, +leader_x )
+          - fwd_away_from_base: follower(x,y,z) = ( -leader_y, +leader_z, -leader_x )
         """
+        mode = s.strip().lower()
+        presets = {
+            "fwd_towards_base": "y,z,x",
+            "fwd_away_from_base": "-y,z,-x",
+        }
+        if mode not in presets:
+            self.get_logger().warn(
+                f"Unknown axis_map mode '{s}', using fwd_towards_base."
+            )
+            mode = "fwd_towards_base"
+        map_str = presets[mode]
+        self._axis_map_str = mode
+
         ax = {"x": 0, "y": 1, "z": 2}
         out = []
-        for part in s.replace(" ", "").split(",")[:3]:
-            part = part.strip()
+        for part in map_str.split(","):
             if part.startswith("-"):
-                sign, idx = -1, ax.get(part[1:], 0)
+                sign, idx = -1, ax[part[1:]]
             else:
-                sign, idx = 1, ax.get(part, 0)
+                sign, idx = 1, ax[part]
             out.append((idx, sign))
-        while len(out) < 3:
-            out.append((len(out), 1))
         return out
 
     def _apply_axis_map(self, v_leader: list) -> list:

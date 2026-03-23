@@ -34,8 +34,11 @@ def generate_launch_description():
         description="Workspace + speed: 1=normal, 2–4 = use more of robot workspace (small teleop → big arm). Reduce to slow."
     )
     axis_map_arg = DeclareLaunchArgument(
-        "axis_map", default_value="y,z,x",
-        description="Leader→Follower axes: x,y,z (identity) or y,z,x (MOVO: fwd/left/up match)"
+        "axis_map", default_value="fwd_towards_base",
+        description=(
+            "Direction mode: fwd_towards_base (current behavior) or "
+            "fwd_away_from_base (flip left/right and fwd/bwd, keep up/down)"
+        )
     )
     lock_joint1_arg = DeclareLaunchArgument(
         "lock_joint1", default_value="true", description="Lock joint 1 (Jacobian-based joint velocity)"
