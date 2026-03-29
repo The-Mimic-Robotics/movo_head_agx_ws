@@ -27,6 +27,8 @@ setup(
         'console_scripts': [
             'xbox_reader = arms_xbox_ctr.xbox_reader:main',
             'axe4 = arms_xbox_ctr.axe4:main',
+            'kinova_teleop = arms_xbox_ctr.kinova_teleop:main',
+            'axe4_udp_bridge = arms_xbox_ctr.axe4_udp_bridge:main',
         ],
     },
 )

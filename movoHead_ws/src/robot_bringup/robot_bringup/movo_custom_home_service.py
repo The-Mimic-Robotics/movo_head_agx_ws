@@ -9,8 +9,8 @@ Services:
   /movo/home_both_arms   - home both arms simultaneously
 """
 
-import os
 import time
+from pathlib import Path
 
 import rclpy
 import yaml
@@ -31,8 +31,23 @@ class MovoCustomHomeService(Node):
         config = self.load_config()
         cb_group = ReentrantCallbackGroup()
 
-        self.right_arm_target = [float(config["right_arm"][f"joint{i}"]) for i in range(1, 8)]
-        self.left_arm_target = [float(config["left_arm"][f"joint{i}"]) for i in range(1, 8)]
+        pose_key = str(config.get("homing_pose_name") or "default").strip() or "default"
+        self.get_logger().info(f"  homing_pose_name (home + teleop profile key): {pose_key}")
+
+        home_poses = config.get("home_poses") or {}
+        if isinstance(home_poses, dict) and pose_key in home_poses and isinstance(
+            home_poses[pose_key], dict
+        ):
+            block = home_poses[pose_key]
+        elif "left_arm" in config and "right_arm" in config:
+            block = config
+        else:
+            raise KeyError(
+                f"home_joints.yaml: no home_poses['{pose_key}'] and no top-level left_arm/right_arm"
+            )
+
+        self.right_arm_target = [float(block["right_arm"][f"joint{i}"]) for i in range(1, 8)]
+        self.left_arm_target = [float(block["left_arm"][f"joint{i}"]) for i in range(1, 8)]
 
         self.right_arm_client = ActionClient(
             self, ArmJointAngles,
@@ -55,11 +70,46 @@ class MovoCustomHomeService(Node):
         self.get_logger().info(f"  /movo/home_both_arms -> simultaneous")
 
     def load_config(self):
-        path = os.path.join(
-            get_package_share_directory("robot_bringup"), "config", "home_joints.yaml"
-        )
-        with open(path, "r", encoding="utf-8") as f:
-            return yaml.safe_load(f)
+        """Prefer workspace src (even when this node runs from install/); else share install."""
+        name = "home_joints.yaml"
+        here = Path(__file__).resolve()
+        ordered = []
+
+        # 1) Monorepo / dev tree: walk parents so install/lib/.../site-packages still finds
+        #    .../movo_ws/movoHead_ws/src/robot_bringup/config/home_joints.yaml
+        for anc in here.parents:
+            for rel in (
+                ("movoHead_ws", "src", "robot_bringup", "config", name),
+                ("src", "robot_bringup", "config", name),
+            ):
+                p = anc.joinpath(*rel)
+                if p.is_file():
+                    ordered.append(p)
+                    break
+            if ordered:
+                break
+
+        # 2) In-place package: .../robot_bringup/config/ (only works when __file__ is under src tree)
+        legacy = here.parent.parent / "config" / name
+        if legacy.is_file() and legacy not in ordered:
+            ordered.append(legacy)
+
+        # 3) Installed share (stale until colcon build copies yaml)
+        try:
+            share = Path(get_package_share_directory("robot_bringup")) / "config" / name
+            if share.is_file() and share not in ordered:
+                ordered.append(share)
+        except Exception:
+            pass
+
+        for path in ordered:
+            with open(path, "r", encoding="utf-8") as f:
+                cfg = yaml.safe_load(f)
+            self.get_logger().info(f"Home joints YAML: {path}")
+            return cfg
+
+        tried = ", ".join(str(p) for p in ordered) if ordered else "(none)"
+        raise FileNotFoundError(f"Missing {name} (tried {tried})")
 
     def make_goal(self, target_angles):
         goal = ArmJointAngles.Goal()
@@ -256,7 +306,8 @@ def main(args=None):
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

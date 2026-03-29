@@ -5,12 +5,13 @@ Kinova arm teleop: UDP, Xbox, or AXE4 ROS2 → Cartesian/joint velocity (topic, 
 Input: udp | xbox | hybrid | ros2 (AXE4: eef_position, eef_pose, or eef_twist + /axe4/joy).
 Output: PoseVelocity or JointVelocity at 100 Hz (realtime, like movo_xbox_controller).
 
-ROS2 position mode: AXE4 sends rel_xyz (0 at rest). Target = robot_home + speed*axis_map(rel);
-  vel = rate*(target - current). When leader returns to rest, robot returns to start (no drift).
-ROS2 twist mode: vel = rate * twist_linear, clamped.
-Single tunable: speed (workspace scale + gain). robot_home captured on first pose message.
+Linear axes: leader frame +x=fwd, +y=left, +z=up → Kinova base via teleop_axis in
+  movoHead_ws/.../home_joints.yaml (homing_pose_name + arm_namespace). Optional teleop_axis param overrides.
+ROS2 position: Target = robot_home + speed*map(rel); vel = position_gain * deadband(err), EMA-smoothed.
+ROS2 twist: vel = rate * twist_linear, mapped, clamped.
 """
 
+import math
 import socket
 import struct
 import threading
@@ -23,6 +24,7 @@ from kinova_msgs.action import SetFingersPosition
 from kinova_msgs.msg import JointAngles, JointVelocity, PoseVelocity
 from kinova_msgs.srv import HomeArm, Start, Stop
 
+from arms_xbox_ctr.home_joint_config import apply_linear, axis_map_for_arm, load_home_joints_yaml, parse_axis_map
 from arms_xbox_ctr.jaco_jacobian import cart_to_joint_vel
 from rclpy.action import ActionClient
 from rclpy.node import Node
@@ -38,19 +40,15 @@ class KinovaTeleop(Node):
         self.declare_parameter("arm_namespace", "left_arm")
         self.declare_parameter("input_mode", "udp")
         self.declare_parameter("speed", 1.0)  # Workspace + speed: same leader motion → speed²× response (1=normal, 2–4 = use more robot workspace)
-        self.declare_parameter("axis_map", "fwd_towards_base")  # Modes: fwd_towards_base | fwd_away_from_base
-        self.declare_parameter("udp_ip", "127.0.0.1")
+        # Empty → home_joints.yaml teleop_axis[homing_pose_name][arm_namespace]
+        self.declare_parameter("teleop_axis", "")
+        self.declare_parameter("udp_ip", "0.0.0.0")
         self.declare_parameter("udp_port", 5005)
+        self.declare_parameter("udp_eef_control", "auto")
         self.declare_parameter("udp_gain", 2.0)
         self.declare_parameter("deadzone", 0.005)
         self.declare_parameter("max_ang_vel", 0.20)
         self.declare_parameter("pose_frame_id", "base_link")
-        self.declare_parameter("x_sign", 1.0)
-        self.declare_parameter("y_sign", 1.0)
-        self.declare_parameter("z_sign", 1.0)
-        self.declare_parameter("x_offset", 0.0)
-        self.declare_parameter("y_offset", 0.0)
-        self.declare_parameter("z_offset", 0.0)
         self.declare_parameter("button_debounce_sec", 0.30)
         self.declare_parameter("udp_bind_retry_sec", 2.0)
         self.declare_parameter("require_joy_keepalive", False)
@@ -60,6 +58,11 @@ class KinovaTeleop(Node):
         self.declare_parameter("require_command_path_ready", True)
         self.declare_parameter("lock_joint1", True)
         self.declare_parameter("axe4_input_topic", "/axe4/eef_position")
+        # relative: message is already vs leader home. absolute: full pose/position; delta = msg - ref (ref on first sample).
+        self.declare_parameter("axe4_position_frame", "auto")
+        self.declare_parameter("position_error_deadband", 0.002)
+        self.declare_parameter("position_gain", 4.0)
+        self.declare_parameter("position_vel_filter_alpha", 0.35)
 
         p = self.get_parameter
         self.arm_namespace = p("arm_namespace").value
@@ -72,21 +75,13 @@ class KinovaTeleop(Node):
         speed_cap = min(speed, 5.0)
         self.rate = self._rate_base * speed_cap
         self.max_lin_vel = self._max_lin_vel_base * speed_cap
-        axis_map_str = (p("axis_map").value or "fwd_towards_base").strip()
-        self._axis_map = self._parse_axis_map(axis_map_str.lower())
-        self._axis_map_str = axis_map_str
         self.udp_ip = p("udp_ip").value
         self.udp_port = int(p("udp_port").value)
+        self.udp_eef_control = (p("udp_eef_control").value or "auto").strip().lower()
         self.udp_gain = float(p("udp_gain").value)
         self.deadzone = float(p("deadzone").value)
         self.max_ang_vel = float(p("max_ang_vel").value)
         self.pose_frame_id = p("pose_frame_id").value
-        self.x_sign = float(p("x_sign").value)
-        self.y_sign = float(p("y_sign").value)
-        self.z_sign = float(p("z_sign").value)
-        self.x_offset = float(p("x_offset").value)
-        self.y_offset = float(p("y_offset").value)
-        self.z_offset = float(p("z_offset").value)
         self.button_debounce_sec = float(p("button_debounce_sec").value)
         self.udp_bind_retry_sec = float(p("udp_bind_retry_sec").value)
         self.require_joy_keepalive = bool(p("require_joy_keepalive").value)
@@ -99,6 +94,25 @@ class KinovaTeleop(Node):
         self.axe4_input_topic = (p("axe4_input_topic").value or "/axe4/eef_position").strip()
         self._ros2_use_twist = "twist" in self.axe4_input_topic.lower()
         self._ros2_pose_timeout = 0.1
+        ax_frame = (p("axe4_position_frame").value or "auto").strip().lower()
+        if ax_frame == "auto":
+            self._ros2_absolute = "absolute" in self.axe4_input_topic.lower()
+        else:
+            self._ros2_absolute = ax_frame == "absolute"
+        self.position_error_deadband = max(0.0, float(p("position_error_deadband").value))
+        self.position_gain = max(0.0, float(p("position_gain").value))
+        self.position_vel_filter_alpha = min(
+            1.0, max(0.0, float(p("position_vel_filter_alpha").value))
+        )
+
+        ta_override = (p("teleop_axis").value or "").strip()
+        if ta_override:
+            self._axis_spec_str = ta_override
+        else:
+            self._axis_spec_str = axis_map_for_arm(self.arm_namespace)
+        self._axis_parsed = parse_axis_map(self._axis_spec_str)
+        _, _yaml_path = load_home_joints_yaml()
+        _yp = str(_yaml_path) if _yaml_path else "(not found, using defaults)"
 
         # ── ROS interfaces ──
         qos = QoSProfile(
@@ -148,10 +162,23 @@ class KinovaTeleop(Node):
         self._last_debug_log_t = 0.0
         self._last_gate_log_t = 0.0
         self._last_udp_pose_time = 0.0
+        self._last_udp_rx_log_total = 0
         self._stop_event = threading.Event()
         self._udp_sock = None
         self._last_ros2_pose_time = 0.0
         self._last_axe4_gripper_cmd = None
+        self._leader_abs_ref = None  # leader-frame xyz when using absolute UDP/ROS topics
+        self._vel_lin_filt = [0.0, 0.0, 0.0]
+        self._udp_rx_total = 0
+        self._udp_rx_pose = 0
+        self._udp_rx_twist = 0
+        self._udp_rx_other = 0
+
+        if self.udp_eef_control not in ("auto", "velocity", "pose", "position"):
+            self.get_logger().warn(
+                f"Invalid udp_eef_control='{self.udp_eef_control}', using 'auto'."
+            )
+            self.udp_eef_control = "auto"
 
         self.vel_cmd = [0.0] * 6  # x, y, z, ax, ay, az
         self.udp_offset = [0.0, 0.0, 0.0]
@@ -175,7 +202,11 @@ class KinovaTeleop(Node):
                 self.create_subscription(
                     PoseStamped, self.axe4_input_topic, self._axe4_pose_callback, qos
                 )
-                self.get_logger().info(f"AXE4 pose: {self.axe4_input_topic} (vel = rate * (target - current))")
+                af = "absolute" if self._ros2_absolute else "relative"
+                self.get_logger().info(
+                    f"AXE4 pose: {self.axe4_input_topic} frame={af} "
+                    f"(vel = filtered(position_gain * deadband(target - current)))"
+                )
             self.create_subscription(Joy, "/axe4/joy", self._axe4_joy_callback, qos)
 
         # Start UDP listener thread (only needed for UDP-based modes)
@@ -185,11 +216,14 @@ class KinovaTeleop(Node):
             self.udp_thread.start()
 
         self.get_logger().info(
-            f"KinovaTeleop arm={arm} input={self.input_mode} speed={self._speed} axis_map={self._axis_map_str}"
+            f"KinovaTeleop arm={arm} input={self.input_mode} speed={self._speed} "
+            f"teleop_axis={self._axis_spec_str} (home_joints.yaml: {_yp})"
         )
         self.get_logger().info(
             f"teleop_active={self.teleop_active} require_joy_keepalive={self.require_joy_keepalive}"
         )
+        if self.input_mode in ("udp", "hybrid"):
+            self.get_logger().info(f"udp_eef_control={self.udp_eef_control}")
 
     # ── Helpers ──
 
@@ -197,54 +231,23 @@ class KinovaTeleop(Node):
     def clamp(value, max_abs):
         return max(min(value, max_abs), -max_abs)
 
-    def _parse_axis_map(self, s: str) -> list:
-        """Parse direction mode into [(leader_axis_0_1_2, sign), ...] for follower x,y,z.
-        Modes:
-          - fwd_towards_base : follower(x,y,z) = ( +leader_y, +leader_z, +leader_x )
-          - fwd_away_from_base: follower(x,y,z) = ( -leader_y, +leader_z, -leader_x )
-        """
-        mode = s.strip().lower()
-        presets = {
-            "fwd_towards_base": "y,z,x",
-            "fwd_away_from_base": "-y,z,-x",
-        }
-        if mode not in presets:
-            self.get_logger().warn(
-                f"Unknown axis_map mode '{s}', using fwd_towards_base."
-            )
-            mode = "fwd_towards_base"
-        map_str = presets[mode]
-        self._axis_map_str = mode
-
-        ax = {"x": 0, "y": 1, "z": 2}
-        out = []
-        for part in map_str.split(","):
-            if part.startswith("-"):
-                sign, idx = -1, ax[part[1:]]
-            else:
-                sign, idx = 1, ax[part]
-            out.append((idx, sign))
-        return out
-
-    def _apply_axis_map(self, v_leader: list) -> list:
-        """Map velocity from leader frame (X fwd, Y left, Z up) to follower/Kinova frame."""
-        return [
-            v_leader[self._axis_map[i][0]] * self._axis_map[i][1]
-            for i in range(3)
-        ]
-
-    def _to_leader_frame(self, v_follower: list) -> list:
-        """Convert position/velocity from follower to leader frame (inverse of axis_map)."""
-        out = [0.0, 0.0, 0.0]
-        for i in range(3):
-            j, s = self._axis_map[i][0], self._axis_map[i][1]
-            out[j] = v_follower[i] * s  # follower_i = s * leader_j  =>  leader_j = follower_i * s
-        return out
+    def _map_linear(self, v_leader: list[float]) -> list[float]:
+        """Leader (+x fwd, +y left, +z up) → Kinova base linear, via home_joints teleop_axis."""
+        return apply_linear([float(v_leader[0]), float(v_leader[1]), float(v_leader[2])], self._axis_parsed)
 
     def axis_with_deadzone(self, val, scale):
         if abs(val) < 0.1:
             return 0.0
         return self.clamp(val * scale, scale)
+
+    def _deadband_pos_err(self, e: float) -> float:
+        d = self.position_error_deadband
+        if abs(e) <= d:
+            return 0.0
+        return e - math.copysign(d, e)
+
+    def _reset_leader_frame_ref(self) -> None:
+        self._leader_abs_ref = None
 
     # ── Joy callback ──
 
@@ -272,6 +275,8 @@ class KinovaTeleop(Node):
             self.teleop_active = False
             self.calibrated = False
             self.robot_home_xyz = None
+            self._reset_leader_frame_ref()
+            self._vel_lin_filt = [0.0, 0.0, 0.0]
             self.vel_cmd = [0.0] * 6
             self.call_service(self.stop_client, Stop.Request())
             self._arm_started = False
@@ -283,6 +288,8 @@ class KinovaTeleop(Node):
             self._homing = True
             self.calibrated = False
             self.robot_home_xyz = None
+            self._reset_leader_frame_ref()
+            self._vel_lin_filt = [0.0, 0.0, 0.0]
             self.vel_cmd = [0.0] * 6
             self._arm_started = False
             self.call_home()
@@ -299,6 +306,7 @@ class KinovaTeleop(Node):
             self.calibrated = False
             if not self.teleop_active:
                 self.vel_cmd = [0.0] * 6
+                self._vel_lin_filt = [0.0, 0.0, 0.0]
             self.get_logger().info(f"teleop_active={self.teleop_active}")
 
         if self.input_mode in ("xbox", "hybrid"):
@@ -329,8 +337,20 @@ class KinovaTeleop(Node):
     # ── UDP ──
 
     def udp_loop(self):
-        fmt = "<fffffff"
-        pkt_size = struct.calcsize(fmt)
+        fmt_pose = "<fffffff"
+        pkt_size_pose = struct.calcsize(fmt_pose)
+        fmt_typed_pose = "<c3f"       # b'P' + x,y,z
+        fmt_typed_pose_abs = "<c7f"   # b'A' + 7 floats (absolute pose)
+        fmt_typed_pos_abs = "<c3f"    # b'Q' + x,y,z (absolute position)
+        fmt_typed_twist = "<c6f"      # b'T' + vx,vy,vz,wx,wy,wz
+        fmt_typed_imu = "<c7f"        # b'I' + qw,qx,qy,qz,roll,pitch,yaw
+        fmt_typed_joy = "<c3f2B"      # b'J' + joy_x,joy_y,joy_z,sw,sw2
+        pkt_size_typed_pose = struct.calcsize(fmt_typed_pose)
+        pkt_size_typed_pose_abs = struct.calcsize(fmt_typed_pose_abs)
+        pkt_size_typed_pos_abs = struct.calcsize(fmt_typed_pos_abs)
+        pkt_size_typed_twist = struct.calcsize(fmt_typed_twist)
+        pkt_size_typed_imu = struct.calcsize(fmt_typed_imu)
+        pkt_size_typed_joy = struct.calcsize(fmt_typed_joy)
         sock = None
 
         while rclpy.ok() and not self._stop_event.is_set():
@@ -364,12 +384,44 @@ class KinovaTeleop(Node):
                     continue
 
             # Drain buffer, keep latest packet
-            latest = None
+            latest_pose = None
+            latest_twist = None
             while True:
                 try:
                     data, _ = sock.recvfrom(1024)
-                    if len(data) == pkt_size:
-                        latest = struct.unpack(fmt, data)
+                    self._udp_rx_total += 1
+                    if len(data) == pkt_size_pose:
+                        # Legacy pose packet: x,y,z,qw,qx,qy,qz
+                        self._udp_rx_pose += 1
+                        latest_pose = struct.unpack(fmt_pose, data)
+                    elif len(data) == pkt_size_typed_twist and data[:1] == b"T":
+                        # Typed twist packet: leader-frame delta/twist terms
+                        self._udp_rx_twist += 1
+                        _, vx, vy, vz, wx, wy, wz = struct.unpack(fmt_typed_twist, data)
+                        latest_twist = (vx, vy, vz, wx, wy, wz)
+                    elif len(data) == pkt_size_typed_pose_abs and data[:1] == b"A":
+                        self._udp_rx_pose += 1
+                        _, x, y, z, qw, qx, qy, qz = struct.unpack(fmt_typed_pose_abs, data)
+                        latest_pose = (x, y, z, qw, qx, qy, qz)
+                    elif len(data) == pkt_size_typed_pos_abs and data[:1] == b"Q":
+                        self._udp_rx_pose += 1
+                        _, x, y, z = struct.unpack(fmt_typed_pos_abs, data)
+                        latest_pose = (x, y, z, 1.0, 0.0, 0.0, 0.0)
+                    elif len(data) == pkt_size_typed_pose and data[:1] == b"P":
+                        # Optional typed position packet (no quaternion)
+                        self._udp_rx_pose += 1
+                        _, x, y, z = struct.unpack(fmt_typed_pose, data)
+                        latest_pose = (x, y, z, 1.0, 0.0, 0.0, 0.0)
+                    elif len(data) == pkt_size_typed_imu and data[:1] == b"I":
+                        # IMU side channel; not used by this node yet.
+                        self._udp_rx_other += 1
+                        pass
+                    elif len(data) == pkt_size_typed_joy and data[:1] == b"J":
+                        # Joy side channel; joy is handled from /joy topic.
+                        self._udp_rx_other += 1
+                        pass
+                    else:
+                        self._udp_rx_other += 1
                 except BlockingIOError:
                     break
                 except OSError:
@@ -384,11 +436,9 @@ class KinovaTeleop(Node):
                 except Exception:
                     break
 
-            if latest is not None:
-                x = self.x_sign * latest[0] + self.x_offset
-                y = self.y_sign * latest[1] + self.y_offset
-                z = self.z_sign * latest[2] + self.z_offset
-                qw, qx, qy, qz = latest[3], latest[4], latest[5], latest[6]
+            if latest_pose is not None:
+                x, y, z = float(latest_pose[0]), float(latest_pose[1]), float(latest_pose[2])
+                qw, qx, qy, qz = latest_pose[3], latest_pose[4], latest_pose[5], latest_pose[6]
                 n = max((qw * qw + qx * qx + qy * qy + qz * qz) ** 0.5, 1e-9)
                 pose = [x, y, z, qw / n, qx / n, qy / n, qz / n]
 
@@ -398,8 +448,40 @@ class KinovaTeleop(Node):
 
                 self.publish_udp_pose(pose)
 
-                if self.input_mode in ("udp", "hybrid"):
-                    self.compute_udp_velocity(pose)
+            used_twist = False
+            if (
+                latest_twist is not None
+                and self.input_mode in ("udp", "hybrid")
+                and self.udp_eef_control in ("auto", "velocity")
+            ):
+                vx, vy, vz, wx, wy, wz = latest_twist
+                v_leader = [
+                    self.clamp(self.rate * vx, self.max_lin_vel),
+                    self.clamp(self.rate * vy, self.max_lin_vel),
+                    self.clamp(self.rate * vz, self.max_lin_vel),
+                ]
+                v_follower = self._map_linear(v_leader)
+                with self.state_lock:
+                    self.vel_cmd[0], self.vel_cmd[1], self.vel_cmd[2] = v_follower
+                    self.vel_cmd[5] = self.clamp(self.rate * wz, self.max_ang_vel)
+                    self._last_udp_pose_time = time.time()
+                used_twist = True
+
+            if (
+                latest_pose is not None
+                and self.input_mode in ("udp", "hybrid")
+                and self.udp_eef_control in ("auto", "pose", "position")
+                and not used_twist
+            ):
+                self.compute_udp_velocity(pose)
+
+            if (
+                self.input_mode in ("udp", "hybrid")
+                and self.udp_eef_control == "velocity"
+                and not used_twist
+            ):
+                # In explicit velocity mode, stop if no twist packet arrives.
+                self.vel_cmd[0] = self.vel_cmd[1] = self.vel_cmd[2] = 0.0
 
             time.sleep(0.005)
 
@@ -414,15 +496,13 @@ class KinovaTeleop(Node):
     # ── AXE4 ROS 2 topic callbacks ──
 
     def _axe4_pose_callback(self, msg: PoseStamped):
-        # Leader sends rel_xyz = position relative to leader home (0 when teleop at rest)
-        rel = [
-            self.x_sign * msg.pose.position.x,
-            self.y_sign * msg.pose.position.y,
-            self.z_sign * msg.pose.position.z,
+        # Leader: +x fwd, +y left, +z up (teleop source already in this convention)
+        p_off = [
+            float(msg.pose.position.x),
+            float(msg.pose.position.y),
+            float(msg.pose.position.z),
         ]
-        x = rel[0] + self.x_offset
-        y = rel[1] + self.y_offset
-        z = rel[2] + self.z_offset
+        x, y, z = p_off[0], p_off[1], p_off[2]
         qw = msg.pose.orientation.w
         qx = msg.pose.orientation.x
         qy = msg.pose.orientation.y
@@ -431,6 +511,12 @@ class KinovaTeleop(Node):
         pose = [x, y, z, qw / n, qx / n, qy / n, qz / n]
 
         with self.state_lock:
+            if self._ros2_absolute:
+                if self._leader_abs_ref is None:
+                    self._leader_abs_ref = p_off[:]
+                rel = [p_off[i] - self._leader_abs_ref[i] for i in range(3)]
+            else:
+                rel = p_off
             self.leader_rel_xyz = rel
             self.latest_udp_pose = pose
             self._last_ros2_pose_time = time.time()
@@ -446,7 +532,7 @@ class KinovaTeleop(Node):
             self.clamp(self.rate * msg.twist.linear.z, self.max_lin_vel),
         ]
         with self.state_lock:
-            self.vel_cmd[0], self.vel_cmd[1], self.vel_cmd[2] = self._apply_axis_map(v_leader)
+            self.vel_cmd[0], self.vel_cmd[1], self.vel_cmd[2] = self._map_linear(v_leader)
         self._last_ros2_pose_time = time.time()
         self._last_udp_pose_time = self._last_ros2_pose_time
 
@@ -482,7 +568,7 @@ class KinovaTeleop(Node):
                 return self.clamp(delta * self.udp_gain, self.max_lin_vel)
 
             v_leader = [v(dx), v(dy), v(dz)]
-            self.vel_cmd[0], self.vel_cmd[1], self.vel_cmd[2] = self._apply_axis_map(v_leader)
+            self.vel_cmd[0], self.vel_cmd[1], self.vel_cmd[2] = self._map_linear(v_leader)
         else:
             if self.input_mode in ("udp", "ros2"):
                 self.vel_cmd[0] = self.vel_cmd[1] = self.vel_cmd[2] = 0.0
@@ -529,32 +615,45 @@ class KinovaTeleop(Node):
             self.teleop_active = False
             self.calibrated = False
             self.robot_home_xyz = None
+            self._reset_leader_frame_ref()
+            self._vel_lin_filt = [0.0, 0.0, 0.0]
             self.vel_cmd = [0.0] * 6
 
         # ROS2: zero vel when no message (stops arm when leader stops)
         if self.input_mode == "ros2":
             if (time.time() - self._last_ros2_pose_time) > self._ros2_pose_timeout:
                 self.vel_cmd[0] = self.vel_cmd[1] = self.vel_cmd[2] = 0.0
+                self._vel_lin_filt = [0.0, 0.0, 0.0]
             elif not self._ros2_use_twist:
-                # Position mode: leader sends rel_xyz (0 at rest). Robot target = robot_home + speed*map(rel).
-                # When leader returns to rest, target = robot_home → robot returns to start (no drift).
-                with self.state_lock:
-                    cur = list(self.current_tool_xyz)
-                    rel = list(self.leader_rel_xyz)
-                if self.robot_home_xyz is None and self.have_tool_pose:
-                    self.robot_home_xyz = cur[:]
-                    self.get_logger().info(f"Position home set: robot_home={self.robot_home_xyz}")
-                if self.robot_home_xyz is not None:
-                    # Delta in leader frame → map to follower frame and scale
-                    delta_follower = self._apply_axis_map(rel)
-                    target = [
-                        self.robot_home_xyz[i] + self._speed * delta_follower[i]
-                        for i in range(3)
-                    ]
-                    err = [target[i] - cur[i] for i in range(3)]
-                    self.vel_cmd[0] = self.clamp(self.rate * err[0], self.max_lin_vel)
-                    self.vel_cmd[1] = self.clamp(self.rate * err[1], self.max_lin_vel)
-                    self.vel_cmd[2] = self.clamp(self.rate * err[2], self.max_lin_vel)
+                if not self.teleop_active:
+                    self.vel_cmd[0] = self.vel_cmd[1] = self.vel_cmd[2] = 0.0
+                    self._vel_lin_filt = [0.0, 0.0, 0.0]
+                else:
+                    with self.state_lock:
+                        cur = list(self.current_tool_xyz)
+                        rel = list(self.leader_rel_xyz)
+                    if self.robot_home_xyz is None and self.have_tool_pose:
+                        self.robot_home_xyz = cur[:]
+                        self.get_logger().info(f"Position home set: robot_home={self.robot_home_xyz}")
+                    if self.robot_home_xyz is not None:
+                        delta_follower = self._map_linear(rel)
+                        target = [
+                            self.robot_home_xyz[i] + self._speed * delta_follower[i]
+                            for i in range(3)
+                        ]
+                        err = [target[i] - cur[i] for i in range(3)]
+                        err_db = [self._deadband_pos_err(e) for e in err]
+                        a = self.position_vel_filter_alpha
+                        g = self.position_gain
+                        for i in range(3):
+                            v = self.clamp(g * err_db[i], self.max_lin_vel)
+                            if a <= 0.0:
+                                self._vel_lin_filt[i] = v
+                            else:
+                                self._vel_lin_filt[i] = a * v + (1.0 - a) * self._vel_lin_filt[i]
+                        self.vel_cmd[0] = self._vel_lin_filt[0]
+                        self.vel_cmd[1] = self._vel_lin_filt[1]
+                        self.vel_cmd[2] = self._vel_lin_filt[2]
 
         command_path_ready, gate_reason = self.command_path_ready()
         out_vel = self.vel_cmd[:]
@@ -633,6 +732,13 @@ class KinovaTeleop(Node):
                 f"home={self.home_client.service_is_ready()}) "
                 f"path(subs={sub_count},udp={self._udp_bound}){j1_str}"
             )
+            if self.input_mode in ("udp", "hybrid"):
+                delta = self._udp_rx_total - self._last_udp_rx_log_total
+                self._last_udp_rx_log_total = self._udp_rx_total
+                self.get_logger().info(
+                    f"udp_rx(total={self._udp_rx_total}, +{delta}/2s, pose={self._udp_rx_pose}, "
+                    f"twist={self._udp_rx_twist}, other={self._udp_rx_other})"
+                )
 
     # ── Services ──
 

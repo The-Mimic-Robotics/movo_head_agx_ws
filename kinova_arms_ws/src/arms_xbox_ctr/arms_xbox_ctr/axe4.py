@@ -8,31 +8,56 @@ import socket
 import struct
 import threading
 import time
+import numpy as np
 
 import kinova_msgs.msg
 from sensor_msgs.msg import Joy
-from kinova_msgs.msg import PoseVelocity
+from kinova_msgs.msg import PoseVelocity, JointVelocity, JointAngles
 from kinova_msgs.action import SetFingersPosition
 from kinova_msgs.srv import HomeArm, Stop, Start
 from geometry_msgs.msg import PoseStamped
+from arms_xbox_ctr.jaco_jacobian import cart_to_joint_vel
 
 class XboxAndUDPController(Node):
     def __init__(self, fingers_closed_pos: int = 6000, ros_rate: int = 100):
         super().__init__('xbox_udp_controller')
 
+        # Params (kept compatible with axe4_controller.launch.py)
+        self.declare_parameter('arm_namespace', 'left_arm')
+        self.declare_parameter('udp_ip', '127.0.0.1')
+        self.declare_parameter('udp_port', 5005)
+        self.declare_parameter('udp_eef_control', 'auto')   # auto | velocity | pose | position
+        self.declare_parameter('speed', 1.0)
+        self.declare_parameter('lock_joint1', True)
+        self.declare_parameter('auto_arm_udp', True)
+        self.declare_parameter('auto_start_arm', True)
+        self.declare_parameter('require_joy_keepalive', False)
+        self.declare_parameter('joy_timeout_sec', 1.0)
+
         # --- 1. CONFIGURATION ---
-        self.arm_namespace = 'left_arm'
+        self.arm_namespace = str(self.get_parameter('arm_namespace').value)
         self.MAX_LIN_VEL = 0.08  # Max speed 8 cm/s
         self.MAX_ANG_VEL = 0.20  # Max rotation speed
+        self.lock_joint1 = bool(self.get_parameter('lock_joint1').value)
+        self._max_joint_vel_deg = 120.0
+        self.auto_arm_udp = bool(self.get_parameter('auto_arm_udp').value)
+        self.auto_start_arm = bool(self.get_parameter('auto_start_arm').value)
+        self.require_joy_keepalive = bool(self.get_parameter('require_joy_keepalive').value)
+        self.joy_timeout_sec = float(self.get_parameter('joy_timeout_sec').value)
         
         # UDP Settings
-        self.UDP_IP = "127.0.0.1"
-        self.UDP_PORT = 5005
+        self.UDP_IP = str(self.get_parameter('udp_ip').value)
+        self.UDP_PORT = int(self.get_parameter('udp_port').value)
+        self.udp_eef_control = str(self.get_parameter('udp_eef_control').value).strip().lower()
+        if self.udp_eef_control not in ('auto', 'velocity', 'pose', 'position'):
+            self.udp_eef_control = 'auto'
+        speed_scale = max(0.1, float(self.get_parameter('speed').value))
         self.UDP_GAIN = 2.0      # Sensitivity (2.0 = 5cm move -> 10cm/s command)
         self.DEADZONE = 0.005    # 5mm deadzone
+        self.TWIST_GAIN = 12.0 * min(speed_scale, 5.0)
         
         # --- 2. STATE FLAGS ---
-        self.teleop_active = False  # SAFETY: Starts OFF
+        self.teleop_active = bool(self.auto_arm_udp)  # default ON for UDP remote teleop
         self.homing = False         # True while arm is running a home trajectory
         self.udp_offset = None      # Calibration point
         self.prev_buttons = [0] * 15
@@ -40,6 +65,20 @@ class XboxAndUDPController(Node):
         
         # Watchdog
         self.last_joy_msg_time = time.time()
+        self.current_joint_deg = None
+        self._last_joint_feedback_time = 0.0
+        self._last_joint_missing_warn_t = 0.0
+        self._jvel_stop_count = 0
+        self._last_rx_pose = None
+        self._last_rx_twist = None
+        self._last_out_cart = [0.0, 0.0, 0.0, 0.0]
+        self._last_out_joint = [0.0] * 7
+        self._udp_rx_total = 0
+        self._udp_rx_pose = 0
+        self._udp_rx_twist = 0
+        self._udp_rx_other = 0
+        self._last_udp_log_t = 0.0
+        self._arm_started = False
 
         # --- 3. ROS SETUP ---
         qos_profile = QoSProfile(
@@ -58,6 +97,11 @@ class XboxAndUDPController(Node):
             f"/{self.arm_namespace}/{self.arm_namespace}_driver/in/cartesian_velocity", 
             qos_profile
         )
+        self.joint_velocity_pub = self.create_publisher(
+            JointVelocity,
+            f"/{self.arm_namespace}/{self.arm_namespace}_driver/in/joint_velocity",
+            qos_profile,
+        )
 
         # Services
         self.home_client = self.create_client(HomeArm, f"/movo/home_{self.arm_namespace}")
@@ -71,6 +115,24 @@ class XboxAndUDPController(Node):
 
         # Joy Subscriber
         self.create_subscription(Joy, '/joy', self.joy_callback, qos_profile)
+        joint_qos = QoSProfile(
+            reliability=ReliabilityPolicy.BEST_EFFORT,
+            durability=DurabilityPolicy.VOLATILE,
+            depth=10,
+        )
+        self.create_subscription(
+            JointAngles,
+            f"/{self.arm_namespace}/{self.arm_namespace}_driver/out/joint_angles",
+            self.joint_angles_callback,
+            joint_qos,
+        )
+        # Compatibility for stacks that expose driver topics without the arm namespace prefix.
+        self.create_subscription(
+            JointAngles,
+            f"/{self.arm_namespace}_driver/out/joint_angles",
+            self.joint_angles_callback,
+            joint_qos,
+        )
 
         # Current Velocities
         self.vel_cmd = [0.0] * 6 # x, y, z, ax, ay, az
@@ -83,6 +145,12 @@ class XboxAndUDPController(Node):
         self.timer = self.create_timer(1.0 / ros_rate, self.publish_velocity)
 
         self.get_logger().info('=== Xbox + UDP Teleop Initialized ===')
+        self.get_logger().info(
+            f'UDP bind={self.UDP_IP}:{self.UDP_PORT} udp_eef_control={self.udp_eef_control} lock_joint1={self.lock_joint1}'
+        )
+        self.get_logger().info(
+            f'teleop_active={self.teleop_active} require_joy_keepalive={self.require_joy_keepalive}'
+        )
         # self.get_logger().info(f'Target: {self.arm_namespace} ONLY')
         # self.get_logger().info('*** SAFETY ON: Press "X" to ARM/DISARM Teleop ***')
 
@@ -91,28 +159,75 @@ class XboxAndUDPController(Node):
         sock.bind((self.UDP_IP, self.UDP_PORT)) # listen 
         sock.setblocking(False) # will not block ie code just moves on
         
-        fmt = '<fffffff' # 7 floats, little-endian (LSB at lowest memory address)
-        struct_len = struct.calcsize(fmt) # ie 28 bytes for 7 floats
+        fmt = '<fffffff' # legacy pose packet: 7 floats, little-endian
+        struct_len = struct.calcsize(fmt) # 28 bytes
+        fmt_twist = '<c6f' # typed twist packet: b'T'+(vx,vy,vz,wx,wy,wz)
+        twist_len = struct.calcsize(fmt_twist) # 25 bytes
+        tagged_lengths = {13, 15, 25, 29} # P/T/J/I packets from typed UDP mode
+        last_unexpected_warn = 0.0
         
         while rclpy.ok():
             try:
                 # Loop to drain buffer (prevent backlog) and get latest packet
                 data = None
+                twist = None
                 while True:
                     try:
                         chunk, _ = sock.recvfrom(1024)
+                        self._udp_rx_total += 1
                         if len(chunk) == struct_len:
                             data = chunk
-                        else: self.get_logger().warn(f"DEBUG: Received packet of unexpected size {len(chunk)} bytes")
+                            self._udp_rx_pose += 1
+                        elif len(chunk) == twist_len and chunk[:1] == b'T':
+                            _, vx, vy, vz, wx, wy, wz = struct.unpack(fmt_twist, chunk)
+                            twist = (vx, vy, vz, wx, wy, wz)
+                            self._last_rx_twist = twist
+                            self._udp_rx_twist += 1
+                        elif len(chunk) in tagged_lengths and chunk[:1] in (b"P", b"T", b"I", b"J"):
+                            self._udp_rx_other += 1
+                        else:
+                            self._udp_rx_other += 1
+                            now = time.time()
+                            if now - last_unexpected_warn > 2.0:
+                                last_unexpected_warn = now
+                                self.get_logger().warn(
+                                    f"DEBUG: Received packet of unexpected size {len(chunk)} bytes"
+                                )
                     except BlockingIOError:
                         break
                 
+                # Velocity mode: prefer typed twist packets
+                twist_mag = 0.0
+                if twist is not None:
+                    twist_mag = max(abs(twist[0]), abs(twist[1]), abs(twist[2]), abs(twist[5]))
+
+                use_twist = (
+                    self.teleop_active
+                    and twist is not None
+                    and (
+                        self.udp_eef_control == 'velocity'
+                        or (self.udp_eef_control == 'auto' and twist_mag > 1e-5)
+                    )
+                )
+
+                if use_twist:
+                    vx, vy, vz, wx, wy, wz = twist
+                    self.vel_cmd[0] = max(min(vx * self.TWIST_GAIN, self.MAX_LIN_VEL), -self.MAX_LIN_VEL)
+                    self.vel_cmd[1] = max(min(vy * self.TWIST_GAIN, self.MAX_LIN_VEL), -self.MAX_LIN_VEL)
+                    self.vel_cmd[2] = max(min(vz * self.TWIST_GAIN, self.MAX_LIN_VEL), -self.MAX_LIN_VEL)
+                    self.vel_cmd[5] = max(min(wz * self.TWIST_GAIN, self.MAX_ANG_VEL), -self.MAX_ANG_VEL)
+
                 if data is None:
+                    if self.udp_eef_control == 'velocity' and twist is None:
+                        self.vel_cmd[0] = 0.0
+                        self.vel_cmd[1] = 0.0
+                        self.vel_cmd[2] = 0.0
                     time.sleep(0.01)
                     continue
 
                 # Unpack: x, y, z, qw, qx, qy, qz
                 vals = struct.unpack(fmt, data)
+                self._last_rx_pose = vals
                 
                 # Publish PoseStamped end effector 
                 msg = PoseStamped()
@@ -134,7 +249,7 @@ class XboxAndUDPController(Node):
                 # If Teleop is OFF, we just track the position but do NOT update velocity
                 # If Teleop is ON, we calculate velocity based on offset
                 
-                if self.teleop_active and self.udp_offset:
+                if self.teleop_active and self.udp_offset and (self.udp_eef_control in ('pose', 'position') or (self.udp_eef_control == 'auto' and not use_twist)):
                     dx = curr_pos[0] - self.udp_offset[0]
                     dy = curr_pos[1] - self.udp_offset[1]
                     dz = curr_pos[2] - self.udp_offset[2]
@@ -148,7 +263,7 @@ class XboxAndUDPController(Node):
                     self.vel_cmd[0] = calc_vel(dx) # X
                     self.vel_cmd[1] = calc_vel(dy) # Y
                     self.vel_cmd[2] = calc_vel(dz) # Z
-                else:
+                elif self.udp_eef_control in ('auto', 'pose', 'position'):
                     # If not active, zero out linear velocity
                     self.vel_cmd[0] = 0.0
                     self.vel_cmd[1] = 0.0
@@ -271,6 +386,10 @@ class XboxAndUDPController(Node):
             elif name == "Home": req = HomeArm.Request()
             elif name == "Start": req = Start.Request()
             client.call_async(req)
+            if name == "Start":
+                self._arm_started = True
+            elif name == "Stop":
+                self._arm_started = False
 
     def call_home_service(self):
         if not self.home_client.service_is_ready():
@@ -291,30 +410,133 @@ class XboxAndUDPController(Node):
         self.call_service(self.start_client, "Start")
         self.get_logger().info("Arm re-started after homing.")
 
+    def joint_angles_callback(self, msg: JointAngles):
+        self.current_joint_deg = [
+            msg.joint1, msg.joint2, msg.joint3, msg.joint4,
+            msg.joint5, msg.joint6, msg.joint7,
+        ]
+        self._last_joint_feedback_time = time.time()
+
+    def _publish_joint_velocity(self):
+        has_motion = False
+        if self.teleop_active and self.current_joint_deg is not None:
+            v_cart = np.array([
+                self.vel_cmd[0], self.vel_cmd[1], self.vel_cmd[2],
+                0.0, 0.0, max(min(self.vel_cmd[5], self.MAX_ANG_VEL), -self.MAX_ANG_VEL),
+            ])
+            if np.any(np.abs(v_cart) > 1e-6):
+                has_motion = True
+                dq = cart_to_joint_vel(
+                    self.current_joint_deg,
+                    v_cart,
+                    locked_joints=[0],
+                    max_joint_vel_deg=self._max_joint_vel_deg,
+                )
+                msg = JointVelocity()
+                msg.joint1 = 0.0
+                msg.joint2 = float(dq[1])
+                msg.joint3 = float(dq[2])
+                msg.joint4 = float(dq[3])
+                msg.joint5 = float(dq[4])
+                msg.joint6 = float(dq[5])
+                msg.joint7 = float(dq[6])
+                self.joint_velocity_pub.publish(msg)
+                self._last_out_joint = [
+                    msg.joint1, msg.joint2, msg.joint3, msg.joint4,
+                    msg.joint5, msg.joint6, msg.joint7,
+                ]
+                self._jvel_stop_count = 10
+
+        if not has_motion and self._jvel_stop_count > 0:
+            self.joint_velocity_pub.publish(JointVelocity())
+            self._jvel_stop_count -= 1
+
     def publish_velocity(self):
         # Don't send ANY velocity commands while the arm is running a home trajectory.
         # Velocity commands conflict with the joint-angles action and cause it to abort.
         if self.homing:
             return
 
-        # Watchdog check
-        if (time.time() - self.last_joy_msg_time) > 1.0:
+        # Optional joystick keepalive watchdog (default disabled for UDP-only control)
+        if self.require_joy_keepalive and (time.time() - self.last_joy_msg_time) > self.joy_timeout_sec:
             self.teleop_active = False
 
-        msg = PoseVelocity()
+        if self.auto_start_arm and self.teleop_active and (not self._arm_started) and self.start_client.service_is_ready():
+            self.call_service(self.start_client, "Start")
+            self.get_logger().info("Auto-started arm driver.")
 
-        if self.teleop_active:
-            msg.twist_linear_x = float(self.vel_cmd[0])
-            msg.twist_linear_y = float(self.vel_cmd[1])
-            msg.twist_linear_z = float(self.vel_cmd[2])
-            msg.twist_angular_z = float(self.vel_cmd[5])
+        if self.lock_joint1:
+            if self.current_joint_deg is None:
+                # Strict mode: no joint feedback means no joint command.
+                now = time.time()
+                if now - self._last_joint_missing_warn_t > 2.0:
+                    self._last_joint_missing_warn_t = now
+                    self.get_logger().warn(
+                        "lock_joint1 requested but no joint feedback received yet; holding zero commands."
+                    )
+                if self._jvel_stop_count > 0:
+                    self.joint_velocity_pub.publish(JointVelocity())
+                    self._jvel_stop_count -= 1
+            else:
+                self._publish_joint_velocity()
         else:
-            msg.twist_linear_x = 0.0
-            msg.twist_linear_y = 0.0
-            msg.twist_linear_z = 0.0
-            msg.twist_angular_z = 0.0
+            msg = PoseVelocity()
 
-        self.velocity_pub.publish(msg)
+            if self.teleop_active:
+                msg.twist_linear_x = float(self.vel_cmd[0])
+                msg.twist_linear_y = float(self.vel_cmd[1])
+                msg.twist_linear_z = float(self.vel_cmd[2])
+                msg.twist_angular_z = float(self.vel_cmd[5])
+            else:
+                msg.twist_linear_x = 0.0
+                msg.twist_linear_y = 0.0
+                msg.twist_linear_z = 0.0
+                msg.twist_angular_z = 0.0
+
+            self.velocity_pub.publish(msg)
+            self._last_out_cart = [
+                msg.twist_linear_x,
+                msg.twist_linear_y,
+                msg.twist_linear_z,
+                msg.twist_angular_z,
+            ]
+
+        now = time.time()
+        if now - self._last_udp_log_t > 2.0:
+            self._last_udp_log_t = now
+            self.get_logger().info(
+                f"path(joint_subs={self.joint_velocity_pub.get_subscription_count()}, "
+                f"cart_subs={self.velocity_pub.get_subscription_count()}, "
+                f"start_ready={self.start_client.service_is_ready()}, teleop={self.teleop_active})"
+            )
+            self.get_logger().info(
+                f"udp_rx(total={self._udp_rx_total}, pose={self._udp_rx_pose}, "
+                f"twist={self._udp_rx_twist}, other={self._udp_rx_other})"
+            )
+            if self._last_rx_pose is not None:
+                p = self._last_rx_pose
+                self.get_logger().info(
+                    f"rx_pose xyz=({p[0]:+.3f},{p[1]:+.3f},{p[2]:+.3f}) "
+                    f"quat=({p[3]:+.3f},{p[4]:+.3f},{p[5]:+.3f},{p[6]:+.3f})"
+                )
+            if self._last_rx_twist is not None:
+                t = self._last_rx_twist
+                self.get_logger().info(
+                    f"rx_twist v=({t[0]:+.3f},{t[1]:+.3f},{t[2]:+.3f}) "
+                    f"w=({t[3]:+.3f},{t[4]:+.3f},{t[5]:+.3f})"
+                )
+            if self.lock_joint1:
+                j = self._last_out_joint
+                self.get_logger().info(
+                    f"cmd_joint dq=({j[0]:+.2f},{j[1]:+.2f},{j[2]:+.2f},{j[3]:+.2f},{j[4]:+.2f},{j[5]:+.2f},{j[6]:+.2f})"
+                )
+                age = (now - self._last_joint_feedback_time) if self._last_joint_feedback_time > 0.0 else -1.0
+                self.get_logger().info(f"joint_feedback_age_s={age:.3f}")
+            else:
+                c = self._last_out_cart
+                self.get_logger().info(
+                    f"cmd_cart v=({c[0]:+.3f},{c[1]:+.3f},{c[2]:+.3f}) wz={c[3]:+.3f}"
+                )
 
     # --- UDP THREAD UPDATE --- 
     # EDIT01: I COMMENTED THIS DUPLICATE FUNCTION OUT BECAUSE THIS TARING FEATURE SEEMS DANGEROUS, 
@@ -396,7 +618,8 @@ def main(args=None):
         pass
     finally:
         controller.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 if __name__ == '__main__':
     main()

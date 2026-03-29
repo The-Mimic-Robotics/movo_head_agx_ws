@@ -1,6 +1,13 @@
 cmake_minimum_required(VERSION 3.8)
 project(kinova_msgs)
 
+# rosidl_adapter runs Python during configure; it needs the `em` module (Debian: python3-empy).
+# If conda/miniforge is first on PATH, CMake picks that python and the build fails with:
+#   ModuleNotFoundError: No module named 'em'
+if(EXISTS "/usr/bin/python3")
+  set(Python3_EXECUTABLE "/usr/bin/python3" CACHE FILEPATH "Python for ament/rosidl" FORCE)
+endif()
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()

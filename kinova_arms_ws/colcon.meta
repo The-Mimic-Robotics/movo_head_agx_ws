@@ -1,0 +1,6 @@
+# Keep ROS 2 CMake builds on system Python (has rosidl deps: em/empy from apt).
+# Conda/miniforge first on PATH breaks kinova_msgs with: No module named 'em'
+names:
+  kinova_msgs:
+    cmake-args:
+      - "-DPython3_EXECUTABLE=/usr/bin/python3"

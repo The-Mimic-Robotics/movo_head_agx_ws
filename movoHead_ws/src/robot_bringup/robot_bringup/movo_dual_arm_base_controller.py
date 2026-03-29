@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Dual-arm Xbox controller for MOVO — both arms move simultaneously.
+Dual-arm Xbox controller for MOVO with base toggle mode.
 
-You command the LEFT arm; the RIGHT arm follows in mimic or mirror mode.
-X toggles between mimic (same velocities) and mirror (X/roll/yaw flipped).
+Default mode: dual-arm (both arms move simultaneously in mimic or mirror mode).
+Press X to toggle between dual_arm and base mode.
 
+DUAL_ARM MODE:
   Left stick vertical    forward / back  (Kinova +Z)
   Left stick horizontal  left / right    (Kinova +X)
   Right stick vertical   up / down       (Kinova +Y)
@@ -15,15 +16,17 @@ X toggles between mimic (same velocities) and mirror (X/roll/yaw flipped).
   A                      Start both arms
   B                      Emergency stop both arms
   RB                     Home both arms
-  X                      Toggle mimic / mirror
+  Y                      Toggle mimic / mirror
 
-Joint locking (optional):
-  Pass locked_joints:="1" (or "1,5" etc.) to lock specific joints.
-  Uses Jacobian-based cart→joint velocity conversion, same as single-arm controller.
+BASE MODE (RB deadman):
+  Left stick vertical    Drive forward / back
+  Left stick horizontal  Strafe left / right
+  Right stick horizontal Rotate
 """
 
 import numpy as np
 import rclpy
+from geometry_msgs.msg import Twist
 from rclpy.action import ActionClient
 from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
@@ -40,9 +43,9 @@ ARMS = ("left_arm", "right_arm")
 MIRROR_SIGN = [-1.0, 1.0, 1.0, 1.0, -1.0, -1.0]  # x, y, z, roll, pitch, yaw
 
 
-class MovoDualArmController(Node):
+class MovoDualArmBaseController(Node):
     def __init__(self):
-        super().__init__("movo_dual_arm_controller")
+        super().__init__("movo_dual_arm_base_controller")
 
         self._print_banner()
 
@@ -57,9 +60,12 @@ class MovoDualArmController(Node):
             if raw else []
         )
 
+        self.mode = "dual_arm"  # dual_arm | base
         self.mirror = False
         self.MAX_LIN = 0.20
         self.MAX_ANG = 0.20
+        self.BASE_MAX_LIN = 1.0
+        self.BASE_MAX_ANG = 1.0
         self.FINGERS_CLOSED = 5000.0
 
         self.prev_buttons = [0] * 15
@@ -87,6 +93,8 @@ class MovoDualArmController(Node):
                 JointVelocity, f"/{arm}/{arm}_driver/in/joint_velocity", qos,
             ) for arm in ARMS
         }
+        self.base_pub = self.create_publisher(Twist, "/cmd_vel", 100)
+
         self.stop_clients = {
             arm: self.create_client(Stop, f"/{arm}/{arm}_driver/in/stop")
             for arm in ARMS
@@ -136,27 +144,20 @@ class MovoDualArmController(Node):
             "\n"
             "╔═════════════════════════════════════════════════════════╗\n"
             "║                                                         ║\n"
-            "║   ⚠⚠⚠   DUAL-ARM SIMULTANEOUS CONTROL ACTIVE   ⚠⚠⚠      ║\n"
+            "║   ⚠⚠⚠   DUAL-ARM + BASE CONTROL ACTIVE        ⚠⚠⚠      ║\n"
             "║                                                         ║\n"
-            "║   BOTH ARMS WILL MOVE AT THE SAME TIME.                 ║\n"
-            "║   RISK OF COLLISION — USE WITH EXTREME CAUTION!         ║\n"
-            "║   KEEP HANDS ON E-STOP AT ALL TIMES.                    ║\n"
-            "║                                                         ║\n"
-            "║   X = toggle mimic / mirror    B = emergency stop       ║\n"
+            "║   X = toggle dual_arm/base   Y = toggle mimic/mirror   ║\n"
+            "║   In base mode, hold RB as deadman to move base.       ║\n"
             "║                                                         ║\n"
             "╚═════════════════════════════════════════════════════════╝\n"
         )
         self.get_logger().warn(banner)
-
-    # ── Joint-angle feedback ──
 
     def _on_joint_angles(self, arm: str, msg: JointAngles):
         self.current_joint_deg[arm] = [
             msg.joint1, msg.joint2, msg.joint3, msg.joint4,
             msg.joint5, msg.joint6, msg.joint7,
         ]
-
-    # ── Joystick ──
 
     def _joy_cb(self, msg: Joy):
         self.last_joy_time = self.get_clock().now()
@@ -176,19 +177,38 @@ class MovoDualArmController(Node):
         def pressed(i):
             return i < len(msg.buttons) and msg.buttons[i] == 1 and self.prev_buttons[i] == 0
 
-        if pressed(2):  # X → toggle mimic/mirror
+        if pressed(2):  # X -> toggle dual_arm/base
+            self.mode = "base" if self.mode == "dual_arm" else "dual_arm"
+            self.vel = [0.0] * 6
+            self.get_logger().warn(f"*** MODE: {self.mode.upper()} ***")
+
+        if self.mode == "base":
+            rb_held = len(msg.buttons) > 5 and msg.buttons[5] == 1
+            if rb_held:
+                self.vel[0] = axis(1, self.BASE_MAX_LIN)   # drive
+                self.vel[1] = axis(0, self.BASE_MAX_LIN)   # strafe
+                self.vel[2] = 0.0
+                self.vel[3] = 0.0
+                self.vel[4] = 0.0
+                self.vel[5] = axis(3, self.BASE_MAX_ANG)   # rotate
+            else:
+                self.vel = [0.0] * 6
+            self.prev_buttons = list(msg.buttons)
+            return
+
+        if pressed(3):  # Y -> toggle mimic/mirror in dual_arm mode
             self.mirror = not self.mirror
             label = "MIRROR" if self.mirror else "MIMIC"
-            self.get_logger().warn(f"*** MODE: {label} ***")
+            self.get_logger().warn(f"*** ARM SYNC MODE: {label} ***")
 
-        if pressed(0):  # A → start both
+        if pressed(0):  # A -> start both
             for arm in ARMS:
                 c = self.start_clients[arm]
                 if c.service_is_ready():
                     c.call_async(Start.Request())
             self.get_logger().info("Both arms STARTED")
 
-        if pressed(1):  # B → e-stop both
+        if pressed(1):  # B -> e-stop both
             for arm in ARMS:
                 c = self.stop_clients[arm]
                 if c.service_is_ready():
@@ -196,12 +216,12 @@ class MovoDualArmController(Node):
             self.vel = [0.0] * 6
             self.get_logger().warn("Both arms STOPPED")
 
-        if pressed(5):  # RB → home both
+        if pressed(5):  # RB -> home both
             self._homing = True
             self.vel = [0.0] * 6
             if self.home_client.wait_for_service(timeout_sec=0.5):
                 fut = self.home_client.call_async(HomeArm.Request())
-                fut.add_done_callback(lambda f: setattr(self, '_homing', False))
+                fut.add_done_callback(lambda f: setattr(self, "_homing", False))
             else:
                 self.get_logger().error("Home service not ready")
                 self._homing = False
@@ -224,12 +244,18 @@ class MovoDualArmController(Node):
 
         self.prev_buttons = list(msg.buttons)
 
-    # ── Publishing ──
-
     def _publish(self):
         dt = (self.get_clock().now() - self.last_joy_time).nanoseconds / 1e9
         if dt > 0.5:
             self.vel = [0.0] * 6
+
+        if self.mode == "base":
+            msg = Twist()
+            msg.linear.x = self.vel[0]
+            msg.linear.y = self.vel[1]
+            msg.angular.z = self.vel[5]
+            self.base_pub.publish(msg)
+            return
 
         if self._homing:
             return
@@ -252,9 +278,9 @@ class MovoDualArmController(Node):
         self._log_ctr += 1
         if self._log_ctr >= 500:
             self._log_ctr = 0
-            mode = "MIRROR" if self.mirror else "MIMIC"
+            sync_mode = "MIRROR" if self.mirror else "MIMIC"
             self.get_logger().info(
-                f"[{mode}] vel=({self.vel[0]:.3f},{self.vel[1]:.3f},{self.vel[2]:.3f},"
+                f"[{self.mode}:{sync_mode}] vel=({self.vel[0]:.3f},{self.vel[1]:.3f},{self.vel[2]:.3f},"
                 f"{self.vel[3]:.3f},{self.vel[4]:.3f},{self.vel[5]:.3f})"
             )
 
@@ -311,7 +337,7 @@ class MovoDualArmController(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = MovoDualArmController()
+    node = MovoDualArmBaseController()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:

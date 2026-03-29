@@ -25,6 +25,7 @@ setup(
         'console_scripts': [
             'movo_xbox_controller = robot_bringup.movo_xbox_controller:main',
             'movo_dual_arm_controller = robot_bringup.movo_dual_arm_controller:main',
+            'movo_dual_arm_base_controller = robot_bringup.movo_dual_arm_base_controller:main',
             'movo_custom_home_service = robot_bringup.movo_custom_home_service:main',
         ],
     },

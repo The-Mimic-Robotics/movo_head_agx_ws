@@ -38,6 +38,7 @@ from kinova_msgs.msg import JointAngles, JointVelocity, PoseVelocity
 from kinova_msgs.srv import HomeArm, Start, Stop
 from sensor_msgs.msg import Joy
 
+from arms_xbox_ctr.home_joint_config import apply_linear, axis_map_for_arm
 from arms_xbox_ctr.jaco_jacobian import cart_to_joint_vel
 
 MODES = ["left_arm", "right_arm", "base"]
@@ -49,7 +50,9 @@ class MovoXboxController(Node):
 
         self.declare_parameter("locked_joints", "")
         self.declare_parameter("max_joint_vel_deg", 45.0)
+        self.declare_parameter("use_home_yaml_teleop_frame", True)
         self.max_joint_vel_deg = float(self.get_parameter("max_joint_vel_deg").value)
+        self._use_yaml_teleop = bool(self.get_parameter("use_home_yaml_teleop_frame").value)
         # Parse "1,3,5" → [0, 2, 4]  (1-indexed input → 0-indexed for Jacobian)
         raw = self.get_parameter("locked_joints").value.strip()
         self._locked_joints: list[int] = (
@@ -139,6 +142,23 @@ class MovoXboxController(Node):
                 qos,
             )
         self.create_timer(0.01, self.publish_velocity)
+
+        self._axis_spec = {
+            "left_arm": (
+                axis_map_for_arm("left_arm")
+                if self._use_yaml_teleop
+                else "x,y,z"
+            ),
+            "right_arm": (
+                axis_map_for_arm("right_arm")
+                if self._use_yaml_teleop
+                else "x,y,z"
+            ),
+        }
+        self.get_logger().info(
+            f"MOVO teleop axis_map (home_joints.yaml): left={self._axis_spec['left_arm']} "
+            f"right={self._axis_spec['right_arm']}"
+        )
 
         self._log_counter = 0
         self.get_logger().info("=== MoVo Xbox Controller STARTED ===")
@@ -274,6 +294,11 @@ class MovoXboxController(Node):
         goal.fingers.finger1, goal.fingers.finger2, goal.fingers.finger3 = map(float, target)
         client.send_goal_async(goal)
 
+    def _linear_kinova(self, arm: str) -> tuple[float, float, float]:
+        """MOVO stick → Kinova linear (same frame as twist: X,Y,Z); YAML teleop_axis."""
+        vk = apply_linear(self.vel[:3], self._axis_spec[arm])
+        return (vk[0], vk[1], vk[2])
+
     # ── Joint-angle feedback ──
 
     def _on_joint_angles(self, arm: str, msg: JointAngles):
@@ -313,10 +338,11 @@ class MovoXboxController(Node):
             )
 
     def _publish_cartesian_velocity(self):
+        lx, ly, lz = self._linear_kinova(self.mode)
         msg = PoseVelocity()
-        msg.twist_linear_x = self.vel[0]
-        msg.twist_linear_y = self.vel[1]
-        msg.twist_linear_z = self.vel[2]
+        msg.twist_linear_x = lx
+        msg.twist_linear_y = ly
+        msg.twist_linear_z = lz
         msg.twist_angular_x = self.vel[3]   # Roll
         msg.twist_angular_y = self.vel[4]   # Pitch
         msg.twist_angular_z = self.vel[5]   # Yaw
@@ -326,8 +352,9 @@ class MovoXboxController(Node):
         q = self.current_joint_deg.get(self.mode)
         has_motion = False
         if q is not None:
+            lx, ly, lz = self._linear_kinova(self.mode)
             v_cart = np.array([
-                self.vel[0], self.vel[1], self.vel[2],
+                lx, ly, lz,
                 self.vel[3], self.vel[4], self.vel[5],
             ])
             if np.any(np.abs(v_cart) > 1e-6):

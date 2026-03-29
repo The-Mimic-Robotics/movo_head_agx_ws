@@ -1,47 +1,56 @@
-# Custom home joint angles (degrees) for MOVO arms.
-# After Kinova native home completes, the ArmJointAngles action moves the arm
-# to these angles. The driver's sendAdvanceTrajectory() with speed-limited
-# angular control handles smooth trajectory planning on the robot DSP.
-# Runtime code remaps each target to the nearest equivalent revolution
-# relative to current joint state (same pose, safer branch selection).
+# homing_pose_name → home_poses.<name> joints + teleop_axis.<name> per arm
+#
+# Teleop leader frame (AXE / UDP / eef_*): +x = forward, +y = left, +z = up.
+# teleop_axis.<pose>.<arm> is three comma-separated entries: which leader axis feeds
+# Kinova base linear X, Y, Z (with optional leading minus). Same convention as MOVO
+# joystick nodes (movo_*_controller) via home_joint_config.apply_linear.
 
-right_arm:
-  joint1: 268.94
-  joint2: 82.92
-  joint3: 190.84
-  joint4: 322.63
-  joint5: 190.75
-  joint6: 142.04
-  joint7: 180.00
+homing_pose_name: elbow_out
 
-# MIRRORED 360 - right_arm
-left_arm:
-  joint1: 91.06
-  joint2: 277.08
-  joint3: 169.16
-  joint4: 37.37
-  joint5: 169.25
-  joint6: 217.96
-  joint7: 180.00
+home_poses:
+  # Original / reference pose
+  elbow_up:
+    right_arm:
+      joint1: 268.94
+      joint2: 82.92
+      joint3: 190.84
+      joint4: 322.63
+      joint5: 190.75
+      joint6: 142.04
+      joint7: 180.00
+    left_arm:
+      joint1: 91.06
+      joint2: 277.08
+      joint3: 169.16
+      joint4: 37.37
+      joint5: 169.25
+      joint6: 217.96
+      joint7: 180.00
 
+  # Joint1 ~90° outward (default home + teleop offset vs elbow_up)
+  elbow_out:
+    right_arm:
+      joint1: 178.94
+      joint2: 82.92
+      joint3: 190.84
+      joint4: 322.63
+      joint5: 190.75
+      joint6: 142.04
+      joint7: 180.00
+    left_arm:
+      joint1: 181.06
+      joint2: 277.08
+      joint3: 169.16
+      joint4: 37.37
+      joint5: 169.25
+      joint6: 217.96
+      joint7: 180.00
 
-# GOOD HOME JOINT ANGLES
-
-# right_arm:
-#   joint1: 266.39
-#   joint2: 82.92
-#   joint3: 190.84
-#   joint4: 310.59
-#   joint5: 190.75
-#   joint6: 180.69
-#   joint7: 180.00
-
-# # MIRRORED 360 - right_arm
-# left_arm:
-#   joint1: 94.61
-#   joint2: 277.08
-#   joint3: 169.16
-#   joint4: 49.41
-#   joint5: 169.25
-#   joint6: 179.31
-#   joint7: 180.00
+teleop_axis:
+  elbow_up:
+    left_arm: x,y,z
+    right_arm: x,y,z
+  elbow_out:
+    # Robot X←−leader Y, Y←−leader Z, Z←leader X (fixes left↔right and up↔down vs y,z,x)
+    left_arm: "-y,-z,x"
+    right_arm: "-y,-z,x"
