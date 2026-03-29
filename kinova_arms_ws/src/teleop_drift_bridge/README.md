@@ -1,23 +1,27 @@
 # teleop_drift_bridge
 
-Separate from `arms_xbox_ctr` / `kinova_teleop`: hybrid **twist** + **pose-feedback** Cartesian correction, then optional Jacobian **joint velocity** (same imports as the main teleop stack).
+Separate from `kinova_teleop`: **velocity-first** AXE teleop with a **small pose drift bump** only when the leader twist is idle.
 
-## Behavior
+## Control (simple)
 
-- Subscribes to leader **twist** and **pose** (e.g. `/axe4/eef_twist`, `/axe4/eef_position`).
-- Subscribes to Kinova **tool_pose** and **joint_angles**.
-- Computes a **target TCP** from pose the same way as position teleop:  
-  `p_target = robot_home + speed * map(leader_delta)`.
-- **Drift correction**: `v_corr = drift_kp * deadband(p_target - p_current)` (clamped).
-- **Output**: `v = clamp(v_twist + v_corr)` → `PoseVelocity` or `JointVelocity` (if `lock_joint1`).
+- **Primary**: `v_twist = twist_rate * map(leader_twist)` (same idea as velocity teleop).
+- **Drift bump** (optional): `v_drift = drift_kp * deadband(p_target − p_tcp)` **only when** mapped twist magnitude &lt; `drift_twist_idle_thresh` (so pose never fights your motion or drives singularities).
+- Output: `clamp(v_twist + v_drift)` → `PoseVelocity` or Jacobian `JointVelocity` if `lock_joint1`.
 
-Axis mapping uses `home_joints.yaml` via `arms_xbox_ctr.home_joint_config` (same as MOVO controllers).
+## Safety / Xbox (same roles as kinova_teleop)
+
+- `/joy`: B = stop, RB = home, A = start, X = toggle teleop; D-pad vertical = gripper.
+- `/axe4/joy`: gripper open/close.
+- Services: `HomeArm`, `Start`, `Stop` on the arm namespace.
+
+## Params (defaults tuned mild)
+
+- `drift_kp` (default **0.35**), `max_correction_vel` (default **0.025** m/s), `drift_twist_idle_thresh` (default **0.015** m/s in Cartesian after map).
+- `drift_kp:=0.0` → pure twist.
 
 ## Important
 
-Do **not** run `kinova_teleop` and `drift_joint_teleop` to the **same** arm at once (both would publish driver commands).
-
-Pure twist (no drift term): set `drift_kp:=0.0`.
+Do **not** run `kinova_teleop` and `drift_joint_teleop` on the **same** arm at once.
 
 ## Build
 
@@ -25,7 +29,5 @@ Pure twist (no drift term): set `drift_kp:=0.0`.
 cd kinova_arms_ws
 colcon build --packages-select teleop_drift_bridge
 source install/setup.bash
-ros2 run teleop_drift_bridge drift_joint_teleop --ros-args -p drift_kp:=2.0
+ros2 launch teleop_drift_bridge drift_joint_teleop.launch.py
 ```
-
-Or: `ros2 launch teleop_drift_bridge drift_joint_teleop.launch.py`
