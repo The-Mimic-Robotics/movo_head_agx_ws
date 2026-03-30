@@ -36,11 +36,11 @@ from kinova_msgs.msg import JointAngles, JointVelocity, PoseVelocity
 from kinova_msgs.srv import HomeArm, Start, Stop
 from sensor_msgs.msg import Joy
 
-from arms_xbox_ctr.home_joint_config import apply_linear, axis_map_for_arm
+from arms_xbox_ctr.home_joint_config import apply_linear, movo_linear_axis_map_for_arm
 from arms_xbox_ctr.jaco_jacobian import cart_to_joint_vel
 
 ARMS = ("left_arm", "right_arm")
-MIRROR_SIGN = [-1.0, 1.0, 1.0, 1.0, -1.0, -1.0]  # x, y, z, roll, pitch, yaw
+MIRROR_SIGN = [1.0, -1.0, 1.0, 1.0, -1.0, -1.0]  # leader x,y,z; bilateral: mirror +y only
 
 
 class MovoDualArmBaseController(Node):
@@ -124,18 +124,18 @@ class MovoDualArmBaseController(Node):
 
         self._axis_spec = {
             "left_arm": (
-                axis_map_for_arm("left_arm")
+                movo_linear_axis_map_for_arm("left_arm")
                 if self._use_yaml_teleop
                 else "x,y,z"
             ),
             "right_arm": (
-                axis_map_for_arm("right_arm")
+                movo_linear_axis_map_for_arm("right_arm")
                 if self._use_yaml_teleop
                 else "x,y,z"
             ),
         }
         self.get_logger().info(
-            f"MOVO teleop axis_map (home_joints.yaml): left={self._axis_spec['left_arm']} "
+            f"MOVO movo_linear_axis_map (home_joints.yaml): left={self._axis_spec['left_arm']} "
             f"right={self._axis_spec['right_arm']}"
         )
 
@@ -226,9 +226,10 @@ class MovoDualArmBaseController(Node):
                 self.get_logger().error("Home service not ready")
                 self._homing = False
 
-        self.vel[0] = axis(0, self.MAX_LIN)   # X
-        self.vel[1] = axis(4, self.MAX_LIN)   # Y
-        self.vel[2] = axis(1, self.MAX_LIN)   # Z
+        # Leader frame +x=fwd,+y=left,+z=up (home_joints.yaml movo_linear_axis_map → apply_linear)
+        self.vel[0] = axis(1, self.MAX_LIN)   # leader x ← left stick vert
+        self.vel[1] = axis(0, self.MAX_LIN)   # leader y ← left stick horiz
+        self.vel[2] = axis(4, self.MAX_LIN)   # leader z ← right stick vert
         self.vel[3] = dpad(7) * self.MAX_ANG  # Roll
         self.vel[4] = dpad(6) * self.MAX_ANG  # Pitch
         self.vel[5] = -axis(3, self.MAX_ANG)  # Yaw

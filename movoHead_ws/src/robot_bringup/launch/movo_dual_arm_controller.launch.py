@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """Launch dual-arm Xbox controller (mimic / mirror mode)."""
 
+import os
+
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
+
+_HOME_JOINTS_YAML = os.path.join(
+    get_package_share_directory('robot_bringup'), 'config', 'home_joints.yaml')
 
 
 def generate_launch_description():
@@ -59,6 +65,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        SetEnvironmentVariable('MOVO_HOME_JOINTS_YAML', _HOME_JOINTS_YAML),
         device_arg,
         deadzone_arg,
         locked_joints_arg,

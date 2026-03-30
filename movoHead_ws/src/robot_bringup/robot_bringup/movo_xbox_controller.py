@@ -38,7 +38,7 @@ from kinova_msgs.msg import JointAngles, JointVelocity, PoseVelocity
 from kinova_msgs.srv import HomeArm, Start, Stop
 from sensor_msgs.msg import Joy
 
-from arms_xbox_ctr.home_joint_config import apply_linear, axis_map_for_arm
+from arms_xbox_ctr.home_joint_config import apply_linear, movo_linear_axis_map_for_arm
 from arms_xbox_ctr.jaco_jacobian import cart_to_joint_vel
 
 MODES = ["left_arm", "right_arm", "base"]
@@ -145,18 +145,18 @@ class MovoXboxController(Node):
 
         self._axis_spec = {
             "left_arm": (
-                axis_map_for_arm("left_arm")
+                movo_linear_axis_map_for_arm("left_arm")
                 if self._use_yaml_teleop
                 else "x,y,z"
             ),
             "right_arm": (
-                axis_map_for_arm("right_arm")
+                movo_linear_axis_map_for_arm("right_arm")
                 if self._use_yaml_teleop
                 else "x,y,z"
             ),
         }
         self.get_logger().info(
-            f"MOVO teleop axis_map (home_joints.yaml): left={self._axis_spec['left_arm']} "
+            f"MOVO movo_linear_axis_map (home_joints.yaml): left={self._axis_spec['left_arm']} "
             f"right={self._axis_spec['right_arm']}"
         )
 
@@ -221,10 +221,10 @@ class MovoXboxController(Node):
                 else:
                     self._btn4_last_press = now
 
-            # ── Sticks → Translation + Yaw ──
-            self.vel[2] = axis(1, self.MAX_LIN_VEL)        # Left stick vert  → forward/back (Kinova Z)
-            self.vel[0] = axis(0, self.MAX_LIN_VEL)        # Left stick horiz → left/right   (Kinova X)
-            self.vel[1] = axis(4, self.MAX_LIN_VEL)        # Right stick vert → up/down       (Kinova Y)
+            # ── Sticks → leader linear (+x fwd,+y left,+z up); YAML movo_linear_axis_map → Kinova ──
+            self.vel[0] = axis(1, self.MAX_LIN_VEL)        # leader x ← left stick vert
+            self.vel[1] = axis(0, self.MAX_LIN_VEL)        # leader y ← left stick horiz
+            self.vel[2] = axis(4, self.MAX_LIN_VEL)        # leader z ← right stick vert
             self.vel[5] = -axis(3, self.MAX_ANG_VEL)       # Right stick horiz → Yaw
 
             # ── D-pad → Roll / Pitch ──
@@ -295,7 +295,7 @@ class MovoXboxController(Node):
         client.send_goal_async(goal)
 
     def _linear_kinova(self, arm: str) -> tuple[float, float, float]:
-        """MOVO stick → Kinova linear (same frame as twist: X,Y,Z); YAML teleop_axis."""
+        """MOVO stick → Kinova linear; home_joints.yaml movo_linear_axis_map per arm."""
         vk = apply_linear(self.vel[:3], self._axis_spec[arm])
         return (vk[0], vk[1], vk[2])
 

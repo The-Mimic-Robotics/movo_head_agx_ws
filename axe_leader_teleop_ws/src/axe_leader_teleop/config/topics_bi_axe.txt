@@ -1,0 +1,14 @@
+# Topology
+#
+# 1) bi_axe_udp_ros2_bridge (standalone launch; bind UDP port once):
+#    /bi_axe_left/*   /bi_axe_right/*   optional legacy /axe_leader/*
+#
+# 2) bi_axe_bimanual.launch.py — joy + kinova_teleop x2 + movo_custom_home_service
+#    (no bridge; expects topics from (1))
+#
+# 3) axe_leader_base_teleop — /bi_axe_left/joy + /bi_axe_right/joy → /cmd_vel + grippers
+#    Xbox /joy: B override latch, A clear (see axe_leader_base_teleop.py)
+#
+# Kinova driver (external):
+#   /left_arm/left_arm_driver/...
+#   /right_arm/right_arm_driver/...

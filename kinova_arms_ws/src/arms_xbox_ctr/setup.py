@@ -29,6 +29,7 @@ setup(
             'axe4 = arms_xbox_ctr.axe4:main',
             'kinova_teleop = arms_xbox_ctr.kinova_teleop:main',
             'axe4_udp_bridge = arms_xbox_ctr.axe4_udp_bridge:main',
+            'axe4_base_teleop = arms_xbox_ctr.axe4_base_teleop:main',
         ],
     },
 )

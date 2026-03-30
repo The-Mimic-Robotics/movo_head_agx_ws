@@ -1,6 +1,6 @@
 """home_joints.yaml → axis map string + leader (x,y,z) → Kinova linear cmd.
 
-Leader frame (AXE4, UDP, Xbox sticks): +x forward, +y left, +z up.
+Leader frame (AXE leader, UDP, Xbox sticks): +x forward, +y left, +z up.
 
 YAML key ``movo_linear_axis_map`` (per ``homing_pose_name``, per arm) lists three tokens:
 which *leader* component feeds Kinova base linear X, Y, Z (optional leading '-' negates).
@@ -8,7 +8,7 @@ Example: "-y,-z,x" → Kinova X = −leader_y, Kinova Y = −leader_z, Kinova Z 
 
 Legacy key ``teleop_axis`` is still read if ``movo_linear_axis_map`` is absent.
 
-This module is shared by kinova_teleop and movoHead_ws controllers; one YAML row per arm/pose.
+The axe_leader_teleop package ships config/home_joints.yaml for standalone installs.
 """
 
 from __future__ import annotations
@@ -31,7 +31,6 @@ except ImportError:
 FILENAME = "home_joints.yaml"
 DEFAULT_AXIS = "x,y,z"
 
-# Old launch args still accepted → comma form
 _ALIASES = {
     "fwd_towards_base": "y,z,x",
     "fwd_away_from_base": "-x,z,-y",
@@ -66,11 +65,17 @@ def _yaml_paths() -> list[Path]:
     except OSError:
         here = Path(__file__)
     for anc in here.parents:
+        if anc.name == "axe_leader_teleop_ws":
+            add(anc / "src" / "axe_leader_teleop" / "config" / FILENAME)
         if anc.name == "kinova_arms_ws":
             add(anc.parent / "movoHead_ws" / "src" / "robot_bringup" / "config" / FILENAME)
         if anc.name == "movoHead_ws":
             add(anc / "src" / "robot_bringup" / "config" / FILENAME)
         add(anc / "movoHead_ws" / "src" / "robot_bringup" / "config" / FILENAME)
+    try:
+        add(Path(get_package_share_directory("axe_leader_teleop")) / "config" / FILENAME)
+    except (PackageNotFoundError, ValueError):
+        pass
     try:
         add(Path(get_package_share_directory("robot_bringup")) / "config" / FILENAME)
     except (PackageNotFoundError, ValueError):

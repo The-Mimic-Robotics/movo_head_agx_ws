@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Launch dual-arm + base toggle Xbox controller."""
+"""Dual-arm + base toggle Xbox controller."""
 
 import os
 
@@ -11,7 +11,7 @@ from launch_ros.actions import Node
 from launch_ros.parameter_descriptions import ParameterValue
 
 _HOME_JOINTS_YAML = os.path.join(
-    get_package_share_directory("robot_bringup"), "config", "home_joints.yaml")
+    get_package_share_directory("axe_leader_teleop"), "config", "home_joints.yaml")
 
 
 def generate_launch_description():
@@ -47,7 +47,7 @@ def generate_launch_description():
     )
 
     controller_node = Node(
-        package="robot_bringup",
+        package="axe_leader_teleop",
         executable="movo_dual_arm_base_controller",
         name="movo_dual_arm_base_controller",
         output="screen",
@@ -58,7 +58,7 @@ def generate_launch_description():
     )
 
     home_service_node = Node(
-        package="robot_bringup",
+        package="axe_leader_teleop",
         executable="movo_custom_home_service",
         name="movo_custom_home_service",
         output="screen",

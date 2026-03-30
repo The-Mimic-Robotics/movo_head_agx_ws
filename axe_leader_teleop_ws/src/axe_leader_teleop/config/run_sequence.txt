@@ -1,0 +1,31 @@
+# Suggested run order (separate terminals unless noted)
+#
+# 0) Build once:
+#    cd ~/Desktop/movo_ws/axe_leader_teleop_ws
+#    source /opt/ros/humble/setup.bash
+#    colcon build --packages-select axe_leader_teleop
+#    source install/setup.bash
+#
+# 1) UDP → ROS (run once, keep running; NOT started by other launches):
+#    ros2 launch axe_leader_teleop bi_axe_udp_ros2_bridge.launch.py
+#    (optional: udp_port:=5005 udp_ip:=0.0.0.0)
+#
+# 2) Kinova arm drivers / MOVO stack (your existing bringup — not this package).
+#
+# 3) Arm teleop + Xbox safety for arms + home service:
+#    ros2 launch axe_leader_teleop bi_axe_bimanual.launch.py
+#    (publishes /joy from joy_linux for kinova_teleop E-stop / home / teleop toggle)
+#
+# 4) Base + grippers from handles (subscribes to /bi_axe_left/joy, /bi_axe_right/joy):
+#    ros2 launch axe_leader_teleop axe_leader_base_teleop.launch.py
+#    (uses same /joy as step 3 for Xbox override — set include_joy:=false)
+#
+# Quick checks:
+#    ros2 topic echo /bi_axe_left/eef_twist --once
+#    ros2 topic echo /joy --once
+#    ros2 topic echo /cmd_vel --once
+#
+# Safety:
+# - kinova_teleop: Xbox /joy B = arm E-stop, RB = home, etc. (see node logs)
+# - axe_leader_base_teleop: Xbox B = latch override (zero base, ignore handle grippers); A = clear
+# - Handles: optional require_deadman on base launch; grip axis hysteresis in node

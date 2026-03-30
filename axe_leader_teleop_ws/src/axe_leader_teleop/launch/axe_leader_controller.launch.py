@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Minimal launch for AXE4 leader → one Kinova arm. Realtime velocity on topics (no action server)."""
+"""Single-arm AXE leader → one Kinova arm (UDP / Xbox / ROS topics)."""
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
@@ -36,15 +36,15 @@ def generate_launch_description():
         "udp_eef_control", default_value="auto",
         description="UDP EEF control mode: auto | velocity | pose | position"
     )
-    axe4_input_topic_arg = DeclareLaunchArgument(
-        "axe4_input_topic", default_value="/axe4/eef_twist",
+    axe_leader_input_topic_arg = DeclareLaunchArgument(
+        "axe_leader_input_topic", default_value="/axe_leader/eef_twist",
         description=(
-            "Pose/position: /axe4/eef_position, eef_pose, eef_position_absolute, eef_pose_absolute; "
-            "velocity: /axe4/eef_twist"
+            "Pose/position: /axe_leader/eef_position, eef_pose, eef_position_absolute, eef_pose_absolute; "
+            "velocity: /axe_leader/eef_twist"
         )
     )
-    axe4_position_frame_arg = DeclareLaunchArgument(
-        "axe4_position_frame", default_value="auto",
+    axe_leader_position_frame_arg = DeclareLaunchArgument(
+        "axe_leader_position_frame", default_value="auto",
         description="relative | absolute | auto (auto: absolute if topic name contains 'absolute')"
     )
     position_error_deadband_arg = DeclareLaunchArgument(
@@ -100,8 +100,8 @@ def generate_launch_description():
         }],
     )
 
-    axe4_node = Node(
-        package="arms_xbox_ctr",
+    teleop_node = Node(
+        package="axe_leader_teleop",
         executable="kinova_teleop",
         name="kinova_teleop",
         output="screen",
@@ -111,8 +111,8 @@ def generate_launch_description():
             "udp_ip": LaunchConfiguration("udp_ip"),
             "udp_port": LaunchConfiguration("udp_port"),
             "udp_eef_control": LaunchConfiguration("udp_eef_control"),
-            "axe4_input_topic": LaunchConfiguration("axe4_input_topic"),
-            "axe4_position_frame": LaunchConfiguration("axe4_position_frame"),
+            "axe_leader_input_topic": LaunchConfiguration("axe_leader_input_topic"),
+            "axe_leader_position_frame": LaunchConfiguration("axe_leader_position_frame"),
             "position_error_deadband": LaunchConfiguration("position_error_deadband"),
             "position_gain": LaunchConfiguration("position_gain"),
             "position_vel_filter_alpha": LaunchConfiguration("position_vel_filter_alpha"),
@@ -128,7 +128,7 @@ def generate_launch_description():
     )
 
     home_service_node = Node(
-        package="robot_bringup",
+        package="axe_leader_teleop",
         executable="movo_custom_home_service",
         name="movo_custom_home_service",
         output="screen",
@@ -143,8 +143,8 @@ def generate_launch_description():
         udp_ip_arg,
         udp_port_arg,
         udp_eef_control_arg,
-        axe4_input_topic_arg,
-        axe4_position_frame_arg,
+        axe_leader_input_topic_arg,
+        axe_leader_position_frame_arg,
         position_error_deadband_arg,
         position_gain_arg,
         position_vel_filter_alpha_arg,
@@ -157,6 +157,6 @@ def generate_launch_description():
         require_joy_keepalive_arg,
         joy_timeout_sec_arg,
         joy_node,
-        axe4_node,
+        teleop_node,
         home_service_node,
     ])

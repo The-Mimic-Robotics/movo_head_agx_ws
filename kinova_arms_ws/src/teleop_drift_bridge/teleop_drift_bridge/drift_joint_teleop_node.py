@@ -31,7 +31,7 @@ from rclpy.node import Node
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 from sensor_msgs.msg import Joy
 
-from arms_xbox_ctr.home_joint_config import apply_linear, axis_map_for_arm, parse_axis_map
+from arms_xbox_ctr.home_joint_config import apply_linear, movo_linear_axis_map_for_arm, parse_axis_map
 from arms_xbox_ctr.jaco_jacobian import cart_to_joint_vel
 
 
@@ -52,7 +52,8 @@ class DriftJointTeleopNode(Node):
         self.declare_parameter("arm_namespace", "left_arm")
         self.declare_parameter("leader_twist_topic", "/axe4/eef_twist")
         self.declare_parameter("leader_pose_topic", "/axe4/eef_position")
-        self.declare_parameter("teleop_axis", "")
+        self.declare_parameter("movo_linear_axis_map", "")
+        self.declare_parameter("teleop_axis", "")  # deprecated if movo_linear_axis_map set
         self.declare_parameter("speed", 1.0)
         self.declare_parameter("twist_rate", 12.0)
         self.declare_parameter("drift_kp", 0.35)
@@ -78,8 +79,10 @@ class DriftJointTeleopNode(Node):
         self._arm = str(p("arm_namespace").value).strip()
         self._lt = str(p("leader_twist_topic").value).strip()
         self._lp = str(p("leader_pose_topic").value).strip()
-        ta = (p("teleop_axis").value or "").strip()
-        self._axis = parse_axis_map(ta if ta else axis_map_for_arm(self._arm))
+        mo = (p("movo_linear_axis_map").value or "").strip()
+        legacy = (p("teleop_axis").value or "").strip()
+        ta = mo or legacy
+        self._axis = parse_axis_map(ta if ta else movo_linear_axis_map_for_arm(self._arm))
         self._speed = max(0.0, float(p("speed").value))
         self._rate = max(0.0, float(p("twist_rate").value))
         self._kp = max(0.0, float(p("drift_kp").value))
