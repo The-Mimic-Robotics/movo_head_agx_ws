@@ -19,6 +19,21 @@ BASE_USER = "movo_base"
 BASE_PASS = "movo420"
 
 DELAY = 3
+REMOTE_CLEANUP = (
+    "echo '[CLEANUP] Stopping old ROS/bridge processes...'; "
+    "pkill -9 -f '[r]oslaunch' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]oscore' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]osmaster' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]osout' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[m]ove_group' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[m]ovo_servo' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[s]ervo' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[k]inova' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]ealsense' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]viz' >/dev/null 2>&1 || true; "
+    "docker rm -f ros_bridge >/dev/null 2>&1 || true; "
+    "sleep 1"
+)
 
 
 def write_script(content):
@@ -38,14 +53,19 @@ def main():
         print("[ERROR] sshpass not installed. Run: sudo apt install -y sshpass")
         sys.exit(1)
 
-    # Terminal 1: Arms NUC - roscore + dual arms
-    # bash -ic makes it interactive so .bashrc is sourced automatically
-    # roslaunch is long-running so SSH stays open
+    # Terminal 1: Arms NUC - headless MoveIt Servo middleware (ROS1 Noetic)
+    # This becomes the ROS1 master and routes bridge commands through Servo
     arms = write_script(
         f"sshpass -p '{ARMS_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
         f" {ARMS_USER}@{ARMS_HOST}"
-        f""" 'bash -ic "roscore & sleep 4 && roslaunch kinova_bringup dual_arms.launch"'"""
+        f""" 'bash -ic "{REMOTE_CLEANUP} && source /opt/ros/noetic/setup.bash && """
+        f"""source ~/movo_servo_ws/devel/setup.bash && """
+        f"""export ROS_MASTER_URI=http://{ARMS_HOST}:11311 && """
+        f"""export ROS_IP={ARMS_HOST} && """
+        f"""roslaunch movo_servo_teleop_demo movo_servo_rosbridge_single_master.launch """
+        f"""local_machine_ip:={ARMS_HOST} use_real_arms:=true rviz:=false launch_joy:=false """
+        f"""launch_realsense_d455:=false live_octomap_refresh:=false load_test_obstacle:=false"'"""
         f"\necho '[ARMS] Process stopped. Reconnecting to SSH...'"
         f"\nexec sshpass -p '{ARMS_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
@@ -58,12 +78,12 @@ def main():
         f"sshpass -p '{BASE_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
         f" {BASE_USER}@{BASE_HOST}"
-        f""" 'if docker ps --format {{{{.Names}}}} | grep -q ros_bridge; then"""
-        f"""   echo "[BRIDGE] ros_bridge container already running, skipping.";"""
+        f""" 'bash -ic "{REMOTE_CLEANUP} && if docker ps --format {{{{.Names}}}} | grep -q ros_bridge; then"""
+        f"""   echo '[BRIDGE] ros_bridge container already running, skipping.';"""
         f"""   docker logs -f ros_bridge;"""
         f""" else"""
         f"""   cd ~ && ./ros-humble-ros1-bridge-builder/kinova_ros1_bridge_101.sh;"""
-        f""" fi'"""
+        f""" fi"'"""
         f"\necho '[BRIDGE] Process stopped. Reconnecting to SSH...'"
         f"\nexec sshpass -p '{BASE_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
@@ -88,16 +108,16 @@ def main():
     print("  MOVO Robot Startup")
     print("============================================================")
 
-    # print("[1/3] Arms NUC...")
-    # open_terminal("ARMS_NUC", arms)
-    # time.sleep(DELAY)
+    print("[1/3] Arms NUC...")
+    open_terminal("ARMS_NUC", arms)
+    time.sleep(DELAY)
 
-    print("[2/3] Base NUC bridge...")
+    print("[2/3] Base NUC bridge...") 
     open_terminal("BASE_NUC_BRIDGE", bridge)
     time.sleep(DELAY)
 
-    # print("[3/3] Base NUC bringup...")
-    # open_terminal("BASE_NUC_BRINGUP", bringup)
+    print("[3/3] Base NUC bringup...")
+    open_terminal("BASE_NUC_BRINGUP", bringup)
 
     print("[DONE] Check terminal windows.")
 

@@ -62,6 +62,9 @@ class KinovaTeleop(Node):
         self.declare_parameter("auto_arm_udp", True)
         self.declare_parameter("auto_start_arm", True)
         self.declare_parameter("require_command_path_ready", True)
+        # Prefer locked_joints (comma-separated 1-indexed joints). Empty string => Cartesian velocity mode.
+        # Kept lock_joint1 for backward compatibility (ignored when locked_joints is set).
+        self.declare_parameter("locked_joints", "1")
         self.declare_parameter("lock_joint1", True)
         self.declare_parameter("max_joint_vel_deg", 120.0)
         self.declare_parameter("axe_leader_input_topic", "/axe_leader/eef_position")
@@ -97,6 +100,12 @@ class KinovaTeleop(Node):
         self.auto_arm_udp = bool(p("auto_arm_udp").value)
         self.auto_start_arm = bool(p("auto_start_arm").value)
         self.require_command_path_ready = bool(p("require_command_path_ready").value)
+        raw_locked = str(p("locked_joints").value).strip()
+        self._locked_joints_raw = raw_locked
+        if raw_locked:
+            self._locked_joints = [int(s) - 1 for s in raw_locked.split(",") if s.strip()]
+        else:
+            self._locked_joints = []
         self.lock_joint1 = bool(p("lock_joint1").value)
         self._max_joint_vel_deg = float(p("max_joint_vel_deg").value)
         self.axe_leader_input_topic = (p("axe_leader_input_topic").value or "/axe_leader/eef_position").strip()
@@ -684,7 +693,10 @@ class KinovaTeleop(Node):
                 self._arm_started = True
                 self.get_logger().info("Auto-started arm driver.")
 
-        if self.lock_joint1:
+        # Joint velocity mode when locked_joints non-empty; Cartesian mode when locked_joints empty.
+        # Backward compat: if locked_joints is not provided (older configs), lock_joint1 can still force joint mode.
+        use_joint_velocity = bool(self._locked_joints) or (not self._locked_joints_raw and self.lock_joint1)
+        if use_joint_velocity:
             self._publish_joint_velocity(active, out_vel)
         else:
             self._publish_cartesian_velocity(active, out_vel)
@@ -717,10 +729,11 @@ class KinovaTeleop(Node):
                 has_motion = True
                 dq = cart_to_joint_vel(
                     self.current_joint_deg, v_cart,
-                    locked_joints=[0], max_joint_vel_deg=self._max_joint_vel_deg,
+                    locked_joints=(self._locked_joints if self._locked_joints else [0]),
+                    max_joint_vel_deg=self._max_joint_vel_deg,
                 )
                 msg = JointVelocity()
-                msg.joint1 = 0.0
+                msg.joint1 = float(dq[0])
                 msg.joint2 = float(dq[1])
                 msg.joint3 = float(dq[2])
                 msg.joint4 = float(dq[3])

@@ -54,6 +54,7 @@ def _yaml_paths() -> list[Path]:
         seen.add(k)
         out.append(r)
 
+    # Explicit override always wins.
     o = os.environ.get("MOVO_HOME_JOINTS_YAML", "").strip()
     if o:
         add(Path(o).expanduser())
@@ -64,20 +65,12 @@ def _yaml_paths() -> list[Path]:
         here = Path(__file__).resolve()
     except OSError:
         here = Path(__file__)
+    # Package-local only: prefer this workspace source config, then package share.
     for anc in here.parents:
         if anc.name == "axe_leader_teleop_ws":
             add(anc / "src" / "axe_leader_teleop" / "config" / FILENAME)
-        if anc.name == "kinova_arms_ws":
-            add(anc.parent / "movoHead_ws" / "src" / "robot_bringup" / "config" / FILENAME)
-        if anc.name == "movoHead_ws":
-            add(anc / "src" / "robot_bringup" / "config" / FILENAME)
-        add(anc / "movoHead_ws" / "src" / "robot_bringup" / "config" / FILENAME)
     try:
         add(Path(get_package_share_directory("axe_leader_teleop")) / "config" / FILENAME)
-    except (PackageNotFoundError, ValueError):
-        pass
-    try:
-        add(Path(get_package_share_directory("robot_bringup")) / "config" / FILENAME)
     except (PackageNotFoundError, ValueError):
         pass
     return out

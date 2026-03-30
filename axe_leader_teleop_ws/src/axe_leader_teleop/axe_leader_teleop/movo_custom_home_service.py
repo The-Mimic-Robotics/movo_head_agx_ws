@@ -10,6 +10,7 @@ Services:
 """
 
 import time
+import threading
 from pathlib import Path
 
 import rclpy
@@ -63,6 +64,7 @@ class MovoCustomHomeService(Node):
         self.create_service(HomeArm, "/movo/home_right_arm", self.handle_home_right, callback_group=cb_group)
         self.create_service(HomeArm, "/movo/home_left_arm", self.handle_home_left, callback_group=cb_group)
         self.create_service(HomeArm, "/movo/home_both_arms", self.handle_home_both, callback_group=cb_group)
+        self._home_lock = threading.Lock()
 
         self.get_logger().info("=== MOVO Custom Home Service READY ===")
         self.get_logger().info(f"  /movo/home_right_arm -> {self.right_arm_target}")
@@ -70,23 +72,18 @@ class MovoCustomHomeService(Node):
         self.get_logger().info(f"  /movo/home_both_arms -> simultaneous")
 
     def load_config(self):
-        """Prefer workspace src (even when this node runs from install/); else share install."""
+        """Use axe_leader_teleop package config (src preferred, then package share)."""
         name = "home_joints.yaml"
         here = Path(__file__).resolve()
         ordered = []
 
         # 1) Monorepo / dev tree: walk parents so install/lib/.../site-packages still finds
-        #    .../movo_ws/movoHead_ws/src/robot_bringup/config/home_joints.yaml
+        #    .../movo_ws/axe_leader_teleop_ws/src/axe_leader_teleop/config/home_joints.yaml
         for anc in here.parents:
-            for rel in (
-                ("axe_leader_teleop_ws", "src", "axe_leader_teleop", "config", name),
-                ("movoHead_ws", "src", "robot_bringup", "config", name),
-                ("src", "robot_bringup", "config", name),
-            ):
-                p = anc.joinpath(*rel)
-                if p.is_file():
-                    ordered.append(p)
-                    break
+            p = anc / "axe_leader_teleop_ws" / "src" / "axe_leader_teleop" / "config" / name
+            if p.is_file():
+                ordered.append(p)
+                break
             if ordered:
                 break
 
@@ -94,13 +91,12 @@ class MovoCustomHomeService(Node):
         if legacy.is_file() and legacy not in ordered:
             ordered.append(legacy)
 
-        for pkg in ("axe_leader_teleop", "robot_bringup"):
-            try:
-                share = Path(get_package_share_directory(pkg)) / "config" / name
-                if share.is_file() and share not in ordered:
-                    ordered.append(share)
-            except Exception:
-                pass
+        try:
+            share = Path(get_package_share_directory("axe_leader_teleop")) / "config" / name
+            if share.is_file() and share not in ordered:
+                ordered.append(share)
+        except Exception:
+            pass
 
         for path in ordered:
             with open(path, "r", encoding="utf-8") as f:
@@ -258,6 +254,11 @@ class MovoCustomHomeService(Node):
 
     def handle_home_both(self, request, response):
         log = self.get_logger()
+        if not self._home_lock.acquire(blocking=False):
+            response.homearm_result = "FAIL: homing already in progress"
+            log.warn("[both_arms] Reject duplicate request while homing is active")
+            return response
+
         log.info("[both_arms] Home START")
 
         # The Kinova arm driver can crash with KinovaCommException when both arms
@@ -268,29 +269,32 @@ class MovoCustomHomeService(Node):
         # and retry once.
         max_attempts = 3
         recovery_wait_sec = 8.0
+        errors = ["unknown failure"]
+        try:
+            for attempt in range(1, max_attempts + 1):
+                if attempt > 1:
+                    log.warn(
+                        f"[both_arms] Attempt {attempt - 1} failed — "
+                        f"waiting {recovery_wait_sec:.0f} s for driver/bridge recovery ..."
+                    )
+                    time.sleep(recovery_wait_sec)
+                    log.info(f"[both_arms] Retry attempt {attempt}")
 
-        for attempt in range(1, max_attempts + 1):
-            if attempt > 1:
-                log.warn(
-                    f"[both_arms] Attempt {attempt - 1} failed — "
-                    f"waiting {recovery_wait_sec:.0f} s for driver/bridge recovery ..."
-                )
-                time.sleep(recovery_wait_sec)
-                log.info(f"[both_arms] Retry attempt {attempt}")
+                right_ok, left_ok, errors = self._attempt_home_both(stagger_sec=0.5)
 
-            right_ok, left_ok, errors = self._attempt_home_both(stagger_sec=0.1)
+                if right_ok and left_ok:
+                    response.homearm_result = "SUCCESS"
+                    log.info("[both_arms] Home DONE")
+                    return response
 
-            if right_ok and left_ok:
-                response.homearm_result = "SUCCESS"
-                log.info("[both_arms] Home DONE")
-                return response
+                if attempt == max_attempts:
+                    break
 
-            if attempt == max_attempts:
-                break
-
-        response.homearm_result = "FAIL: " + "; ".join(errors)
-        log.error(f"[both_arms] {response.homearm_result}")
-        return response
+            response.homearm_result = "FAIL: " + "; ".join(errors)
+            log.error(f"[both_arms] {response.homearm_result}")
+            return response
+        finally:
+            self._home_lock.release()
 
 
 def main(args=None):

@@ -4,20 +4,13 @@
 Expects leader data on ROS topics, e.g. from ``bi_axe_udp_ros2_bridge`` (another terminal):
   /bi_axe_left/eef_twist, /bi_axe_right/eef_twist, /bi_axe_*/joy, etc.
 
-Override home joints: export MOVO_HOME_JOINTS_YAML=/path/to/home_joints.yaml before launch.
+Override home joints (optional): export MOVO_HOME_JOINTS_YAML=/path/to/home_joints.yaml before launch.
 """
-
-import os
-
-from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable
+from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
-
-
-_HOME_JOINTS = os.path.join(
-    get_package_share_directory("axe_leader_teleop"), "config", "home_joints.yaml")
+from launch_ros.parameter_descriptions import ParameterValue
 
 
 def generate_launch_description():
@@ -31,13 +24,20 @@ def generate_launch_description():
         "axe_leader_input_topic_left", default_value="/bi_axe_left/eef_twist")
     axe_leader_input_right_arg = DeclareLaunchArgument(
         "axe_leader_input_topic_right", default_value="/bi_axe_right/eef_twist")
-    lock_joint1_arg = DeclareLaunchArgument("lock_joint1", default_value="true")
+    locked_joints_arg = DeclareLaunchArgument(
+        "locked_joints",
+        default_value="1",
+        description="Comma-separated 1-indexed joint numbers to lock (e.g. 1 or 1,5). Empty string => Cartesian velocity mode.",
+    )
     auto_arm_udp_arg = DeclareLaunchArgument("auto_arm_udp", default_value="true")
     auto_start_arm_arg = DeclareLaunchArgument("auto_start_arm", default_value="true")
     require_joy_keepalive_arg = DeclareLaunchArgument("require_joy_keepalive", default_value="false")
     joy_timeout_sec_arg = DeclareLaunchArgument("joy_timeout_sec", default_value="1.0")
     speed_arg = DeclareLaunchArgument("speed", default_value="1.0")
     max_joint_vel_deg_arg = DeclareLaunchArgument("max_joint_vel_deg", default_value="45.0")
+    respawn_joy_arg = DeclareLaunchArgument(
+        "respawn_joy", default_value="false",
+        description="Respawn joy node on crash (disable to avoid participant storm while debugging).")
 
     joy_node = Node(
         package="joy_linux",
@@ -49,7 +49,7 @@ def generate_launch_description():
             "deadzone": LaunchConfiguration("deadzone"),
             "autorepeat_rate": 0.0,
         }],
-        respawn=True,
+        respawn=LaunchConfiguration("respawn_joy"),
         respawn_delay=2.0,
     )
 
@@ -63,7 +63,7 @@ def generate_launch_description():
             "input_mode": LaunchConfiguration("input_mode"),
             "udp_eef_control": LaunchConfiguration("udp_eef_control"),
             "axe_leader_input_topic": LaunchConfiguration("axe_leader_input_topic_left"),
-            "lock_joint1": LaunchConfiguration("lock_joint1"),
+            "locked_joints": ParameterValue(LaunchConfiguration("locked_joints"), value_type=str),
             "auto_arm_udp": LaunchConfiguration("auto_arm_udp"),
             "auto_start_arm": LaunchConfiguration("auto_start_arm"),
             "require_joy_keepalive": LaunchConfiguration("require_joy_keepalive"),
@@ -83,7 +83,7 @@ def generate_launch_description():
             "input_mode": LaunchConfiguration("input_mode"),
             "udp_eef_control": LaunchConfiguration("udp_eef_control"),
             "axe_leader_input_topic": LaunchConfiguration("axe_leader_input_topic_right"),
-            "lock_joint1": LaunchConfiguration("lock_joint1"),
+            "locked_joints": ParameterValue(LaunchConfiguration("locked_joints"), value_type=str),
             "auto_arm_udp": LaunchConfiguration("auto_arm_udp"),
             "auto_start_arm": LaunchConfiguration("auto_start_arm"),
             "require_joy_keepalive": LaunchConfiguration("require_joy_keepalive"),
@@ -101,20 +101,20 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        SetEnvironmentVariable("MOVO_HOME_JOINTS_YAML", _HOME_JOINTS),
         device_arg,
         deadzone_arg,
         input_mode_arg,
         udp_eef_control_arg,
         axe_leader_input_left_arg,
         axe_leader_input_right_arg,
-        lock_joint1_arg,
+        locked_joints_arg,
         auto_arm_udp_arg,
         auto_start_arm_arg,
         require_joy_keepalive_arg,
         joy_timeout_sec_arg,
         speed_arg,
         max_joint_vel_deg_arg,
+        respawn_joy_arg,
         joy_node,
         kinova_left,
         kinova_right,

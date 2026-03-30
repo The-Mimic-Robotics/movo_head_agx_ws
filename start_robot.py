@@ -19,6 +19,21 @@ BASE_USER = "movo_base"
 BASE_PASS = "movo420"
 
 DELAY = 3
+REMOTE_CLEANUP = (
+    "echo '[CLEANUP] Stopping old ROS/bridge processes...'; "
+    "pkill -9 -f '[r]oslaunch' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]oscore' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]osmaster' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]osout' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[m]ove_group' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[m]ovo_servo' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[s]ervo' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[k]inova' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]ealsense' >/dev/null 2>&1 || true; "
+    "pkill -9 -f '[r]viz' >/dev/null 2>&1 || true; "
+    "docker rm -f ros_bridge >/dev/null 2>&1 || true; "
+    "sleep 1"
+)
 
 
 def write_script(content):
@@ -45,7 +60,7 @@ def main():
         f"sshpass -p '{ARMS_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
         f" {ARMS_USER}@{ARMS_HOST}"
-        f""" 'bash -ic "roscore & sleep 4 && roslaunch kinova_bringup dual_arms.launch"'"""
+        f""" 'bash -ic "{REMOTE_CLEANUP} && roscore & sleep 4 && roslaunch kinova_bringup dual_arms.launch"'"""
         f"\necho '[ARMS] Process stopped. Reconnecting to SSH...'"
         f"\nexec sshpass -p '{ARMS_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
@@ -58,12 +73,12 @@ def main():
         f"sshpass -p '{BASE_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
         f" {BASE_USER}@{BASE_HOST}"
-        f""" 'if docker ps --format {{{{.Names}}}} | grep -q ros_bridge; then"""
-        f"""   echo "[BRIDGE] ros_bridge container already running, skipping.";"""
+        f""" 'bash -ic "{REMOTE_CLEANUP} && if docker ps --format {{{{.Names}}}} | grep -q ros_bridge; then"""
+        f"""   echo '[BRIDGE] ros_bridge container already running, skipping.';"""
         f"""   docker logs -f ros_bridge;"""
         f""" else"""
         f"""   cd ~ && ./ros-humble-ros1-bridge-builder/kinova_ros1_bridge_v2.sh;"""
-        f""" fi'"""
+        f""" fi"'"""
         f"\necho '[BRIDGE] Process stopped. Reconnecting to SSH...'"
         f"\nexec sshpass -p '{BASE_PASS}' ssh -tt"
         f" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"

@@ -35,6 +35,7 @@ class AxeLeaderBaseTeleop(Node):
 
         self.declare_parameter("max_linear", 0.6)
         self.declare_parameter("max_angular", 0.8)
+        self.declare_parameter("velocity_scale", 0.8)
         
         self.declare_parameter("deadzone", 0.08)
         self.declare_parameter("left_joy_topic", "/bi_axe_left/joy")
@@ -45,13 +46,14 @@ class AxeLeaderBaseTeleop(Node):
         self.declare_parameter("strafe_y_sign", -1.0)
         self.declare_parameter("use_right_joy", True)
         self.declare_parameter("right_joy_topic", "/bi_axe_right/joy")
-        self.declare_parameter("right_axis_yaw", 0)
+        self.declare_parameter("right_axis_yaw", 1)
         self.declare_parameter("right_axis_grip", 2)
         self.declare_parameter("yaw_sign", 1.0)
         self.declare_parameter("gripper_threshold", -0.5)
         self.declare_parameter("gripper_release", -0.25)
         self.declare_parameter("fingers_closed", 5000.0)
-        self.declare_parameter("require_deadman", False)
+        # Always require deadman for base motion (per handles).
+        self.declare_parameter("require_deadman", True)
         self.declare_parameter("left_deadman_button", 1)
         self.declare_parameter("right_deadman_button", 1)
 
@@ -65,6 +67,7 @@ class AxeLeaderBaseTeleop(Node):
         self._rate = max(5.0, float(p("publish_rate_hz").value))
         self._max_lin = max(0.01, float(p("max_linear").value))
         self._max_ang = max(0.01, float(p("max_angular").value))
+        self._vel_scale = max(0.0, float(p("velocity_scale").value))
         self._dz = max(0.0, float(p("deadzone").value))
         self._li = int(p("left_axis_linear").value)
         self._ls = int(p("left_axis_strafe").value)
@@ -78,7 +81,8 @@ class AxeLeaderBaseTeleop(Node):
         self._gth = float(p("gripper_threshold").value)
         self._grl = float(p("gripper_release").value)
         self._fclosed = float(p("fingers_closed").value)
-        self._require_deadman = _as_bool(p("require_deadman").value)
+        # Enforced: base motion only when deadman button is held.
+        self._require_deadman = True
         self._ld_btn = int(p("left_deadman_button").value)
         self._rd_btn = int(p("right_deadman_button").value)
 
@@ -276,9 +280,10 @@ class AxeLeaderBaseTeleop(Node):
             wz = 0.0
 
         tw = Twist()
-        tw.linear.x = self._sx * lx * self._max_lin
-        tw.linear.y = self._sy * ly * self._max_lin
-        tw.angular.z = self._ys * wz * self._max_ang
+        s = self._vel_scale
+        tw.linear.x = s * self._sx * lx * self._max_lin
+        tw.linear.y = s * self._sy * ly * self._max_lin
+        tw.angular.z = s * self._ys * wz * self._max_ang
         self._pub.publish(tw)
 
 

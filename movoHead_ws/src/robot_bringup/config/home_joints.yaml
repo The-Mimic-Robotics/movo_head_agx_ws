@@ -52,6 +52,7 @@ movo_linear_axis_map:
     left_arm: x,y,z
     right_arm: x,y,z
   elbow_out:
-    # Kinova X←−leader Y, Y←−leader Z, Z←leader X (pose-specific vs raw x,y,z)
-    left_arm: "-y,-z,x"
-    right_arm: "-y,-z,x"
+    # Observed mapping fix (REP-103 follower base frame):
+    # leader fwd(+x)→robot down(−Z), leader left(+y)→robot fwd(+X), leader up(+z)→robot right(−Y)
+    left_arm: "y,-z,-x"
+    right_arm: "y,-z,-x"

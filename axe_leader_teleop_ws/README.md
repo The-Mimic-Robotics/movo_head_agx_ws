@@ -78,6 +78,27 @@ Standalone test (no other `/joy`):
 ros2 launch axe_leader_teleop axe_leader_base_teleop.launch.py include_joy:=true joy_device:=/dev/input/js0
 ```
 
+## One-command full stack (bridge + dual-arm + base + grippers)
+
+If you want all Bi-AXE teleop features together in one launch:
+
+```bash
+ros2 launch axe_leader_teleop bi_axe_full_teleop.launch.py
+```
+
+Useful overrides:
+
+```bash
+ros2 launch axe_leader_teleop bi_axe_full_teleop.launch.py \
+  speed:=6.0 \
+  locked_joints:=0 \
+  
+```
+
+Notes:
+- This launch starts `bi_axe_udp_ros2_bridge`, `bi_axe_bimanual`, and `axe_leader_base_teleop`.
+- `include_joy_for_base:=false` by default to avoid duplicate joystick nodes (bimanual already provides `/joy`).
+
 ### Single-arm teleop only (no bimanual launch)
 
 ```bash
@@ -101,3 +122,12 @@ ros2 topic echo /cmd_vel --once
 ```
 
 More detail: `src/axe_leader_teleop/config/run_sequence.txt`.
+
+
+##
+```bash
+ros2 daemon stop
+pkill -f movo_dual_arm_base_controller
+pkill -f movo_custom_home_service
+pkill -f joy_linux_node
+```

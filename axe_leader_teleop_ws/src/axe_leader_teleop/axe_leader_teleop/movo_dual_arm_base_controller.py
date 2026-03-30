@@ -13,7 +13,7 @@ DUAL_ARM MODE:
   D-pad up / down        Pitch
   D-pad left / right     Roll
   RT / LT                Close / Open grippers (both arms)
-  A                      Start both arms
+  A                      (reserved for home-pose cycler double-tap)
   B                      Emergency stop both arms
   RB                     Home both arms
   Y                      Toggle mimic / mirror
@@ -33,7 +33,7 @@ from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 
 from kinova_msgs.action import SetFingersPosition
 from kinova_msgs.msg import JointAngles, JointVelocity, PoseVelocity
-from kinova_msgs.srv import HomeArm, Start, Stop
+from kinova_msgs.srv import HomeArm, Stop
 from sensor_msgs.msg import Joy
 
 from axe_leader_teleop.home_joint_config import apply_linear, movo_linear_axis_map_for_arm
@@ -97,10 +97,6 @@ class MovoDualArmBaseController(Node):
 
         self.stop_clients = {
             arm: self.create_client(Stop, f"/{arm}/{arm}_driver/in/stop")
-            for arm in ARMS
-        }
-        self.start_clients = {
-            arm: self.create_client(Start, f"/{arm}/{arm}_driver/in/start")
             for arm in ARMS
         }
         self.home_client = self.create_client(HomeArm, "/movo/home_both_arms")
@@ -201,13 +197,6 @@ class MovoDualArmBaseController(Node):
             label = "MIRROR" if self.mirror else "MIMIC"
             self.get_logger().warn(f"*** ARM SYNC MODE: {label} ***")
 
-        if pressed(0):  # A -> start both
-            for arm in ARMS:
-                c = self.start_clients[arm]
-                if c.service_is_ready():
-                    c.call_async(Start.Request())
-            self.get_logger().info("Both arms STARTED")
-
         if pressed(1):  # B -> e-stop both
             for arm in ARMS:
                 c = self.stop_clients[arm]
@@ -217,14 +206,28 @@ class MovoDualArmBaseController(Node):
             self.get_logger().warn("Both arms STOPPED")
 
         if pressed(5):  # RB -> home both
-            self._homing = True
-            self.vel = [0.0] * 6
-            if self.home_client.wait_for_service(timeout_sec=0.5):
-                fut = self.home_client.call_async(HomeArm.Request())
-                fut.add_done_callback(lambda f: setattr(self, "_homing", False))
+            if self._homing:
+                self.get_logger().warn("Home already in progress; ignoring duplicate RB press")
             else:
-                self.get_logger().error("Home service not ready")
-                self._homing = False
+                self._homing = True
+                self.vel = [0.0] * 6
+                if self.home_client.wait_for_service(timeout_sec=0.5):
+                    fut = self.home_client.call_async(HomeArm.Request())
+
+                    def _on_home_done(f):
+                        self._homing = False
+                        try:
+                            resp = f.result()
+                            self.get_logger().info(
+                                f"/movo/home_both_arms -> {resp.homearm_result}"
+                            )
+                        except Exception as exc:
+                            self.get_logger().error(f"/movo/home_both_arms failed: {exc}")
+
+                    fut.add_done_callback(_on_home_done)
+                else:
+                    self.get_logger().error("Home service not ready")
+                    self._homing = False
 
         # Leader frame +x=fwd,+y=left,+z=up (home_joints.yaml movo_linear_axis_map → apply_linear)
         self.vel[0] = axis(1, self.MAX_LIN)   # leader x ← left stick vert
@@ -345,7 +348,8 @@ def main(args=None):
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":

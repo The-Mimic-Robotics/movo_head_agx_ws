@@ -6,9 +6,29 @@
 # arms_xbox_ctr.home_joint_config.apply_linear. Change homing_pose_name to pick the row;
 # elbow_up vs elbow_out can use different maps for the same physical stick motion.
 
-homing_pose_name: elbow_out
+homing_pose_name: elbow_up
 
 home_poses:
+
+  # Kinova standard-style home (reference values for both Jaco arms)
+  kinova_standard:
+    right_arm:
+      joint1: 256.69
+      joint2: 162.95
+      joint3: 180.11
+      joint4: 316.31
+      joint5: 94.86
+      joint6: 102.71
+      joint7: 72.00
+    left_arm:
+      joint1: 103.35
+      joint2: 196.97
+      joint3: 179.95
+      joint4: 43.78
+      joint5: 265.06
+      joint6: 257.26
+      joint7: 287.94
+
   # Original / reference pose
   elbow_up:
     right_arm:
@@ -32,26 +52,55 @@ home_poses:
   elbow_out:
     right_arm:
       joint1: 178.94
-      joint2: 82.92
+      joint2: 102.92
       joint3: 190.84
       joint4: 322.63
       joint5: 190.75
       joint6: 142.04
-      joint7: 180.00
+      joint7: 90.00
     left_arm:
       joint1: 181.06
-      joint2: 277.08
+      joint2: 257.08
       joint3: 169.16
       joint4: 37.37
       joint5: 169.25
       joint6: 217.96
-      joint7: 180.00
+      joint7: 90.00
+
+  elbow_up_wide:
+    right_arm:
+      joint1: 221.68
+      joint2: 105.19
+      joint3: 214.16
+      joint4: 310.91
+      joint5: 136.22
+      joint6: 205.17
+      joint7: 239.77
+
+    left_arm:
+      joint1: 138.32
+      joint2: 254.81
+      joint3: 145.84
+      joint4: 49.09
+      joint5: 223.78
+      joint6: 154.83
+      joint7: 120.23
+
 
 movo_linear_axis_map:
   elbow_up:
-    left_arm: x,y,z
-    right_arm: x,y,z
+    # Observed mapping fix (REP-103 follower base frame):
+    # leader fwd(+x)→robot up(+Z), leader left(+y)→robot fwd(+X), leader up(+z)→robot left(+Y)
+    left_arm: "y,z,x"
+    right_arm: "y,z,x"
   elbow_out:
-    # Kinova X←−leader Y, Y←−leader Z, Z←leader X (pose-specific vs raw x,y,z)
+    # Sign fix: keep left/right, flip fwd/bwd and up/down.
     left_arm: "-y,-z,x"
     right_arm: "-y,-z,x"
+  elbow_up_wide:
+    # Keep fwd mapping; swap left/up channels for elbow_up_wide.
+    left_arm: "-z,y,x"
+    right_arm: "z,-y,x"
+  kinova_standard:
+    left_arm: "y,z,x"
+    right_arm: "y,z,x"

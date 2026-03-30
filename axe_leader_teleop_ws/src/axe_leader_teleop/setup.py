@@ -26,6 +26,7 @@ setup(
             "bi_axe_udp_ros2_bridge = axe_leader_teleop.bi_axe_udp_ros2_bridge:main",
             "axe_leader_base_teleop = axe_leader_teleop.axe_leader_base_teleop:main",
             "kinova_teleop = axe_leader_teleop.kinova_teleop:main",
+            "home_pose_cycle_teleop = axe_leader_teleop.home_pose_cycle_teleop:main",
             "movo_dual_arm_base_controller = axe_leader_teleop.movo_dual_arm_base_controller:main",
             "movo_custom_home_service = axe_leader_teleop.movo_custom_home_service:main",
         ],
